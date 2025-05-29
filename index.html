@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plan Interactivo: Escape Room "El Sendero de la Fe"</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .tab-button.active {
+            border-color: #f59e0b; /* amber-500 */
+            color: #f59e0b; /* amber-500 */
+            font-weight: 600;
+        }
+        .accordion-content {
+            display: none;
+            transition: max-height 0.3s ease-out;
+            overflow: hidden;
+        }
+        .accordion-button.open + .accordion-content {
+            display: block;
+        }
+        .accordion-button .arrow {
+            transition: transform 0.3s ease-in-out;
+        }
+        .accordion-button.open .arrow {
+            transform: rotate(90deg);
+        }
+        /* Estilos para tablas */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+        th, td {
+            border: 1px solid #e5e7eb; /* gray-200 */
+            padding: 0.75rem;
+            text-align: left;
+            vertical-align: top;
+        }
+        th {
+            background-color: #f3f4f6; /* gray-100 */
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f9fafb; /* gray-50 */
+        }
+        /* Additional styles for better mobile table display */
+        @media (max-width: 768px) {
+            table, thead, tbody, th, td, tr {
+                display: block;
+            }
+            thead tr {
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
+            }
+            tr { border: 1px solid #ccc; margin-bottom: 0.5rem; }
+            td {
+                border: none;
+                border-bottom: 1px solid #eee;
+                position: relative;
+                padding-left: 50%;
+                white-space: normal;
+                text-align:left;
+            }
+            td:before {
+                position: absolute;
+                top: 6px;
+                left: 6px;
+                width: 45%;
+                padding-right: 10px;
+                white-space: nowrap;
+                text-align:left;
+                font-weight: bold;
+                content: attr(data-label);
+            }
+        }
+    </style>
+</head>
+<body class="bg-stone-50 text-stone-800">
+
+    <header class="bg-amber-700 text-white p-6 shadow-md">
+        <div class="container mx-auto max-w-5xl">
+            <h1 class="text-3xl font-bold text-center">Plan Interactivo: Escape Room "El Sendero de la Fe"</h1>
+        </div>
+    </header>
+
+    <nav class="bg-stone-100 shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto max-w-5xl flex flex-wrap justify-center space-x-2 sm:space-x-4 p-3">
+            <button class="tab-button active text-sm sm:text-base py-2 px-3 border-b-2 border-transparent hover:border-amber-500 hover:text-amber-600 transition-colors duration-300 rounded-t-md" onclick="openTab(event, 'visionGeneral')">Visión General</button>
+            <button class="tab-button text-sm sm:text-base py-2 px-3 border-b-2 border-transparent hover:border-amber-500 hover:text-amber-600 transition-colors duration-300 rounded-t-md" onclick="openTab(event, 'historia')">La Historia</button>
+            <button class="tab-button text-sm sm:text-base py-2 px-3 border-b-2 border-transparent hover:border-amber-500 hover:text-amber-600 transition-colors duration-300 rounded-t-md" onclick="openTab(event, 'mecanicas')">Mecánicas</button>
+            <button class="tab-button text-sm sm:text-base py-2 px-3 border-b-2 border-transparent hover:border-amber-500 hover:text-amber-600 transition-colors duration-300 rounded-t-md" onclick="openTab(event, 'acertijos')">Acertijos</button>
+            <button class="tab-button text-sm sm:text-base py-2 px-3 border-b-2 border-transparent hover:border-amber-500 hover:text-amber-600 transition-colors duration-300 rounded-t-md" onclick="openTab(event, 'logisticaGM')">Logística y GM</button>
+            <button class="tab-button text-sm sm:text-base py-2 px-3 border-b-2 border-transparent hover:border-amber-500 hover:text-amber-600 transition-colors duration-300 rounded-t-md" onclick="openTab(event, 'conclusion')">Conclusión</button>
+        </div>
+    </nav>
+
+    <main class="container mx-auto max-w-5xl p-4 sm:p-6 lg:p-8">
+        
+        <section id="visionGeneral" class="tab-content active">
+            <h2 class="text-2xl font-semibold text-amber-700 mb-4">Visión General del Escape Room</h2>
+            <p class="mb-4 text-stone-700">Esta sección ofrece un resumen del concepto y la visión detrás de "El Sendero de la Fe", un Escape Room diseñado para jóvenes de la iglesia que combina la historia de David y Goliat con la temática de resistir la tentación.</p>
+
+            <div class="bg-white p-6 rounded-lg shadow mb-6">
+                <h3 class="text-xl font-semibold text-amber-600 mb-3">Resumen Ejecutivo</h3>
+                <p class="text-stone-700 leading-relaxed">
+                    El Escape Room "El Sendero de la Fe" busca ofrecer una experiencia inmersiva y educativa. A través de la narrativa de David y Goliat, se explora la resistencia a la tentación, demostrando que el esfuerzo por resistir conduce a recompensas más profundas que la gratificación inmediata. La actividad, de una hora de duración para unos 30 participantes, se desarrolla en una casa rural, utilizando mecánicas de "persecución pasiva" donde los monitores representan tentaciones. Los recursos son limitados, centrándose en acertijos de papel y elementos sencillos.
+                </p>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow mb-6">
+                <h3 class="text-xl font-semibold text-amber-600 mb-3">Fundamento Temático: David, Goliat y la Tentación</h3>
+                <p class="text-stone-700 leading-relaxed mb-2">
+                    El juego es una alegoría. David encarna la fe y el coraje para vencer a Goliat, quien se reinterpreta metafóricamente como una tentación abrumadora (miedo, duda, orgullo). La victoria de David es una victoria sobre la inclinación a sucumbir. Los monitores ("Sombras de la Duda") son encarnaciones interactivas de la tentación.
+                </p>
+                <p class="text-stone-700 leading-relaxed">
+                    La zona de "castigo" (Zona de Tentación) es el "atractivo de la comodidad", una forma de tentación en sí misma: parece mejor inicialmente, pero aparta del objetivo gratificante.
+                </p>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow mb-6">
+                <h3 class="text-xl font-semibold text-amber-600 mb-3">El Mensaje Central: Resistir para una Mayor Recompensa</h3>
+                <p class="text-stone-700 leading-relaxed mb-2">
+                    El objetivo es que los participantes aprendan experiencialmente que el esfuerzo de resistir la tentación (evadir monitores, resolver acertijos) es más gratificante que ceder.
+                </p>
+                <p class="text-stone-700 leading-relaxed">
+                    La "Zona de Descanso" debe ser sutilmente insatisfactoria, resaltando la oportunidad perdida en el juego principal. Las "pruebas" allí serán repetitivas o aislantes, enseñando que el camino de menor resistencia lleva a menor realización.
+                </p>
+            </div>
+            
+            <div class="bg-white p-6 rounded-lg shadow">
+                <h3 class="text-xl font-semibold text-amber-600 mb-3">El Viaje del Jugador: Del Desafío a la Revelación</h3>
+                <p class="text-stone-700 leading-relaxed">
+                    Los jugadores se enfrentan a un desafío, encuentran tentaciones, toman decisiones y llegan a una conclusión que refuerza la lección moral. El misterio de "lo que sucedió en la casa" es una metáfora de las consecuencias de ceder a la tentación. La "moraleja" se descubre activamente, internalizando el mensaje.
+                </p>
+            </div>
+        </section>
+
+        <section id="historia" class="tab-content">
+            <h2 class="text-2xl font-semibold text-amber-700 mb-4">Desarrollo de la Historia: Los Ecos del Valle de Elah</h2>
+            <p class="mb-4 text-stone-700">Aquí se detalla la narrativa del Escape Room, cómo se entrelaza la historia de David y Goliat con el tema de la tentación, y el flujo de las escenas y acertijos.</p>
+
+            <div class="bg-white p-6 rounded-lg shadow mb-6">
+                <h3 class="text-xl font-semibold text-amber-600 mb-3 accordion-button cursor-pointer flex justify-between items-center" onclick="toggleAccordion(event)">
+                    <span>Introducción: La Llamada a la Aventura</span>
+                    <span class="arrow text-amber-600 text-2xl">&#x276F;</span>
+                </h3>
+                <div class="accordion-content mt-2">
+                    <p class="text-stone-700 leading-relaxed mb-2">Los participantes, como "buscadores de sabiduría", llegan a una antigua morada que guarda secretos de fe y coraje. El Game Master (GM) da un monólogo inicial:</p>
+                    <blockquote class="border-l-4 border-amber-500 pl-4 italic text-stone-600 my-3">
+                        "Bienvenidos, valientes buscadores de la verdad. Esta casa, más antigua de lo que parece, guarda un secreto milenario... Como David ante Goliat, tuvieron que elegir entre el camino fácil de la rendición o el sendero arduo de la fe y la perseverancia... Hoy, os enfrentaréis a vuestras propias 'tentaciones'... Vuestra misión es desentrañar el misterio de lo que sucedió aquí, encontrar la 'Piedra de la Fe' y, al hacerlo, descubrir la fuerza para resistir... Dividíos ahora en grupos. Cada equipo recibirá un antiguo pergamino... ¡Que la fe os guíe!"
+                    </blockquote>
+                    <p class="text-stone-700 leading-relaxed">Cada grupo recibe un "pergamino" con la primera parte de la historia y su misión inicial.</p>
+                </div>
+            </div>
+            
+            <div class="bg-white p-6 rounded-lg shadow mb-6">
+                <h3 class="text-xl font-semibold text-amber-600 mb-3 accordion-button cursor-pointer flex justify-between items-center" onclick="toggleAccordion(event)">
+                    <span>Arco Narrativo: Desentrañando la "Caída" de la Casa</span>
+                    <span class="arrow text-amber-600 text-2xl">&#x276F;</span>
+                </h3>
+                <div class="accordion-content mt-2">
+                    <p class="text-stone-700 leading-relaxed mb-3">El misterio de la casa es que sus antiguos habitantes sucumbieron a tentaciones. Los jugadores descubren estas "caídas" a través de las siguientes escenas y acertijos:</p>
+                    
+                    <div class="mb-3 p-3 border border-stone-200 rounded-md">
+                        <h4 class="font-semibold text-amber-600">Escena 1: El Salón del Miedo (Salón / Hall Principal)</h4>
+                        <p class="text-sm text-stone-600"><strong>Historia:</strong> Miedo de Israel ante Goliat (tentación del miedo/inacción).</p>
+                        <p class="text-sm text-stone-600"><strong>Acertijo:</strong> Mensaje codificado revela una "primera tentación" (ej: "La pereza te encadena").</p>
+                        <p class="text-sm text-stone-600"><strong>Monitores:</strong> Presencia baja-media.</p>
+                    </div>
+                    <div class="mb-3 p-3 border border-stone-200 rounded-md">
+                        <h4 class="font-semibold text-amber-600">Escena 2: El Laberinto de las Distracciones (Pasillos / Habitaciones)</h4>
+                        <p class="text-sm text-stone-600"><strong>Historia:</strong> Viaje de David, obstáculos, escepticismo (tentación de la distracción/soluciones mundanas).</p>
+                        <p class="text-sm text-stone-600"><strong>Acertijo:</strong> Tiras de papel forman mapa distorsionado o secuencia de direcciones.</p>
+                        <p class="text-sm text-stone-600"><strong>Monitores:</strong> Presencia alta.</p>
+                    </div>
+                     <div class="mb-3 p-3 border border-stone-200 rounded-md">
+                        <h4 class="font-semibold text-amber-600">Escena 3: El Jardín de la Confrontación (Jardín / Exterior)</h4>
+                        <p class="text-sm text-stone-600"><strong>Historia:</strong> Confrontación con Goliat (tentación abrumadora).</p>
+                        <p class="text-sm text-stone-600"><strong>Acertijo:</strong> Texto invisible revelado por agua, o coordenadas GPS enigmáticas.</p>
+                        <p class="text-sm text-stone-600"><strong>Monitores:</strong> Presencia alta.</p>
+                    </div>
+                    <div class="mb-3 p-3 border border-stone-200 rounded-md">
+                        <h4 class="font-semibold text-amber-600">Escena 4: El Refugio de la Fe (Planta Superior / Habitación Tranquila)</h4>
+                        <p class="text-sm text-stone-600"><strong>Historia:</strong> Confianza de David en Dios (tentación del orgullo/confiar en poder mundano).</p>
+                        <p class="text-sm text-stone-600"><strong>Acertijo:</strong> Tabla periódica o crucigrama revela virtud bíblica.</p>
+                        <p class="text-sm text-stone-600"><strong>Monitores:</strong> Presencia baja.</p>
+                    </div>
+                    <div class="p-3 border border-stone-200 rounded-md">
+                        <h4 class="font-semibold text-amber-600">Escena 5: El Altar de la Decisión (Habitación Final)</h4>
+                        <p class="text-sm text-stone-600"><strong>Historia:</strong> Victoria de David (triunfo de la fe y perseverancia).</p>
+                        <p class="text-sm text-stone-600"><strong>Acertijo:</strong> Acertijo final combina pistas anteriores para revelar la "Piedra de la Fe".</p>
+                        <p class="text-sm text-stone-600"><strong>Monitores:</strong> Sin presencia.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow mb-6">
+                 <h3 class="text-xl font-semibold text-amber-600 mb-3 accordion-button cursor-pointer flex justify-between items-center" onclick="toggleAccordion(event)">
+                    <span>Integración Temática</span>
+                    <span class="arrow text-amber-600 text-2xl">&#x276F;</span>
+                </h3>
+                <div class="accordion-content mt-2">
+                    <p class="text-stone-700 leading-relaxed">Cada acertijo y escena se conecta sutilmente con el viaje de David y una tentación común. Los acertijos son metáforas activas para el viaje espiritual; resolverlos es una mini-victoria sobre una tentación o un paso hacia una virtud.</p>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow overflow-x-auto">
+                <h3 class="text-xl font-semibold text-amber-600 mb-3">Tabla: Flujo Narrativo y de Acertijos</h3>
+                <p class="text-stone-700 leading-relaxed mb-3">Esta tabla resume la progresión del juego, asegurando coherencia temática y dificultad equilibrada.</p>
+                <div class="overflow-x-auto">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th data-label="Escena/Ubicación">Escena/Ubicación</th>
+                                <th data-label="Elemento Narrativo">Elemento Narrativo</th>
+                                <th data-label="Tipo de Acertijo">Tipo de Acertijo</th>
+                                <th data-label="Vínculo Temático">Vínculo Temático (Tentación/Virtud)</th>
+                                <th data-label="Pista/Solución">Formato de Pista/Solución</th>
+                                <th data-label="Acción/Guion GM">Acción/Guion del GM</th>
+                                <th data-label="Interacción Monitores">Interacción Monitores (Intensidad)</th>
+                                <th data-label="Materiales">Materiales (por escena)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td data-label="Escena/Ubicación"><strong>Introducción</strong></td>
+                                <td data-label="Elemento Narrativo">La Llamada a la Aventura</td>
+                                <td data-label="Tipo de Acertijo">N/A</td>
+                                <td data-label="Vínculo Temático">La predisposición a la fe</td>
+                                <td data-label="Pista/Solución">N/A</td>
+                                <td data-label="Acción/Guion GM">Monólogo bienvenida, reglas, seguridad, grupos.</td>
+                                <td data-label="Interacción Monitores">N/A</td>
+                                <td data-label="Materiales">Pergamino inicial, mapa, linternas.</td>
+                            </tr>
+                            <tr>
+                                <td data-label="Escena/Ubicación"><strong>1. Salón del Miedo</strong></td>
+                                <td data-label="Elemento Narrativo">Miedo de Israel / Pereza</td>
+                                <td data-label="Tipo de Acertijo">Cifrado Sustitución / Papel Recortado</td>
+                                <td data-label="Vínculo Temático">Superar Miedo / Vencer Pereza</td>
+                                <td data-label="Pista/Solución">Número 3 dígitos / Frase clave</td>
+                                <td data-label="Acción/Guion GM">Observar, dar pista: "¿Qué impulsó a David?"</td>
+                                <td data-label="Interacción Monitores">Baja</td>
+                                <td data-label="Materiales">Papel cifrado, plantilla recortes, lápices, candado.</td>
+                            </tr>
+                            <tr>
+                                <td data-label="Escena/Ubicación"><strong>2. Laberinto Distracciones</strong></td>
+                                <td data-label="Elemento Narrativo">Pruebas de David / Confusión</td>
+                                <td data-label="Tipo de Acertijo">Tiras Papel / Mapa Distorsionado</td>
+                                <td data-label="Vínculo Temático">Superar Distracción / Buscar Claridad</td>
+                                <td data-label="Pista/Solución">Ubicación mapa / Secuencia numérica</td>
+                                <td data-label="Acción/Guion GM">Anunciar tiempo, guiar: "Camino correcto no es obvio."</td>
+                                <td data-label="Interacción Monitores">Alta</td>
+                                <td data-label="Materiales">Tiras papel, mapa con detalles falsos, lápices.</td>
+                            </tr>
+                            <tr>
+                                <td data-label="Escena/Ubicación"><strong>3. Jardín Confrontación</strong></td>
+                                <td data-label="Elemento Narrativo">Confrontación Goliat / Soberbia</td>
+                                <td data-label="Tipo de Acertijo">Texto Invisible / Coordenadas GPS</td>
+                                <td data-label="Vínculo Temático">Coraje / Humildad</td>
+                                <td data-label="Pista/Solución">Frase a escribir / Símbolo a dibujar</td>
+                                <td data-label="Acción/Guion GM">Recordar observación: "Verdades ocultas."</td>
+                                <td data-label="Interacción Monitores">Alta</td>
+                                <td data-label="Materiales">Papel invisible, agua, piedras/macetas, lápices.</td>
+                            </tr>
+                            <tr>
+                                <td data-label="Escena/Ubicación"><strong>4. Refugio de la Fe</strong></td>
+                                <td data-label="Elemento Narrativo">Confianza en Dios / Orgullo</td>
+                                <td data-label="Tipo de Acertijo">Tabla Periódica / Crucigrama</td>
+                                <td data-label="Vínculo Temático">Confianza Fe / Vencer Orgullo</td>
+                                <td data-label="Pista/Solución">Palabra virtud / Número 3 dígitos</td>
+                                <td data-label="Acción/Guion GM">Fomentar reflexión: "¿Qué herramientas usó David?"</td>
+                                <td data-label="Interacción Monitores">Baja</td>
+                                <td data-label="Materiales">Tabla periódica, crucigrama, lápices, libros.</td>
+                            </tr>
+                            <tr>
+                                <td data-label="Escena/Ubicación"><strong>5. Altar de la Decisión</strong></td>
+                                <td data-label="Elemento Narrativo">Victoria de David / Perseverancia</td>
+                                <td data-label="Tipo de Acertijo">Acertijo Final Combinado / Caja Cerillas</td>
+                                <td data-label="Vínculo Temático">Triunfo Fe / Recompensa Esfuerzo</td>
+                                <td data-label="Pista/Solución">"Piedra de la Fe" / Mensaje final</td>
+                                <td data-label="Acción/Guion GM">Preparar cierre, felicitar.</td>
+                                <td data-label="Interacción Monitores">Sin presencia</td>
+                                <td data-label="Materiales">Elementos acertijos anteriores, caja cerillas, "Piedra de la Fe".</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section id="mecanicas" class="tab-content">
+            <h2 class="text-2xl font-semibold text-amber-700 mb-4">Mecánicas de Juego: Navegando el Laberinto de la Elección</h2>
+            <p class="mb-4 text-stone-700">Este apartado detalla los aspectos prácticos de la dirección del juego, incluyendo la gestión de equipos, la mecánica de "tentación" y el ritmo general.</p>
+
+            <div class="bg-white p-6 rounded-lg shadow mb-6">
+                <h3 class="text-xl font-semibold text-amber-600 mb-3 accordion-button cursor-pointer flex justify-between items-center" onclick="toggleAccordion(event)">
+                    <span>Estructura del Equipo y Sesión Informativa</span>
+                    <span class="arrow text-amber-600 text-2xl">&#x276F;</span>
+                </h3>
+                <div class="accordion-content mt-2">
+                    <p class="text-stone-700 leading-relaxed">
+                        Para 30 participantes, se recomienda 5 equipos de 6 jugadores. Cada grupo comenzará en ubicaciones o con acertijos ligeramente diferentes. La sesión informativa inicial debe ser concisa y atractiva, explicando reglas, objetivo, y enfatizando el trabajo en equipo.
+                    </p>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow mb-6">
+                <h3 class="text-xl font-semibold text-amber-600 mb-3 accordion-button cursor-pointer flex justify-between items-center" onclick="toggleAccordion(event)">
+                    <span>Los Monitores de la "Tentación": Persecución Pasiva</span>
+                    <span class="arrow text-amber-600 text-2xl">&#x276F;</span>
+                </h3>
+                <div class="accordion-content mt-2">
+                    <p class="text-stone-700 leading-relaxed mb-2">
+                        Los monitores ("Sombras de la Duda") deben ser solemnes y silenciosos. Sus linternas simbolizan el "foco" de la tentación. "Capturan" si su luz permanece sobre un jugador 3-5 segundos o si es acorralado. Escoltan al jugador a la "Zona de Tentación".
+                    </p>
+                    <p class="text-stone-700 leading-relaxed mb-2">
+                        <strong>Directrices de Persecución Pasiva:</strong> Evitar correr o bloquear físicamente. Movimiento fluido, patrullando, apareciendo inesperadamente. La luz es el disuasorio. Mínimo 3-4 monitores.
+                    </p>
+                     <p class="text-stone-700 leading-relaxed">
+                        <strong>Persecución Psicológica:</strong> La luz crea vulnerabilidad. El miedo a ser visto refuerza evitar la tentación. "Captura" es por negligencia o ceder a la facilidad.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="bg-white p-6 rounded-lg shadow mb-6">
+                <h3 class="text-xl font-semibold text-amber-600 mb-3 accordion-button cursor-pointer flex justify-between items-center" onclick="toggleAccordion(event)">
+                    <span>La "Zona de Descanso" (Zona de Tentación)</span>
+                    <span class="arrow text-amber-600 text-2xl">&#x276F;</span>
+                </h3>
+                <div class="accordion-content mt-2">
+                    <p class="text-stone-700 leading-relaxed mb-2">
+                        Área separada, cómoda y segura. Actividades sutilmente insatisfactorias para resaltar la oportunidad perdida.
+                    </p>
+                    <ul class="list-disc list-inside text-stone-700 leading-relaxed space-y-1 mb-2">
+                        <li><strong>"El Peso de la Tentación":</strong> Tarea sencilla, repetitiva y tediosa (ej: clasificar objetos, copiar versículo).</li>
+                        <li><strong>"El Silencio de la Conciencia":</strong> Reflexión silenciosa sobre una pregunta (5 min).</li>
+                        <li><strong>"La Voz del Engaño":</strong> Escuchar audio con pensamientos "tentadores" e identificar engaños.</li>
+                    </ul>
+                    <p class="text-stone-700 leading-relaxed">
+                        Tras 5-10 min de "prueba", pueden reincorporarse sin ventajas. El "costo" es la pérdida de participación activa, emoción y colaboración.
+                    </p>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow">
+                <h3 class="text-xl font-semibold text-amber-600 mb-3 accordion-button cursor-pointer flex justify-between items-center" onclick="toggleAccordion(event)">
+                    <span>Progresión y Ritmo (60 Minutos)</span>
+                    <span class="arrow text-amber-600 text-2xl">&#x276F;</span>
+                </h3>
+                <div class="accordion-content mt-2">
+                    <p class="text-stone-700 leading-relaxed">
+                        Ritmo meticuloso. 5-6 escenas/acertijos principales. Grupos pueden trabajar en diferentes acertijos o tener flexibilidad en el orden. GM da pistas si hay atasco (5-7 min sin progreso). Comunicación constante entre GMs/monitores.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="acertijos" class="tab-content">
+            <h2 class="text-2xl font-semibold text-amber-700 mb-4">Diseño de Acertijos: Desbloqueando Sabiduría con Recursos Limitados</h2>
+            <p class="mb-4 text-stone-700">Explora los principios y ejemplos de acertijos basados en papel, diseñados para ser coherentes con la narrativa y el mensaje moral, utilizando recursos limitados.</p>
+
+            <div class="bg-white p-6 rounded-lg shadow mb-6">
+                <h3 class="text-xl font-semibold text-amber-600 mb-3 accordion-button cursor-pointer flex justify-between items-center" onclick="toggleAccordion(event)">
+                    <span>Principios Generales para Acertijos Basados en Papel</span>
+                    <span class="arrow text-amber-600 text-2xl">&#x276F;</span>
+                </h3>
+                <div class="accordion-content mt-2">
+                    <ul class="list-disc list-inside text-stone-700 leading-relaxed space-y-1">
+                        <li><strong>Coherencia Temática:</strong> Relación directa con David y Goliat o la tentación.</li>
+                        <li><strong>Variedad:</strong> Diferentes tipos (lógica, observación, búsqueda, etc.).</li>
+                        <li><strong>Claridad:</strong> Instrucciones inequívocas.</li>
+                        <li><strong>Dificultad Progresiva:</strong> De simple a complejo.</li>
+                        <li><strong>Recursos Limitados:</strong> Papel, bolígrafos, objetos sencillos.</li>
+                        <li><strong>Durabilidad:</strong> Materiales resistentes (papel laminado, cartulina).</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow mb-6">
+                <h3 class="text-xl font-semibold text-amber-600 mb-3 accordion-button cursor-pointer flex justify-between items-center" onclick="toggleAccordion(event)">
+                    <span>Ejemplos de Acertijos</span>
+                    <span class="arrow text-amber-600 text-2xl">&#x276F;</span>
+                </h3>
+                <div class="accordion-content mt-2 space-y-3">
+                    <div class="p-3 border border-stone-200 rounded-md">
+                        <h4 class="font-semibold text-amber-600">1. El Mensaje del Pastor (Papel sobre Papel / Cifrado)</h4>
+                        <p class="text-sm text-stone-600"><strong>Descripción:</strong> Hoja con recortes sobre pasaje bíblico revela mensaje oculto.</p>
+                        <p class="text-sm text-stone-600"><strong>Vínculo:</strong> David pastor, plan oculto de Dios, discernir.</p>
+                    </div>
+                    <div class="p-3 border border-stone-200 rounded-md">
+                        <h4 class="font-semibold text-amber-600">2. Las Piedras de la Fe (Observación / Coincidencia)</h4>
+                        <p class="text-sm text-stone-600"><strong>Descripción:</strong> Encontrar 5 piedras con símbolos/letras y ordenarlas.</p>
+                        <p class="text-sm text-stone-600"><strong>Vínculo:</strong> 5 piedras de David, fe sencilla, fuerza en lo pequeño.</p>
+                    </div>
+                    <div class="p-3 border border-stone-200 rounded-md">
+                        <h4 class="font-semibold text-amber-600">3. El Grito de Goliat (Texto Invisible / Agua)</h4>
+                        <p class="text-sm text-stone-600"><strong>Descripción:</strong> Papel con texto invisible revelado al sumergirlo en agua.</p>
+                        <p class="text-sm text-stone-600"><strong>Vínculo:</strong> Burlas de Goliat, naturaleza engañosa tentación.</p>
+                    </div>
+                    <div class="p-3 border border-stone-200 rounded-md">
+                        <h4 class="font-semibold text-amber-600">4. El Laberinto de la Distracción (Mapa / Búsqueda)</h4>
+                        <p class="text-sm text-stone-600"><strong>Descripción:</strong> Mapa dibujado a mano con "X" marca ubicación de pista (con caminos falsos).</p>
+                        <p class="text-sm text-stone-600"><strong>Vínculo:</strong> Israelitas errantes, distracciones, centrarse en verdadero camino.</p>
+                    </div>
+                    <div class="p-3 border border-stone-200 rounded-md">
+                        <h4 class="font-semibold text-amber-600">5. El Canto del Arpa (Sopa de Letras / Código Musical)</h4>
+                        <p class="text-sm text-stone-600"><strong>Descripción:</strong> Sopa de letras revela secuencia musical, corresponde a números en diagrama de arpa.</p>
+                        <p class="text-sm text-stone-600"><strong>Vínculo:</strong> Arpa de David, armonía virtudes, paz interior.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white p-6 rounded-lg shadow mb-6">
+                <h3 class="text-xl font-semibold text-amber-600 mb-3 accordion-button cursor-pointer flex justify-between items-center" onclick="toggleAccordion(event)">
+                    <span>Sistema de Entrega de Pistas</span>
+                    <span class="arrow text-amber-600 text-2xl">&#x276F;</span>
+                </h3>
+                <div class="accordion-content mt-2">
+                    <p class="text-stone-700 leading-relaxed">
+                        Pistas iniciales en papel. Pistas subsiguientes ocultas. Tarjetas de pistas preestablecidas (sutil, medio, directo) para GM si grupo se atasca. GM interactúa como personaje.
+                    </p>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow overflow-x-auto">
+                <h3 class="text-xl font-semibold text-amber-600 mb-3">Tabla: Detalles de Acertijos y Materiales (por Grupo)</h3>
+                <p class="text-stone-700 leading-relaxed mb-3">Esta tabla centraliza los aspectos prácticos de la creación y replicación de acertijos para múltiples grupos.</p>
+                <div class="overflow-x-auto">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th data-label="Nombre Acertijo">Nombre del Acertijo</th>
+                                <th data-label="Mecanismo">Mecanismo del Acertijo</th>
+                                <th data-label="Materiales">Materiales Específicos (por grupo)</th>
+                                <th data-label="Preparación">Instrucciones de Preparación (breves)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td data-label="Nombre Acertijo"><strong>El Mensaje del Pastor</strong></td>
+                                <td data-label="Mecanismo">Papel recortado sobre texto</td>
+                                <td data-label="Materiales">2 hojas A4 (texto base, plantilla recortes), lápices.</td>
+                                <td data-label="Preparación">Imprimir texto. Imprimir y cortar plantilla. Verificar mensaje.</td>
+                            </tr>
+                            <tr>
+                                <td data-label="Nombre Acertijo"><strong>Las Piedras de la Fe</strong></td>
+                                <td data-label="Mecanismo">Búsqueda y ordenación</td>
+                                <td data-label="Materiales">5 piedras (reales/cartulina) con símbolos/letras, 1 dibujo guía ordenación.</td>
+                                <td data-label="Preparación">Pintar/dibujar en piedras. Crear dibujo guía.</td>
+                            </tr>
+                            <tr>
+                                <td data-label="Nombre Acertijo"><strong>El Grito de Goliat</strong></td>
+                                <td data-label="Mecanismo">Texto invisible (agua)</td>
+                                <td data-label="Materiales">2 hojas A4, 1 lápiz, bandeja con agua.</td>
+                                <td data-label="Preparación">Mojar hoja, poner seca encima, escribir mensaje, secar hoja húmeda.</td>
+                            </tr>
+                            <tr>
+                                <td data-label="Nombre Acertijo"><strong>El Laberinto Distracción</strong></td>
+                                <td data-label="Mecanismo">Mapa (búsqueda tesoro)</td>
+                                <td data-label="Materiales">1 mapa dibujado a mano con "X" marcada.</td>
+                                <td data-label="Preparación">Dibujar mapa, marcar "X", añadir caminos falsos.</td>
+                            </tr>
+                            <tr>
+                                <td data-label="Nombre Acertijo"><strong>El Canto del Arpa</strong></td>
+                                <td data-label="Mecanismo">Sopa de letras / Código musical</td>
+                                <td data-label="Materiales">1 sopa de letras, 1 diagrama arpa/teclado numerado, lápices.</td>
+                                <td data-label="Preparación">Crear sopa. Diseñar diagrama y asignar números.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section id="logisticaGM" class="tab-content">
+            <h2 class="text-2xl font-semibold text-amber-700 mb-4">Logística, Preparación y Guía del Game Master</h2>
+            <p class="mb-4 text-stone-700">Consideraciones prácticas para la configuración, ejecución, seguridad y el rol del Game Master.</p>
+
+            <div class="bg-white p-6 rounded-lg shadow mb-6">
+                <h3 class="text-xl font-semibold text-amber-600 mb-3 accordion-button cursor-pointer flex justify-between items-center" onclick="toggleAccordion(event)">
+                    <span>Utilización del Espacio (Casa Rural y Jardín)</span>
+                    <span class="arrow text-amber-600 text-2xl">&#x276F;</span>
+                </h3>
+                <div class="accordion-content mt-2">
+                    <p class="text-stone-700 leading-relaxed">Mapa detallado con zonas: Inicio, Juego Principal, Tentación, Centro de Mando GM. Planificar flujo para evitar congestión de 5 grupos.</p>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow mb-6">
+                <h3 class="text-xl font-semibold text-amber-600 mb-3 accordion-button cursor-pointer flex justify-between items-center" onclick="toggleAccordion(event)">
+                    <span>Iluminación y Ambiente (Actividad Nocturna)</span>
+                    <span class="arrow text-amber-600 text-2xl">&#x276F;</span>
+                </h3>
+                <div class="accordion-content mt-2">
+                    <p class="text-stone-700 leading-relaxed">Iluminación ambiental suficiente, especialmente escaleras. Linternas de monitores como elemento temático. Tiras LED/lámparas a pilas para pistas. Cada grupo con linterna. Inspección previa de peligros.</p>
+                </div>
+            </div>
+             <div class="bg-white p-6 rounded-lg shadow mb-6">
+                <h3 class="text-xl font-semibold text-amber-600 mb-3 accordion-button cursor-pointer flex justify-between items-center" onclick="toggleAccordion(event)">
+                    <span>Protocolos de Seguridad</span>
+                    <span class="arrow text-amber-600 text-2xl">&#x276F;</span>
+                </h3>
+                <div class="accordion-content mt-2">
+                    <ul class="list-disc list-inside text-stone-700 leading-relaxed space-y-1">
+                        <li><strong>Salidas de Emergencia:</strong> Identificadas, marcadas, despejadas.</li>
+                        <li><strong>Comunicación:</strong> Canales fiables GM/monitores (walkies/móviles).</li>
+                        <li><strong>Palabra de Seguridad:</strong> Clara (ej: "¡ALTO!") para detener juego/pedir ayuda.</li>
+                        <li><strong>Capacitación Monitores:</strong> Seguridad, emergencias, directrices "captura".</li>
+                        <li><strong>Primeros Auxilios:</strong> Botiquín accesible, personal capacitado.</li>
+                        <li><strong>Recuentos:</strong> Regulares de grupos.</li>
+                        <li><strong>Equilibrio Inmersión/Seguridad:</strong> Prioridad a seguridad en entorno no comercial. Monitores como oficiales de seguridad.</li>
+                    </ul>
+                </div>
+            </div>
+             <div class="bg-white p-6 rounded-lg shadow mb-6">
+                <h3 class="text-xl font-semibold text-amber-600 mb-3 accordion-button cursor-pointer flex justify-between items-center" onclick="toggleAccordion(event)">
+                    <span>Lista de Materiales (Enfocada en Papel)</span>
+                    <span class="arrow text-amber-600 text-2xl">&#x276F;</span>
+                </h3>
+                <div class="accordion-content mt-2">
+                    <ul class="list-disc list-inside text-stone-700 leading-relaxed space-y-1">
+                        <li>Pergaminos/Papeles (historia, acertijos, hojas registro).</li>
+                        <li>Lápices/Bolígrafos.</li>
+                        <li>Tijeras, Pegamento/Cinta.</li>
+                        <li>Linternas (1/monitor, 1/grupo).</li>
+                        <li>Objetos temáticos (piedras, bolsas tela, mapas, diagrama arpa, espada cartón).</li>
+                        <li>Candados de combinación sencillos.</li>
+                        <li>Materiales "Zona Tentación" (papel, reproductor audio, asientos).</li>
+                        <li>Botiquín Primeros Auxilios.</li>
+                        <li>Walkie-talkies/Teléfonos.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow mb-6">
+                <h3 class="text-xl font-semibold text-amber-600 mb-3 accordion-button cursor-pointer flex justify-between items-center" onclick="toggleAccordion(event)">
+                    <span>Manual del Game Master: Guion de Apertura</span>
+                    <span class="arrow text-amber-600 text-2xl">&#x276F;</span>
+                </h3>
+                <div class="accordion-content mt-2">
+                     <p class="text-stone-700 leading-relaxed mb-2">GM pronuncia guion (Cap. 2) con entusiasmo y misterio. Comunica propósito: diversión, equipo, lección moral.</p>
+                     <p class="text-stone-700 leading-relaxed font-semibold">Sesión Informativa (Reglas y Seguridad):</p>
+                     <ul class="list-disc list-inside text-stone-700 leading-relaxed space-y-1">
+                        <li>Límite tiempo (60 min), objetivo.</li>
+                        <li>Importancia trabajo en equipo.</li>
+                        <li>Presentar "Sombras de la Duda", mecánica "captura", "Zona Tentación" (desvío, no punitivo).</li>
+                        <li>Salidas emergencia, palabra seguridad.</li>
+                        <li>Reglas: no correr, no mover accesorios (salvo indicación), respeto, permanecer en áreas designadas. Linternas por grupo.</li>
+                     </ul>
+                     <p class="text-stone-700 leading-relaxed mt-2">Distribuir materiales iniciales (pergamino, mapa). Iniciar juego (cuenta regresiva/señal).</p>
+                </div>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow mb-6">
+                <h3 class="text-xl font-semibold text-amber-600 mb-3 accordion-button cursor-pointer flex justify-between items-center" onclick="toggleAccordion(event)">
+                    <span>Manual del Game Master: Roles de Monitores</span>
+                    <span class="arrow text-amber-600 text-2xl">&#x276F;</span>
+                </h3>
+                <div class="accordion-content mt-2">
+                    <ul class="list-disc list-inside text-stone-700 leading-relaxed space-y-1">
+                        <li><strong>Personaje:</strong> "Sombras de la Duda", solemnes, silenciosos, persistentes. Linternas como herramienta.</li>
+                        <li><strong>Rutas Patrulla:</strong> Zonas asignadas, cobertura completa, fluidas, impredecibles.</li>
+                        <li><strong>Protocolo "Captura":</strong> Identificación (luz 3-5s/acorralado). Acercamiento calmado ("La duda te ha alcanzado..."). Acompañamiento suave a Zona Tentación. Explicar prueba. Comunicar captura a GM.</li>
+                        <li><strong>Sin Contacto Físico:</strong> Absolutamente ninguno (salvo guía suave).</li>
+                        <li><strong>Observación:</strong> Signos frustración, problemas seguridad, necesidad pistas. Transmitir a GM.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow mb-6">
+                <h3 class="text-xl font-semibold text-amber-600 mb-3 accordion-button cursor-pointer flex justify-between items-center" onclick="toggleAccordion(event)">
+                    <span>Manual del Game Master: Sistema de Pistas</span>
+                    <span class="arrow text-amber-600 text-2xl">&#x276F;</span>
+                </h3>
+                <div class="accordion-content mt-2">
+                    <p class="text-stone-700 leading-relaxed mb-2">GM observa progreso. Pistas si grupo atascado (5-7 min) o solicitan. GM como "Guía Divina" (benevolente, ofrece camino a victoria).</p>
+                     <p class="text-stone-700 leading-relaxed font-semibold">Entrega de Pistas:</p>
+                    <ul class="list-disc list-inside text-stone-700 leading-relaxed space-y-1">
+                        <li><strong>Sutil:</strong> Observación general/pregunta orientadora.</li>
+                        <li><strong>Media:</strong> Empujón más directo.</li>
+                        <li><strong>Directa:</strong> Señalando ubicación/explicando paso.</li>
+                        <li><strong>Temática:</strong> En personaje ("susurros sabiduría").</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow">
+                <h3 class="text-xl font-semibold text-amber-600 mb-3 accordion-button cursor-pointer flex justify-between items-center" onclick="toggleAccordion(event)">
+                    <span>Manual del Game Master: Guion de Cierre</span>
+                    <span class="arrow text-amber-600 text-2xl">&#x276F;</span>
+                </h3>
+                <div class="accordion-content mt-2">
+                    <p class="text-stone-700 leading-relaxed mb-2">Reunir grupos, reconocer esfuerzo. GM revela historia completa y conexión David/Goliat/tentación.</p>
+                    <blockquote class="border-l-4 border-amber-500 pl-4 italic text-stone-600 my-3">
+                        "Habéis desentrañado los secretos... Cada pista, cada desafío... ha sido un paso en vuestro propio camino de fe. ¿Qué habéis aprendido sobre la tentación? ¿Y sobre la perseverancia?"
+                    </blockquote>
+                    <p class="text-stone-700 leading-relaxed font-semibold">Preguntas para Discusión:</p>
+                    <ul class="list-disc list-inside text-stone-700 leading-relaxed space-y-1">
+                        <li>¿Tentación más desafiante?</li>
+                        <li>¿Sentimientos al ser "capturado" vs. evadir? ¿Costo real captura?</li>
+                        <li>¿Estrategias grupo para resistir/resolver?</li>
+                        <li>¿Relación historia David con experiencia/vidas?</li>
+                        <li>¿"Piedra de la Fe" personal en vida real?</li>
+                    </ul>
+                    <p class="text-stone-700 leading-relaxed mt-2">Reforzar mensaje: Esfuerzo de no caer, perseverar, es más gratificante. Verdadera fuerza interior. Celebrar esfuerzo y lecciones. Recompensa simbólica (piedra, certificado).</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="conclusion" class="tab-content">
+            <h2 class="text-2xl font-semibold text-amber-700 mb-4">Conclusión: Victoria sobre la Tentación - Una Lección Duradera</h2>
+            <div class="bg-white p-6 rounded-lg shadow">
+                <p class="text-stone-700 leading-relaxed mb-3">
+                    "El Sendero de la Fe" es una inmersión en la narrativa de David y Goliat, una alegoría sobre superar tentaciones. Es un viaje experiencial desde la duda a la revelación sobre fe y resiliencia.
+                </p>
+                <p class="text-stone-700 leading-relaxed mb-3">
+                    La mecánica de monitores ("Sombras de la Duda") y la "Zona de Tentación" está diseñada para que los participantes experimenten que la comodidad momentánea de la tentación es menos gratificante que el esfuerzo y la perseverancia. La historia de la casa refleja las consecuencias de ceder.
+                </p>
+                <p class="text-stone-700 leading-relaxed mb-3">
+                    El juego fomenta trabajo en equipo, comunicación y pensamiento crítico. Al finalizar, los jóvenes habrán disfrutado y aprendido una valiosa lección moral: la verdadera victoria y satisfacción se encuentran en la elección consciente de la fe y la perseverancia.
+                </p>
+                 <p class="text-stone-700 leading-relaxed">
+                    Las tentaciones son parte de la vida; esta experiencia ayuda a descubrir que poseen fuerza y herramientas (fe, coraje, comunidad) para superarlas. Un Escape Room memorable y transformador.
+                </p>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="text-center p-4 mt-8 text-stone-600 text-sm border-t border-stone-200">
+        Aplicación interactiva del plan "El Sendero de la Fe"
+    </footer>
+
+    <script>
+        function openTab(event, tabName) {
+            let i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+            tablinks = document.getElementsByClassName("tab-button");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+            document.getElementById(tabName).classList.add("active");
+            event.currentTarget.classList.add("active");
+        }
+
+        function toggleAccordion(event) {
+            const button = event.currentTarget;
+            button.classList.toggle("open");
+            // const content = button.nextElementSibling;
+            // if (content.style.display === "block") {
+            //     content.style.display = "none";
+            // } else {
+            //     content.style.display = "block";
+            // }
+        }
+
+        // Initialize the first tab
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelector('.tab-button').click();
+        });
+    </script>
+
+</body>
+</html>
