@@ -7,22 +7,29 @@
     <meta name="theme-color" content="#0a192f">
     <title>Ismael Blánquez | Senior Salesforce Developer</title>
     
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💼</text></svg>">
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;600&family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <!-- Font Awesome CDN (Fixed CORS) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
+    <!-- Loader -->
     <div id="loader" class="loader-container">
         <div class="loader-logo">IB.</div>
     </div>
 
+    <!-- Particle Background Canvas - Must be first -->
     <canvas id="canvas-bg"></canvas>
 
+    <!-- Navigation -->
     <nav id="navbar" class="navbar">
         <div class="logo">IB.</div>
         
@@ -37,10 +44,10 @@
                 <li><a href="#skills"><span>03.</span> Habilidades</a></li>
                 <li><a href="#contact"><span>04.</span> Contacto</a></li>
             </ol>
-            <a href="CV_Ismael_Blanquez.pdf" target="_blank" class="btn-resume">Currículum</a>
         </div>
     </nav>
 
+    <!-- Main Content -->
     <main id="content">
         <section class="hero" id="hero">
             <p class="hero-greeting">Hola, mi nombre es</p>
@@ -95,15 +102,26 @@
             <span class="small-heading">04. ¿Qué sigue?</span>
             <h2 class="big-heading">Ponte en Contacto</h2>
             <p id="contact-desc" class="contact-desc"></p>
-            <a id="contact-btn" href="" class="btn-primary">Saludar</a>
+            
+            <div class="contact-actions">
+                <a id="contact-btn" href="" class="btn-primary">
+                    <i class="fas fa-paper-plane"></i> Enviar Mensaje
+                </a>
+                <a href="CV_Ismael_Blanquez.pdf" target="_blank" class="btn-resume-contact">
+                    <i class="fas fa-file-pdf"></i> Descargar Currículum
+                </a>
+            </div>
+            
             <div class="social-links-footer" id="social-links"></div>
         </section>
     </main>
 
+    <!-- Footer -->
     <footer>
         <p>Diseñado y construido por <span class="accent">Ismael Blánquez</span></p>
     </footer>
 
+    <!-- Scripts -->
     <script src="config.js"></script>
     <script src="utils.js"></script>
     <script src="script.js"></script>
