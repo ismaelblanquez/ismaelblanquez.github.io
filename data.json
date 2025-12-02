@@ -3,12 +3,12 @@
     "nombre": "Ismael Blánquez",
     "titulo": "Senior Salesforce Developer",
     "email": "ismaelblanquez@gmail.com",
-    "telefono": "619342128",
+    "telefono": "+34 619 34 21 28",
     "ubicacion": "Zaragoza, España",
     "linkedin": "https://www.linkedin.com/in/IsmaelBlanquez/",
     "github": "#",
     "foto": "foto.jpg",
-    "descripcion": "Salesforce Developer con experiencia en proyectos internacionales para consultoras líderes como Deloitte e Inetum, especializado en desarrollo con Apex, LWC y DevOps para Salesforce. Capacidad para trabajar en entornos ágiles, colaborar con negocio y entregar soluciones escalables y de calidad. Proactivo, orientado al detalle y con alta capacidad de aprendizaje."
+    "descripcion": "Salesforce Developer con sólida experiencia en proyectos internacionales para consultoras líderes como Deloitte e Inetum. Especializado en desarrollo backend (Apex) y frontend (LWC/Aura), con un fuerte enfoque en DevOps (Jenkins, Git). Proactivo, orientado al detalle y habituado a trabajar en entornos Ágiles."
   },
   "about": {
     "parrafos": [
@@ -22,8 +22,8 @@
       "Git & GitHub",
       "Einstein Bots",
       "JavaScript (ES6+)",
-      "Aura",
-      "visualforce"
+      "Aura Components",
+      "REST APIs"
     ]
   },
   "experiencia": [
@@ -31,7 +31,7 @@
       "puesto": "Salesforce Senior Software Developer",
       "empresa": "Nubika Cloud Solutions (Inetum)",
       "fecha": "Nov 2023 - Actualidad",
-      "ubicacion": "Zaragoza, España",
+      "ubicacion": "Madrid (Remoto)",
       "responsabilidades": [
         "Liderazgo técnico actuando como Release Manager, orquestando despliegues complejos utilizando Jenkins y gestión avanzada de ramas en Git.",
         "Coordinación de equipos de desarrollo, realización de Code Reviews y mentoría técnica en entornos Ágiles.",

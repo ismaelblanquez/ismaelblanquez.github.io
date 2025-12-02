@@ -1,200 +1,86 @@
 /* ============================================
-   UTILITY FUNCTIONS
-   ============================================ */
+   UTILITY HELPER FUNCTIONS
+   ============================================
+   Pure functions for DOM manipulation, data formatting,
+   and performance optimizations.
+*/
 
 const Utils = {
     /**
-     * Logger mejorado con niveles
+     * Safely query selector wrapper
+     * @param {string} selector 
+     * @returns {HTMLElement|null}
      */
-    log: {
-        info: (...args) => {
-            if (APP_CONFIG.debug) {
-                console.log('[INFO]', ...args);
-            }
-        },
-        error: (...args) => {
-            console.error('[ERROR]', ...args);
-        },
-        warn: (...args) => {
-            if (APP_CONFIG.debug) {
-                console.warn('[WARN]', ...args);
-            }
-        }
+    $: (selector) => document.querySelector(selector),
+
+    /**
+     * Creates a DOM element with classes and content
+     * @param {string} tag - HTML tag
+     * @param {string} className - CSS classes
+     * @param {string} html - Inner HTML content
+     * @returns {HTMLElement}
+     */
+    createEl: (tag, className = '', html = '') => {
+        const el = document.createElement(tag);
+        if (className) el.className = className;
+        if (html) el.innerHTML = html;
+        return el;
     },
 
     /**
-     * Sanitiza HTML para prevenir XSS
+     * Highlight keywords in a string with a <span> wrapper
+     * @param {string} text - Original text
+     * @param {string[]} keywords - Array of words to highlight
+     * @returns {string} HTML string
      */
-    sanitizeHTML: (str) => {
-        const temp = document.createElement('div');
-        temp.textContent = str;
-        return temp.innerHTML;
-    },
-
-    /**
-     * Formatea texto con resaltado de palabras clave
-     */
-    highlightKeywords: (text, keywords = []) => {
+    highlightText: (text, keywords = []) => {
+        if (!keywords.length) return text;
         let result = text;
-        keywords.forEach(keyword => {
-            const regex = new RegExp(`\\b(${keyword})\\b`, 'gi');
-            result = result.replace(regex, '<strong>$1</strong>');
+        keywords.forEach(word => {
+            const regex = new RegExp(`\\b(${word})\\b`, 'gi');
+            result = result.replace(regex, `<span class="accent">$1</span>`);
         });
         return result;
     },
 
     /**
-     * Debounce function para optimizar eventos
-     */
-    debounce: (func, wait) => {
-        let timeout;
-        return function executedFunction(...args) {
-            const later = () => {
-                clearTimeout(timeout);
-                func(...args);
-            };
-            clearTimeout(timeout);
-            timeout = setTimeout(later, wait);
-        };
-    },
-
-    /**
-     * Throttle function para limitar llamadas
-     */
-    throttle: (func, limit) => {
-        let inThrottle;
-        return function(...args) {
-            if (!inThrottle) {
-                func.apply(this, args);
-                inThrottle = true;
-                setTimeout(() => inThrottle = false, limit);
-            }
-        };
-    },
-
-    /**
-     * Cache simple para datos
+     * Simple LocalStorage Cache Wrapper to avoid redundant fetches
      */
     cache: {
-        storage: new Map(),
-        set: (key, value, duration = APP_CONFIG.data.cacheDuration) => {
-            Utils.cache.storage.set(key, {
-                value,
-                expiry: Date.now() + duration
-            });
-        },
         get: (key) => {
-            const item = Utils.cache.storage.get(key);
+            const item = localStorage.getItem(key);
             if (!item) return null;
-            if (Date.now() > item.expiry) {
-                Utils.cache.storage.delete(key);
+            
+            try {
+                const parsed = JSON.parse(item);
+                const now = new Date().getTime();
+                if (now > parsed.expiry) {
+                    localStorage.removeItem(key);
+                    return null;
+                }
+                return parsed.value;
+            } catch (e) {
                 return null;
             }
-            return item.value;
         },
-        clear: () => {
-            Utils.cache.storage.clear();
+        set: (key, value, ttl) => {
+            const now = new Date().getTime();
+            const item = {
+                value: value,
+                expiry: now + ttl,
+            };
+            localStorage.setItem(key, JSON.stringify(item));
         }
     },
 
     /**
-     * Smooth scroll a un elemento
+     * Error Handler with console logging
+     * @param {Error} error 
+     * @param {string} context 
      */
-    smoothScrollTo: (elementId, offset = APP_CONFIG.navigation.offset) => {
-        const element = document.getElementById(elementId);
-        if (element) {
-            const top = element.offsetTop - offset;
-            window.scrollTo({
-                top,
-                behavior: 'smooth'
-            });
-        }
-    },
-
-    /**
-     * Verifica si un elemento está visible en viewport
-     */
-    isInViewport: (element, threshold = 0.2) => {
-        const rect = element.getBoundingClientRect();
-        const windowHeight = window.innerHeight || document.documentElement.clientHeight;
-        const vertInView = (rect.top <= windowHeight) && ((rect.top + rect.height) >= 0);
-        return vertInView && (rect.height * threshold <= windowHeight);
-    },
-
-    /**
-     * Formatea fechas
-     */
-    formatDate: (dateString) => {
-        if (!dateString) return '';
-        const date = new Date(dateString);
-        return date.toLocaleDateString('es-ES', { 
-            year: 'numeric', 
-            month: 'long' 
-        });
-    },
-
-    /**
-     * Crea elementos DOM de forma segura
-     */
-    createElement: (tag, className = '', content = '') => {
-        const element = document.createElement(tag);
-        if (className) element.className = className;
-        if (content) element.innerHTML = content;
-        return element;
-    },
-
-    /**
-     * Valida email
-     */
-    isValidEmail: (email) => {
-        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return re.test(email);
-    },
-
-    /**
-     * Manejo de errores centralizado
-     */
-    handleError: (error, context = 'Application') => {
-        Utils.log.error(`${context}:`, error);
-        
-        // Aquí podrías enviar errores a un servicio de tracking
-        // ej: Sentry, LogRocket, etc.
-        
-        // Mostrar mensaje amigable al usuario si es necesario
-        if (APP_CONFIG.debug) {
-            alert(`Error en ${context}: ${error.message}`);
-        }
-    },
-
-    /**
-     * Detecta modo oscuro del sistema
-     */
-    prefersDarkMode: () => {
-        return window.matchMedia && 
-               window.matchMedia('(prefers-color-scheme: dark)').matches;
-    },
-
-    /**
-     * Optimiza imágenes con lazy loading mejorado
-     */
-    optimizeImage: (img, callback) => {
-        if (img.complete) {
-            callback?.();
-        } else {
-            img.addEventListener('load', () => {
-                img.classList.add('loaded');
-                callback?.();
-            });
-            img.addEventListener('error', () => {
-                Utils.log.error('Error cargando imagen:', img.src);
-                // Imagen placeholder si falla
-                img.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="300" height="300"%3E%3Crect fill="%23112240" width="300" height="300"/%3E%3Ctext fill="%2300A1E0" x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" font-size="24"%3EIB%3C/text%3E%3C/svg%3E';
-            });
-        }
+    logError: (error, context = '') => {
+        console.error(`[${context}] Error:`, error);
     }
 };
 
-// Hacer Utils disponible globalmente
-if (typeof window !== 'undefined') {
-    window.Utils = Utils;
-}
+window.Utils = Utils;

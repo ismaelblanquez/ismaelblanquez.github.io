@@ -1,500 +1,261 @@
-/* ============================================
-   DATA LOADING & RENDERING
-   ============================================ */
-class PortfolioApp {
+class PortfolioManager {
     constructor() {
         this.data = null;
-        this.particleNetwork = null;
+        this.lastScrollTop = 0; // For scroll detection
+        this.dom = {
+            loader: Utils.$('#loader'),
+            navbar: Utils.$('#navbar'),
+            mobileMenuBtn: Utils.$('#mobile-menu-btn'),
+            navLinks: Utils.$('#nav-links'),
+            canvas: Utils.$('#canvas-bg')
+        };
     }
 
     async init() {
         try {
-            Utils.log.info('Inicializando aplicación...');
-            
-            // Cargar datos
             await this.loadData();
-            
-            // Renderizar contenido
-            this.renderPage();
-            
-            // Inicializar animaciones
-            this.initScrollAnimation();
+            this.renderUI();
             this.initParticles();
-            
-            // Inicializar navegación suave
-            this.initSmoothScroll();
-            
-            Utils.log.info('Aplicación inicializada correctamente');
+            this.initScrollObserver();
+            this.initMobileMenu();
+            this.initNavbarScroll(); // NEW: Scroll logic
+            this.hideLoader();
         } catch (error) {
-            Utils.handleError(error, 'PortfolioApp.init');
+            Utils.logError(error, 'Init');
+            this.hideLoader();
         }
     }
 
     async loadData() {
-        const cacheKey = 'portfolio_data';
-        
-        // Intentar obtener de cache
-        if (APP_CONFIG.data.cacheEnabled) {
-            const cachedData = Utils.cache.get(cacheKey);
-            if (cachedData) {
-                Utils.log.info('Datos cargados desde cache');
-                this.data = cachedData;
-                return;
-            }
-        }
-
-        try {
-            const response = await fetch(APP_CONFIG.data.sourceFile);
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            
-            this.data = await response.json();
-            
-            // Guardar en cache
-            if (APP_CONFIG.data.cacheEnabled) {
-                Utils.cache.set(cacheKey, this.data);
-            }
-            
-            Utils.log.info('Datos cargados correctamente');
-        } catch (error) {
-            Utils.handleError(error, 'loadData');
-            throw error;
-        }
-    }
-
-    renderPage() {
-        if (!this.data) {
-            Utils.log.error('No hay datos para renderizar');
+        const { sourceUrl, cacheKey, cacheDuration } = APP_CONFIG.data;
+        const cached = Utils.cache.get(cacheKey);
+        if (cached) {
+            this.data = cached;
             return;
         }
-
-        this.renderHero(this.data.personal);
-        this.renderAbout(this.data.about);
-        this.renderExperience(this.data.experiencia);
-        this.renderEducation(this.data.educacion);
-        this.renderCertifications(this.data.certificaciones);
-        this.renderContact(this.data.personal);
-        this.updateSEO(this.data.personal);
+        const response = await fetch(sourceUrl);
+        if (!response.ok) throw new Error(`HTTP Error ${response.status}`);
+        this.data = await response.json();
+        Utils.cache.set(cacheKey, this.data, cacheDuration);
     }
 
-    renderHero(personal) {
-        const heroNombre = document.getElementById('hero-nombre');
-        const heroSubtitulo = document.getElementById('hero-subtitulo');
-        const heroDescripcion = document.getElementById('hero-descripcion');
-
-        if (heroNombre) heroNombre.textContent = personal.nombre + '.';
-        if (heroSubtitulo) heroSubtitulo.textContent = APP_CONFIG.texts.hero.subtitle;
-        
-        if (heroDescripcion) {
-            const keywords = ['Senior Salesforce Developer', 'Salesforce', 'Apex', 'LWC', 'DevOps'];
-            heroDescripcion.innerHTML = Utils.highlightKeywords(
-                personal.descripcion,
-                keywords
-            );
+    hideLoader() {
+        if(this.dom.loader) {
+            this.dom.loader.style.opacity = '0';
+            setTimeout(() => this.dom.loader.remove(), 500);
         }
     }
 
-    renderAbout(about) {
-        const parrafosContainer = document.getElementById('about-parrafos');
-        if (!parrafosContainer) return;
+    // --- UI RENDER --- //
+    renderUI() {
+        if (!this.data) return;
+        this.renderHero();
+        this.renderAbout();
+        this.renderExperience();
+        this.renderEducation();
+        this.renderContact();
+        document.title = `${this.data.personal.nombre} | ${this.data.personal.titulo}`;
+    }
 
-        parrafosContainer.innerHTML = '';
-        about.parrafos.forEach(texto => {
-            const p = Utils.createElement('p', '', 
-                Utils.highlightKeywords(texto, ['Deloitte', 'Inetum'])
-            );
-            parrafosContainer.appendChild(p);
+    renderHero() {
+        const { personal } = this.data;
+        Utils.$('#hero-name').textContent = `${personal.nombre}.`;
+        const descHTML = Utils.highlightText(personal.descripcion, ['Salesforce', 'Apex', 'LWC', 'DevOps']);
+        Utils.$('#hero-description').innerHTML = `<p>${descHTML}</p>`;
+    }
+
+    renderAbout() {
+        const { about, personal } = this.data;
+        const textContainer = Utils.$('#about-text-content');
+        about.parrafos.forEach(p => {
+            const pEl = Utils.createEl('p', '', Utils.highlightText(p, ['Deloitte', 'Inetum']));
+            textContainer.appendChild(pEl);
         });
 
-        const techList = document.getElementById('tech-list');
-        if (!techList) return;
-
-        techList.innerHTML = '';
+        const listContainer = Utils.$('#tech-list');
         about.tecnologias.forEach(tech => {
-            const li = Utils.createElement('li', '', 
-                `<span>▹</span> ${Utils.sanitizeHTML(tech)}`
-            );
-            techList.appendChild(li);
+            const li = Utils.createEl('li', '', tech);
+            listContainer.appendChild(li);
         });
 
-        // Renderizar foto de perfil
-        this.renderProfileImage();
-    }
-
-    renderProfileImage() {
-        console.log('=== RENDERIZANDO IMAGEN DE PERFIL ===');
-        
-        const imageContainer = document.querySelector('.about-image');
-        
-        if (!imageContainer || !this.data.personal.foto) return;
-
-        imageContainer.innerHTML = '';
-
-        // VERSION CON ESTILOS INLINE PARA DEBUGGING
-        const imgWrapper = document.createElement('div');
-        imgWrapper.style.cssText = `
-            position: relative;
-            width: 300px;
-            height: 300px;
-            margin: 0 auto;
-            border: 3px solid red;
-            background: yellow;
-        `;
-
+        const imgSlot = Utils.$('#profile-image-slot');
         const img = document.createElement('img');
-        img.src = this.data.personal.foto;
-        img.alt = `Foto de perfil de ${this.data.personal.nombre}`;
-        img.style.cssText = `
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        `;
-        
-        img.addEventListener('load', () => {
-            console.log('✅ Imagen cargada exitosamente!');
-        });
-
-        img.addEventListener('error', (e) => {
-            console.error('❌ Error al cargar la imagen');
-        });
-
-        imgWrapper.appendChild(img);
-        imageContainer.appendChild(imgWrapper);
-        
-        console.log('Imagen agregada al DOM con estilos inline');
+        img.src = personal.foto;
+        img.alt = personal.nombre;
+        img.onerror = () => { img.src = 'https://via.placeholder.com/300x300/112240/00A1E0?text=IB'; };
+        imgSlot.appendChild(img);
     }
 
-    renderExperience(experiencia) {
-        const timeline = document.getElementById('timeline');
-        if (!timeline) return;
+    renderExperience() {
+        const container = Utils.$('#timeline');
+        this.data.experiencia.forEach((job) => {
+            const card = Utils.createEl('div', 'job-card');
+            const badges = job.tecnologias.map(t => `<span class="tech-tag">${t}</span>`).join('');
+            const listItems = job.responsabilidades.map(r => `<li>${r}</li>`).join('');
 
-        timeline.innerHTML = '';
-        
-        experiencia.forEach((job, index) => {
-            const jobCard = Utils.createElement('div', 'job-card');
-            jobCard.style.animationDelay = `${index * 0.1}s`;
-            
-            const responsabilidadesList = job.responsabilidades
-                .map(resp => `<li>${Utils.sanitizeHTML(resp)}</li>`)
-                .join('');
-
-            const tecnologiasBadges = job.tecnologias
-                .map(tech => `<span class="tech-badge">${Utils.sanitizeHTML(tech)}</span>`)
-                .join('');
-            
-            jobCard.innerHTML = `
-                <div class="job-header">
-                    <h3>${Utils.sanitizeHTML(job.puesto)}</h3>
-                    <span class="company">@ ${Utils.sanitizeHTML(job.empresa)}</span>
-                    <span class="date">${Utils.sanitizeHTML(job.fecha)} | ${Utils.sanitizeHTML(job.ubicacion)}</span>
-                </div>
-                <div class="job-details">
-                    <ul>${responsabilidadesList}</ul>
-                    <div class="tech-stack-mini">${tecnologiasBadges}</div>
-                </div>
+            card.innerHTML = `
+                <h3 class="job-role">${job.puesto} <span class="job-company">@ ${job.empresa}</span></h3>
+                <p class="job-meta">${job.fecha} | ${job.ubicacion}</p>
+                <ul class="job-responsibilities">${listItems}</ul>
+                <div class="job-tech-stack">${badges}</div>
             `;
-            
-            timeline.appendChild(jobCard);
+            container.appendChild(card);
         });
     }
 
-    renderEducation(educacion) {
-        const educationList = document.getElementById('education-list');
-        if (!educationList) return;
-
-        educationList.innerHTML = '';
-        
-        educacion.forEach(edu => {
-            const eduItem = Utils.createElement('div', 'education-item', `
-                <h4>${Utils.sanitizeHTML(edu.titulo)}</h4>
-                <p>${Utils.sanitizeHTML(edu.institucion)} | ${Utils.sanitizeHTML(edu.periodo)}</p>
+    renderEducation() {
+        const eduContainer = Utils.$('#education-list');
+        this.data.educacion.forEach(edu => {
+            const item = Utils.createEl('div', 'edu-item', `
+                <h4>${edu.titulo}</h4>
+                <span>${edu.institucion} | ${edu.periodo}</span>
             `);
-            educationList.appendChild(eduItem);
+            eduContainer.appendChild(item);
+        });
+
+        const certContainer = Utils.$('#certifications-list');
+        this.data.certificaciones.forEach(cert => {
+            const item = Utils.createEl('div', 'cert-item', `
+                <i class="fas fa-check-circle"></i> <span>${cert}</span>
+            `);
+            certContainer.appendChild(item);
         });
     }
 
-    renderCertifications(certificaciones) {
-        const certList = document.getElementById('certifications-list');
-        if (!certList) return;
+    renderContact() {
+        const { personal } = this.data;
+        Utils.$('#contact-btn').href = `mailto:${personal.email}`;
+        Utils.$('#contact-desc').textContent = "Actualmente estoy abierto a nuevas oportunidades en el ecosistema Salesforce. ¡Hablemos!";
 
-        certList.innerHTML = '';
-        
-        certificaciones.forEach(cert => {
-            const certItem = Utils.createElement('div', 'skill-item', `
-                <span class="check-icon">✔</span> ${Utils.sanitizeHTML(cert)}
-            `);
-            certList.appendChild(certItem);
+        const container = Utils.$('#social-links');
+        const links = [
+            { url: personal.linkedin, icon: APP_CONFIG.socialIcons.linkedin },
+            { url: personal.github, icon: APP_CONFIG.socialIcons.github },
+            { url: `mailto:${personal.email}`, icon: APP_CONFIG.socialIcons.email }
+        ];
+
+        links.forEach(link => {
+            if(link.url && link.url !== '#') {
+                const a = Utils.createEl('a', '', `<i class="${link.icon}"></i>`);
+                a.href = link.url;
+                a.target = "_blank";
+                container.appendChild(a);
+            }
         });
     }
 
-    renderContact(personal) {
-        const contactEmail = document.getElementById('contact-email');
-        if (contactEmail && Utils.isValidEmail(personal.email)) {
-            contactEmail.href = `mailto:${personal.email}`;
-        }
-        
-        const socialLinks = document.getElementById('social-links');
-        if (!socialLinks) return;
-
-        const links = [];
-        
-        if (personal.linkedin) {
-            links.push(`
-                <a href="${personal.linkedin}" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                    <i class="${APP_CONFIG.social.icons.linkedin}"></i>
-                </a>
-            `);
-        }
-        
-        if (personal.github && personal.github !== '#') {
-            links.push(`
-                <a href="${personal.github}" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-                    <i class="${APP_CONFIG.social.icons.github}"></i>
-                </a>
-            `);
-        }
-
-        socialLinks.innerHTML = links.join('');
-    }
-
-    updateSEO(personal) {
-        // Actualizar título
-        document.title = `${personal.nombre} ${APP_CONFIG.seo.titleSeparator} ${personal.titulo}`;
-        
-        // Actualizar meta description
-        let metaDesc = document.querySelector('meta[name="description"]');
-        if (!metaDesc) {
-            metaDesc = document.createElement('meta');
-            metaDesc.name = 'description';
-            document.head.appendChild(metaDesc);
-        }
-        metaDesc.content = APP_CONFIG.seo.description;
-
-        // Actualizar meta keywords
-        let metaKeywords = document.querySelector('meta[name="keywords"]');
-        if (!metaKeywords) {
-            metaKeywords = document.createElement('meta');
-            metaKeywords.name = 'keywords';
-            document.head.appendChild(metaKeywords);
-        }
-        metaKeywords.content = APP_CONFIG.seo.keywords;
-    }
-
-    initScrollAnimation() {
-        const sections = document.querySelectorAll('section');
-        const observerOptions = {
-            threshold: APP_CONFIG.animations.scrollThreshold,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
+    // --- INTERACTIONS --- //
+    
+    initScrollObserver() {
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
-                    // Opcional: dejar de observar después de ser visible
-                    // observer.unobserve(entry.target);
+                    observer.unobserve(entry.target);
                 }
             });
-        }, observerOptions);
+        }, { threshold: 0.1 });
 
-        sections.forEach(section => observer.observe(section));
+        document.querySelectorAll('section').forEach(section => observer.observe(section));
+    }
+
+    initMobileMenu() {
+        const btn = this.dom.mobileMenuBtn;
+        const nav = this.dom.navLinks;
+        if(btn && nav) {
+            btn.addEventListener('click', () => {
+                nav.classList.toggle('active');
+            });
+            nav.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => nav.classList.remove('active'));
+            });
+        }
+    }
+
+    // Logic to hide navbar on scroll down, show on scroll up
+    initNavbarScroll() {
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            if (scrollTop > this.lastScrollTop && scrollTop > 100) {
+                // Scroll Down
+                this.dom.navbar.style.transform = 'translateY(-100%)';
+            } else {
+                // Scroll Up
+                this.dom.navbar.style.transform = 'translateY(0)';
+            }
+            this.lastScrollTop = scrollTop;
+        });
     }
 
     initParticles() {
-        this.particleNetwork = new ParticleNetwork('canvas-bg');
-        this.particleNetwork.animate();
-    }
+        const canvas = this.dom.canvas;
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        let particles = [];
 
-    initSmoothScroll() {
-        if (!APP_CONFIG.navigation.smoothScroll) return;
+        const resize = () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        };
+        window.addEventListener('resize', resize);
+        resize();
 
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', (e) => {
-                const href = anchor.getAttribute('href');
-                if (href === '#') return;
-                
-                e.preventDefault();
-                const targetId = href.substring(1);
-                Utils.smoothScrollTo(targetId);
-            });
-        });
-    }
-}
-
-/* ============================================
-   SCROLL ANIMATION (Intersection Observer)
-   ============================================ */
-function initScrollAnimation() {
-    const sections = document.querySelectorAll('section');
-    const observerOptions = {
-        threshold: 0.2
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 1;
+                this.speedX = Math.random() * 1 - 0.5;
+                this.speedY = Math.random() * 1 - 0.5;
             }
-        });
-    }, observerOptions);
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x > canvas.width || this.x < 0) this.speedX = -this.speedX;
+                if (this.y > canvas.height || this.y < 0) this.speedY = -this.speedY;
+            }
+            draw() {
+                ctx.fillStyle = APP_CONFIG.particles.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
 
-    sections.forEach(section => observer.observe(section));
-}
-
-/* ============================================
-   CANVAS PARTICLE NETWORK ANIMATION
-   ============================================ */
-class ParticleNetwork {
-    constructor(canvasId) {
-        this.canvas = document.getElementById(canvasId);
-        this.ctx = this.canvas.getContext('2d');
-        this.particlesArray = [];
-        this.mouse = {
-            x: null,
-            y: null,
-            radius: 0
+        const init = () => {
+            particles = [];
+            const count = window.innerWidth < 768 ? 30 : 80;
+            for (let i = 0; i < count; i++) particles.push(new Particle());
         };
 
-        this.init();
-        this.setupEventListeners();
-    }
-
-    init() {
-        this.canvas.width = window.innerWidth;
-        this.canvas.height = window.innerHeight;
-        this.mouse.radius = (this.canvas.height / 80) * (this.canvas.width / 80);
-        
-        this.createParticles();
-    }
-
-    createParticles() {
-        this.particlesArray = [];
-        const numberOfParticles = (this.canvas.height * this.canvas.width) / 9000;
-        
-        for (let i = 0; i < numberOfParticles; i++) {
-            const size = (Math.random() * 2) + 1;
-            const x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
-            const y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
-            const directionX = (Math.random() * 1) - 0.5;
-            const directionY = (Math.random() * 1) - 0.5;
-            
-            this.particlesArray.push(new Particle(
-                x, y, directionX, directionY, size, this.canvas, this.mouse
-            ));
-        }
-    }
-
-    setupEventListeners() {
-        window.addEventListener('mousemove', (event) => {
-            this.mouse.x = event.x;
-            this.mouse.y = event.y;
-        });
-
-        window.addEventListener('resize', () => {
-            this.canvas.width = innerWidth;
-            this.canvas.height = innerHeight;
-            this.mouse.radius = (this.canvas.height / 80) * (this.canvas.width / 80);
-            this.init();
-        });
-    }
-
-    connect() {
-        for (let a = 0; a < this.particlesArray.length; a++) {
-            for (let b = a; b < this.particlesArray.length; b++) {
-                const dx = this.particlesArray[a].x - this.particlesArray[b].x;
-                const dy = this.particlesArray[a].y - this.particlesArray[b].y;
-                const distance = dx * dx + dy * dy;
-                
-                if (distance < (this.canvas.width / 7) * (this.canvas.height / 7)) {
-                    const opacityValue = 1 - (distance / 20000);
-                    this.ctx.strokeStyle = `rgba(0, 161, 224, ${opacityValue})`;
-                    this.ctx.lineWidth = 1;
-                    this.ctx.beginPath();
-                    this.ctx.moveTo(this.particlesArray[a].x, this.particlesArray[a].y);
-                    this.ctx.lineTo(this.particlesArray[b].x, this.particlesArray[b].y);
-                    this.ctx.stroke();
+        const animate = () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+                for (let j = i; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < 120) {
+                        ctx.beginPath();
+                        const opacity = 1 - (distance / 120);
+                        ctx.strokeStyle = `rgba(0, 161, 224, ${opacity * 0.5})`;
+                        ctx.lineWidth = 1;
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
                 }
             }
-        }
-    }
-
-    animate() {
-        requestAnimationFrame(() => this.animate());
-        this.ctx.clearRect(0, 0, innerWidth, innerHeight);
-        
-        for (let i = 0; i < this.particlesArray.length; i++) {
-            this.particlesArray[i].update();
-        }
-        
-        this.connect();
+            requestAnimationFrame(animate);
+        };
+        init();
+        animate();
     }
 }
 
-/* ============================================
-   PARTICLE CLASS
-   ============================================ */
-class Particle {
-    constructor(x, y, directionX, directionY, size, canvas, mouse) {
-        this.x = x;
-        this.y = y;
-        this.directionX = directionX;
-        this.directionY = directionY;
-        this.size = size;
-        this.canvas = canvas;
-        this.mouse = mouse;
-    }
-
-    draw() {
-        const ctx = this.canvas.getContext('2d');
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
-        ctx.fillStyle = '#00A1E0';
-        ctx.fill();
-    }
-
-    update() {
-        // Boundary check
-        if (this.x > this.canvas.width || this.x < 0) {
-            this.directionX = -this.directionX;
-        }
-        if (this.y > this.canvas.height || this.y < 0) {
-            this.directionY = -this.directionY;
-        }
-
-        // Mouse collision detection
-        const dx = this.mouse.x - this.x;
-        const dy = this.mouse.y - this.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-        
-        if (distance < this.mouse.radius + this.size) {
-            if (this.mouse.x < this.x && this.x < this.canvas.width - this.size * 10) {
-                this.x += 10;
-            }
-            if (this.mouse.x > this.x && this.x > this.size * 10) {
-                this.x -= 10;
-            }
-            if (this.mouse.y < this.y && this.y < this.canvas.height - this.size * 10) {
-                this.y += 10;
-            }
-            if (this.mouse.y > this.y && this.y > this.size * 10) {
-                this.y -= 10;
-            }
-        }
-
-        // Move particle
-        this.x += this.directionX;
-        this.y += this.directionY;
-        
-        this.draw();
-    }
-}
-
-/* ============================================
-   INITIALIZE APPLICATION
-   ============================================ */
-document.addEventListener('DOMContentLoaded', async () => {
-    const app = new PortfolioApp();
-    await app.init();
+document.addEventListener('DOMContentLoaded', () => {
+    const app = new PortfolioManager();
+    app.init();
 });
