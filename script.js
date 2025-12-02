@@ -1,124 +1,326 @@
 /* ============================================
    DATA LOADING & RENDERING
    ============================================ */
-async function loadData() {
-    try {
-        const response = await fetch('data.json');
-        const data = await response.json();
-        renderPage(data);
-    } catch (error) {
-        console.error('Error cargando datos:', error);
+class PortfolioApp {
+    constructor() {
+        this.data = null;
+        this.particleNetwork = null;
     }
-}
 
-function renderPage(data) {
-    renderHero(data.personal);
-    renderAbout(data.about);
-    renderExperience(data.experiencia);
-    renderEducation(data.educacion);
-    renderCertifications(data.certificaciones);
-    renderContact(data.personal);
-}
+    async init() {
+        try {
+            Utils.log.info('Inicializando aplicación...');
+            
+            // Cargar datos
+            await this.loadData();
+            
+            // Renderizar contenido
+            this.renderPage();
+            
+            // Inicializar animaciones
+            this.initScrollAnimation();
+            this.initParticles();
+            
+            // Inicializar navegación suave
+            this.initSmoothScroll();
+            
+            Utils.log.info('Aplicación inicializada correctamente');
+        } catch (error) {
+            Utils.handleError(error, 'PortfolioApp.init');
+        }
+    }
 
-function renderHero(personal) {
-    document.getElementById('hero-nombre').textContent = personal.nombre + '.';
-    document.getElementById('hero-subtitulo').textContent = 'Construyo cosas en Salesforce.';
-    
-    const descripcionElement = document.getElementById('hero-descripcion');
-    descripcionElement.innerHTML = personal.descripcion
-        .replace('Senior Salesforce Developer', '<span style="color:var(--accent)">Senior Salesforce Developer</span>')
-        .replace('Nubika Cloud Solutions', '<span style="color:var(--accent)">Nubika Cloud Solutions</span>');
-}
-
-function renderAbout(about) {
-    const parrafosContainer = document.getElementById('about-parrafos');
-    about.parrafos.forEach(texto => {
-        const p = document.createElement('p');
-        p.innerHTML = texto
-            .replace('Deloitte', '<strong>Deloitte</strong>')
-            .replace('Inetum', '<strong>Inetum</strong>');
-        parrafosContainer.appendChild(p);
-    });
-
-    const techList = document.getElementById('tech-list');
-    about.tecnologias.forEach(tech => {
-        const li = document.createElement('li');
-        li.innerHTML = `<span>▹</span> ${tech}`;
-        techList.appendChild(li);
-    });
-}
-
-function renderExperience(experiencia) {
-    const timeline = document.getElementById('timeline');
-    
-    experiencia.forEach(job => {
-        const jobCard = document.createElement('div');
-        jobCard.className = 'job-card';
+    async loadData() {
+        const cacheKey = 'portfolio_data';
         
-        jobCard.innerHTML = `
-            <div class="job-header">
-                <h3>${job.puesto}</h3>
-                <span class="company">@ ${job.empresa}</span>
-                <span class="date">${job.fecha} | ${job.ubicacion}</span>
-            </div>
-            <div class="job-details">
-                <ul>
-                    ${job.responsabilidades.map(resp => 
-                        `<li>${resp.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</li>`
-                    ).join('')}
-                </ul>
-                <div class="tech-stack-mini">
-                    ${job.tecnologias.map(tech => 
-                        `<span class="tech-badge">${tech}</span>`
-                    ).join('')}
+        // Intentar obtener de cache
+        if (APP_CONFIG.data.cacheEnabled) {
+            const cachedData = Utils.cache.get(cacheKey);
+            if (cachedData) {
+                Utils.log.info('Datos cargados desde cache');
+                this.data = cachedData;
+                return;
+            }
+        }
+
+        try {
+            const response = await fetch(APP_CONFIG.data.sourceFile);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+            this.data = await response.json();
+            
+            // Guardar en cache
+            if (APP_CONFIG.data.cacheEnabled) {
+                Utils.cache.set(cacheKey, this.data);
+            }
+            
+            Utils.log.info('Datos cargados correctamente');
+        } catch (error) {
+            Utils.handleError(error, 'loadData');
+            throw error;
+        }
+    }
+
+    renderPage() {
+        if (!this.data) {
+            Utils.log.error('No hay datos para renderizar');
+            return;
+        }
+
+        this.renderHero(this.data.personal);
+        this.renderAbout(this.data.about);
+        this.renderExperience(this.data.experiencia);
+        this.renderEducation(this.data.educacion);
+        this.renderCertifications(this.data.certificaciones);
+        this.renderContact(this.data.personal);
+        this.updateSEO(this.data.personal);
+    }
+
+    renderHero(personal) {
+        const heroNombre = document.getElementById('hero-nombre');
+        const heroSubtitulo = document.getElementById('hero-subtitulo');
+        const heroDescripcion = document.getElementById('hero-descripcion');
+
+        if (heroNombre) heroNombre.textContent = personal.nombre + '.';
+        if (heroSubtitulo) heroSubtitulo.textContent = APP_CONFIG.texts.hero.subtitle;
+        
+        if (heroDescripcion) {
+            const keywords = ['Senior Salesforce Developer', 'Salesforce', 'Apex', 'LWC', 'DevOps'];
+            heroDescripcion.innerHTML = Utils.highlightKeywords(
+                personal.descripcion,
+                keywords
+            );
+        }
+    }
+
+    renderAbout(about) {
+        const parrafosContainer = document.getElementById('about-parrafos');
+        if (!parrafosContainer) return;
+
+        parrafosContainer.innerHTML = '';
+        about.parrafos.forEach(texto => {
+            const p = Utils.createElement('p', '', 
+                Utils.highlightKeywords(texto, ['Deloitte', 'Inetum'])
+            );
+            parrafosContainer.appendChild(p);
+        });
+
+        const techList = document.getElementById('tech-list');
+        if (!techList) return;
+
+        techList.innerHTML = '';
+        about.tecnologias.forEach(tech => {
+            const li = Utils.createElement('li', '', 
+                `<span>▹</span> ${Utils.sanitizeHTML(tech)}`
+            );
+            techList.appendChild(li);
+        });
+
+        // Renderizar foto de perfil
+        this.renderProfileImage();
+    }
+
+    renderProfileImage() {
+        console.log('=== RENDERIZANDO IMAGEN DE PERFIL ===');
+        
+        const imageContainer = document.querySelector('.about-image');
+        
+        if (!imageContainer || !this.data.personal.foto) return;
+
+        imageContainer.innerHTML = '';
+
+        // VERSION CON ESTILOS INLINE PARA DEBUGGING
+        const imgWrapper = document.createElement('div');
+        imgWrapper.style.cssText = `
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin: 0 auto;
+            border: 3px solid red;
+            background: yellow;
+        `;
+
+        const img = document.createElement('img');
+        img.src = this.data.personal.foto;
+        img.alt = `Foto de perfil de ${this.data.personal.nombre}`;
+        img.style.cssText = `
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        `;
+        
+        img.addEventListener('load', () => {
+            console.log('✅ Imagen cargada exitosamente!');
+        });
+
+        img.addEventListener('error', (e) => {
+            console.error('❌ Error al cargar la imagen');
+        });
+
+        imgWrapper.appendChild(img);
+        imageContainer.appendChild(imgWrapper);
+        
+        console.log('Imagen agregada al DOM con estilos inline');
+    }
+
+    renderExperience(experiencia) {
+        const timeline = document.getElementById('timeline');
+        if (!timeline) return;
+
+        timeline.innerHTML = '';
+        
+        experiencia.forEach((job, index) => {
+            const jobCard = Utils.createElement('div', 'job-card');
+            jobCard.style.animationDelay = `${index * 0.1}s`;
+            
+            const responsabilidadesList = job.responsabilidades
+                .map(resp => `<li>${Utils.sanitizeHTML(resp)}</li>`)
+                .join('');
+
+            const tecnologiasBadges = job.tecnologias
+                .map(tech => `<span class="tech-badge">${Utils.sanitizeHTML(tech)}</span>`)
+                .join('');
+            
+            jobCard.innerHTML = `
+                <div class="job-header">
+                    <h3>${Utils.sanitizeHTML(job.puesto)}</h3>
+                    <span class="company">@ ${Utils.sanitizeHTML(job.empresa)}</span>
+                    <span class="date">${Utils.sanitizeHTML(job.fecha)} | ${Utils.sanitizeHTML(job.ubicacion)}</span>
                 </div>
-            </div>
-        `;
+                <div class="job-details">
+                    <ul>${responsabilidadesList}</ul>
+                    <div class="tech-stack-mini">${tecnologiasBadges}</div>
+                </div>
+            `;
+            
+            timeline.appendChild(jobCard);
+        });
+    }
+
+    renderEducation(educacion) {
+        const educationList = document.getElementById('education-list');
+        if (!educationList) return;
+
+        educationList.innerHTML = '';
         
-        timeline.appendChild(jobCard);
-    });
-}
+        educacion.forEach(edu => {
+            const eduItem = Utils.createElement('div', 'education-item', `
+                <h4>${Utils.sanitizeHTML(edu.titulo)}</h4>
+                <p>${Utils.sanitizeHTML(edu.institucion)} | ${Utils.sanitizeHTML(edu.periodo)}</p>
+            `);
+            educationList.appendChild(eduItem);
+        });
+    }
 
-function renderEducation(educacion) {
-    const educationList = document.getElementById('education-list');
-    
-    educacion.forEach(edu => {
-        const eduItem = document.createElement('div');
-        eduItem.className = 'education-item';
-        eduItem.innerHTML = `
-            <h4>${edu.titulo}</h4>
-            <p>${edu.institucion} | ${edu.periodo}</p>
-        `;
-        educationList.appendChild(eduItem);
-    });
-}
+    renderCertifications(certificaciones) {
+        const certList = document.getElementById('certifications-list');
+        if (!certList) return;
 
-function renderCertifications(certificaciones) {
-    const certList = document.getElementById('certifications-list');
-    
-    certificaciones.forEach(cert => {
-        const certItem = document.createElement('div');
-        certItem.className = 'skill-item';
-        certItem.innerHTML = `
-            <span class="check-icon">✔</span> ${cert}
-        `;
-        certList.appendChild(certItem);
-    });
-}
+        certList.innerHTML = '';
+        
+        certificaciones.forEach(cert => {
+            const certItem = Utils.createElement('div', 'skill-item', `
+                <span class="check-icon">✔</span> ${Utils.sanitizeHTML(cert)}
+            `);
+            certList.appendChild(certItem);
+        });
+    }
 
-function renderContact(personal) {
-    const contactEmail = document.getElementById('contact-email');
-    contactEmail.href = `mailto:${personal.email}`;
-    
-    const socialLinks = document.getElementById('social-links');
-    socialLinks.innerHTML = `
-        <a href="${personal.linkedin}" target="_blank" aria-label="LinkedIn">
-            <i class="fab fa-linkedin"></i>
-        </a>
-        <a href="${personal.github}" aria-label="GitHub">
-            <i class="fab fa-github"></i>
-        </a>
-    `;
+    renderContact(personal) {
+        const contactEmail = document.getElementById('contact-email');
+        if (contactEmail && Utils.isValidEmail(personal.email)) {
+            contactEmail.href = `mailto:${personal.email}`;
+        }
+        
+        const socialLinks = document.getElementById('social-links');
+        if (!socialLinks) return;
+
+        const links = [];
+        
+        if (personal.linkedin) {
+            links.push(`
+                <a href="${personal.linkedin}" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                    <i class="${APP_CONFIG.social.icons.linkedin}"></i>
+                </a>
+            `);
+        }
+        
+        if (personal.github && personal.github !== '#') {
+            links.push(`
+                <a href="${personal.github}" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                    <i class="${APP_CONFIG.social.icons.github}"></i>
+                </a>
+            `);
+        }
+
+        socialLinks.innerHTML = links.join('');
+    }
+
+    updateSEO(personal) {
+        // Actualizar título
+        document.title = `${personal.nombre} ${APP_CONFIG.seo.titleSeparator} ${personal.titulo}`;
+        
+        // Actualizar meta description
+        let metaDesc = document.querySelector('meta[name="description"]');
+        if (!metaDesc) {
+            metaDesc = document.createElement('meta');
+            metaDesc.name = 'description';
+            document.head.appendChild(metaDesc);
+        }
+        metaDesc.content = APP_CONFIG.seo.description;
+
+        // Actualizar meta keywords
+        let metaKeywords = document.querySelector('meta[name="keywords"]');
+        if (!metaKeywords) {
+            metaKeywords = document.createElement('meta');
+            metaKeywords.name = 'keywords';
+            document.head.appendChild(metaKeywords);
+        }
+        metaKeywords.content = APP_CONFIG.seo.keywords;
+    }
+
+    initScrollAnimation() {
+        const sections = document.querySelectorAll('section');
+        const observerOptions = {
+            threshold: APP_CONFIG.animations.scrollThreshold,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    // Opcional: dejar de observar después de ser visible
+                    // observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(section => observer.observe(section));
+    }
+
+    initParticles() {
+        this.particleNetwork = new ParticleNetwork('canvas-bg');
+        this.particleNetwork.animate();
+    }
+
+    initSmoothScroll() {
+        if (!APP_CONFIG.navigation.smoothScroll) return;
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', (e) => {
+                const href = anchor.getAttribute('href');
+                if (href === '#') return;
+                
+                e.preventDefault();
+                const targetId = href.substring(1);
+                Utils.smoothScrollTo(targetId);
+            });
+        });
+    }
 }
 
 /* ============================================
@@ -293,13 +495,6 @@ class Particle {
    INITIALIZE APPLICATION
    ============================================ */
 document.addEventListener('DOMContentLoaded', async () => {
-    // Load and render data first
-    await loadData();
-    
-    // Initialize scroll animations
-    initScrollAnimation();
-
-    // Initialize particle network
-    const particleNetwork = new ParticleNetwork('canvas-bg');
-    particleNetwork.animate();
+    const app = new PortfolioApp();
+    await app.init();
 });

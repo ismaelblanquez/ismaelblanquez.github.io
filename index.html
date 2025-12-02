@@ -3,22 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portfolio profesional de Ismael Blánquez, Senior Salesforce Developer">
+    <meta name="keywords" content="Salesforce, Developer, Apex, LWC, DevOps">
+    <meta name="author" content="Ismael Blánquez">
     <title>Ismael Blánquez | Senior Salesforce Developer</title>
+    
+    <!-- Preconnect para optimizar carga de fuentes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    
+    <!-- Estilos -->
     <link rel="stylesheet" href="styles.css">
+    
+    <!-- Scripts de configuración y utilidades (cargar primero) -->
+    <script src="config.js"></script>
+    <script src="utils.js"></script>
 </head>
 <body>
 
     <canvas id="canvas-bg"></canvas>
 
     <nav>
-        <div class="logo">IB.</div>
+        <div class="logo">CV Ismael Blánquez</div>
         <div class="nav-links">
-            <a href="#about"><span style="color:var(--accent)">01.</span> Sobre Mí</a>
-            <a href="#experience"><span style="color:var(--accent)">02.</span> Experiencia</a>
-            <a href="#skills"><span style="color:var(--accent)">03.</span> Habilidades</a>
+            <a href="#about"><span>01.</span> Sobre Mí</a>
+            <a href="#experience"><span>02.</span> Experiencia</a>
+            <a href="#skills"><span>03.</span> Habilidades</a>
             <a href="mailto:ismaelblanquez@gmail.com" class="btn-resume">Contactar</a>
         </div>
     </nav>
@@ -42,10 +56,8 @@
                     <p>Aquí hay algunas tecnologías con las que he estado trabajando recientemente:</p>
                     <ul class="tech-list" id="tech-list"></ul>
                 </div>
-                <div class="about-image">
-                    <div class="image-placeholder"></div>
-                    <div class="image-border"></div>
-                </div>
+                <!-- IMPORTANTE: Este es el contenedor de la imagen -->
+                <div class="about-image"></div>
             </div>
         </section>
 
@@ -88,6 +100,7 @@
         <p>Diseñado y construido por Ismael Blánquez.</p>
     </footer>
 
+    <!-- Script principal (cargar al final) -->
     <script src="script.js"></script>
 </body>
 </html>
