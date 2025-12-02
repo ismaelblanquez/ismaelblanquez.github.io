@@ -24,36 +24,23 @@
     </nav>
 
     <main>
+        <!-- Hero Section - Dinámico -->
         <section class="hero" id="hero">
             <h1>Hola, mi nombre es</h1>
-            <h2>Ismael Blánquez.</h2>
-            <h3>Construyo cosas en Salesforce.</h3>
-            <p>
-                Soy un <span style="color:var(--accent)">Senior Salesforce Developer</span> especializado en construir experiencias digitales excepcionales. 
-                Actualmente enfocado en Release Management, CI/CD y desarrollo de soluciones escalables (Apex/LWC) en <span style="color:var(--accent)">Nubika Cloud Solutions</span>.
-            </p>
+            <h2 id="hero-nombre"></h2>
+            <h3 id="hero-subtitulo"></h3>
+            <p id="hero-descripcion"></p>
             <a href="#experience" class="big-btn" style="margin-top:50px">Ver mi trabajo</a>
         </section>
 
+        <!-- About Section - Dinámico -->
         <section id="about">
             <h2 class="section-title"><span>01.</span> Sobre Mí</h2>
             <div class="about-content">
                 <div class="about-text">
-                    <p>
-                        Profesional de la tecnología apasionado por resolver problemas complejos. Comencé en mantenimiento electrónico y evolucioné hacia el desarrollo full-stack.
-                    </p>
-                    <p>
-                        Hoy en día, tengo el privilegio de trabajar en grandes consultoras como <strong>Deloitte</strong> e <strong>Inetum</strong>, liderando aspectos técnicos y gestionando equipos. Mi enfoque principal está en la arquitectura de soluciones Salesforce y la automatización de despliegues (DevOps).
-                    </p>
+                    <div id="about-parrafos"></div>
                     <p>Aquí hay algunas tecnologías con las que he estado trabajando recientemente:</p>
-                    <ul class="tech-list">
-                        <li><span>▹</span> Apex</li>
-                        <li><span>▹</span> Lightning Web Components</li>
-                        <li><span>▹</span> Jenkins (CI/CD)</li>
-                        <li><span>▹</span> Git & GitHub</li>
-                        <li><span>▹</span> Einstein Bots</li>
-                        <li><span>▹</span> JavaScript (ES6+)</li>
-                    </ul>
+                    <ul class="tech-list" id="tech-list"></ul>
                 </div>
                 <div class="about-image">
                     <div class="image-placeholder"></div>
@@ -62,121 +49,37 @@
             </div>
         </section>
 
+        <!-- Experience Section - Dinámico -->
         <section id="experience">
             <h2 class="section-title"><span>02.</span> Dónde he trabajado</h2>
-            
-            <div class="timeline">
-                
-                <div class="job-card">
-                    <div class="job-header">
-                        <h3>Salesforce Senior Software Developer</h3>
-                        <span class="company">@ Nubika Cloud Solutions (Inetum)</span>
-                        <span class="date">Nov 2023 - Actualidad | Madrid, España</span>
-                    </div>
-                    <div class="job-details">
-                        <ul>
-                            <li>Liderazgo técnico actuando como <strong>Release Manager</strong>, orquestando despliegues complejos utilizando <strong>Jenkins</strong> y gestión avanzada de ramas en <strong>Git</strong>.</li>
-                            <li>Coordinación de equipos de desarrollo, realización de Code Reviews y mentoría técnica en entornos Ágiles.</li>
-                            <li>Desarrollo Full Stack en Salesforce (Apex, LWC, Aura) para proyectos internacionales multi-cloud.</li>
-                            <li>Interlocución directa con clientes para la toma de requerimientos y presentaciones de Sprint.</li>
-                        </ul>
-                        <div class="tech-stack-mini">
-                            <span class="tech-badge">Apex</span>
-                            <span class="tech-badge">LWC</span>
-                            <span class="tech-badge">Jenkins</span>
-                            <span class="tech-badge">Git</span>
-                            <span class="tech-badge">Scrum</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="job-card">
-                    <div class="job-header">
-                        <h3>Salesforce Developer</h3>
-                        <span class="company">@ Deloitte</span>
-                        <span class="date">Sep 2022 - Nov 2023 | Zaragoza, España</span>
-                    </div>
-                    <div class="job-details">
-                        <ul>
-                            <li>Diseño e implementación de <strong>Einstein Bots</strong> con IA para automatizar la atención al cliente en grandes cuentas.</li>
-                            <li>Desarrollo de componentes personalizados y lógica de negocio (Triggers, Controllers) adaptada a necesidades del proyecto.</li>
-                            <li>Ejecución de planes de pruebas (Testing) y aseguramiento de la calidad del software entregado.</li>
-                            <li>Participación en proyectos internacionales de gran envergadura de la firma.</li>
-                        </ul>
-                        <div class="tech-stack-mini">
-                            <span class="tech-badge">Einstein Bots</span>
-                            <span class="tech-badge">Apex</span>
-                            <span class="tech-badge">Aura</span>
-                            <span class="tech-badge">QA</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="job-card">
-                    <div class="job-header">
-                        <h3>Web Developer (Sistemas)</h3>
-                        <span class="company">@ Muebles Rey</span>
-                        <span class="date">2019 - 2021 | Zaragoza</span>
-                    </div>
-                    <div class="job-details">
-                        <ul>
-                            <li>Desarrollo de una solución digital para recomendación de colchones en tiendas físicas.</li>
-                            <li>Implementación utilizando tecnologías web modernas: JavaScript, HTML5, CSS3 y Node.js.</li>
-                            <li>Introducción al desarrollo Full Stack (Front-End y Back-End).</li>
-                        </ul>
-                        <div class="tech-stack-mini">
-                            <span class="tech-badge">JavaScript</span>
-                            <span class="tech-badge">Node.js</span>
-                            <span class="tech-badge">HTML/CSS</span>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
+            <div class="timeline" id="timeline"></div>
         </section>
 
+        <!-- Skills Section - Dinámico -->
         <section id="skills">
             <h2 class="section-title"><span>03.</span> Formación & Certificaciones</h2>
             <div class="skills-content">
                 <div class="education-section">
                     <h3>Educación Reglada</h3>
-                    <div class="education-item">
-                        <h4>Técnico Superior DAM</h4>
-                        <p>San Valero | 2021-2023</p>
-                    </div>
-                    <div class="education-item">
-                        <h4>Técnico Superior Mantenimiento Electrónico</h4>
-                        <p>San Valero | 2019-2021</p>
-                    </div>
+                    <div id="education-list"></div>
                 </div>
                 
                 <div class="certifications-section">
                     <h3>Certificaciones Salesforce</h3>
-                    <div class="skill-item">
-                        <span class="check-icon">✔</span> Salesforce Platform Developer I
-                    </div>
-                    <div class="skill-item">
-                        <span class="check-icon">✔</span> Salesforce Administrator
-                    </div>
+                    <div id="certifications-list"></div>
                 </div>
             </div>
         </section>
 
+        <!-- Contact Section - Dinámico -->
         <section id="contact">
             <p class="contact-overline">04. ¿Qué sigue?</p>
             <h2 class="contact-title">Ponte en Contacto</h2>
             <p class="contact-description">
                 Actualmente estoy abierto a nuevas oportunidades donde pueda aportar mi experiencia en Salesforce y DevOps. Ya sea para una pregunta o solo para saludar, ¡mi bandeja de entrada está abierta!
             </p>
-            <a href="mailto:ismaelblanquez@gmail.com" class="big-btn">Saludar</a>
-            <div class="social-links">
-                <a href="https://www.linkedin.com/in/Ismael%20Blanquez/" target="_blank" aria-label="LinkedIn">
-                    <i class="fab fa-linkedin"></i>
-                </a>
-                <a href="#" aria-label="GitHub">
-                    <i class="fab fa-github"></i>
-                </a>
-            </div>
+            <a href="mailto:ismaelblanquez@gmail.com" class="big-btn" id="contact-email">Saludar</a>
+            <div class="social-links" id="social-links"></div>
         </section>
 
     </main>

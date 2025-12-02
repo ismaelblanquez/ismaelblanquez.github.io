@@ -1,0 +1,80 @@
+{
+  "personal": {
+    "nombre": "Ismael Blánquez",
+    "titulo": "Senior Salesforce Developer",
+    "email": "ismaelblanquez@gmail.com",
+    "linkedin": "https://www.linkedin.com/in/Ismael%20Blanquez/",
+    "github": "#",
+    "descripcion": "Soy un Senior Salesforce Developer especializado en construir experiencias digitales excepcionales. Actualmente enfocado en Release Management, CI/CD y desarrollo de soluciones escalables (Apex/LWC) en Nubika Cloud Solutions."
+  },
+  "about": {
+    "parrafos": [
+      "Profesional de la tecnología apasionado por resolver problemas complejos. Comencé en mantenimiento electrónico y evolucioné hacia el desarrollo full-stack.",
+      "Hoy en día, tengo el privilegio de trabajar en grandes consultoras como Deloitte e Inetum, liderando aspectos técnicos y gestionando equipos. Mi enfoque principal está en la arquitectura de soluciones Salesforce y la automatización de despliegues (DevOps)."
+    ],
+    "tecnologias": [
+      "Apex",
+      "Lightning Web Components",
+      "Jenkins (CI/CD)",
+      "Git & GitHub",
+      "Einstein Bots",
+      "JavaScript (ES6+)"
+    ]
+  },
+  "experiencia": [
+    {
+      "puesto": "Salesforce Senior Software Developer",
+      "empresa": "Nubika Cloud Solutions (Inetum)",
+      "fecha": "Nov 2023 - Actualidad",
+      "ubicacion": "Madrid, España",
+      "responsabilidades": [
+        "Liderazgo técnico actuando como Release Manager, orquestando despliegues complejos utilizando Jenkins y gestión avanzada de ramas en Git.",
+        "Coordinación de equipos de desarrollo, realización de Code Reviews y mentoría técnica en entornos Ágiles.",
+        "Desarrollo Full Stack en Salesforce (Apex, LWC, Aura) para proyectos internacionales multi-cloud.",
+        "Interlocución directa con clientes para la toma de requerimientos y presentaciones de Sprint."
+      ],
+      "tecnologias": ["Apex", "LWC", "Jenkins", "Git", "Scrum"]
+    },
+    {
+      "puesto": "Salesforce Developer",
+      "empresa": "Deloitte",
+      "fecha": "Sep 2022 - Nov 2023",
+      "ubicacion": "Zaragoza, España",
+      "responsabilidades": [
+        "Diseño e implementación de Einstein Bots con IA para automatizar la atención al cliente en grandes cuentas.",
+        "Desarrollo de componentes personalizados y lógica de negocio (Triggers, Controllers) adaptada a necesidades del proyecto.",
+        "Ejecución de planes de pruebas (Testing) y aseguramiento de la calidad del software entregado.",
+        "Participación en proyectos internacionales de gran envergadura de la firma."
+      ],
+      "tecnologias": ["Einstein Bots", "Apex", "Aura", "QA"]
+    },
+    {
+      "puesto": "Web Developer (Sistemas)",
+      "empresa": "Muebles Rey",
+      "fecha": "2019 - 2021",
+      "ubicacion": "Zaragoza",
+      "responsabilidades": [
+        "Desarrollo de una solución digital para recomendación de colchones en tiendas físicas.",
+        "Implementación utilizando tecnologías web modernas: JavaScript, HTML5, CSS3 y Node.js.",
+        "Introducción al desarrollo Full Stack (Front-End y Back-End)."
+      ],
+      "tecnologias": ["JavaScript", "Node.js", "HTML/CSS"]
+    }
+  ],
+  "educacion": [
+    {
+      "titulo": "Técnico Superior DAM",
+      "institucion": "San Valero",
+      "periodo": "2021-2023"
+    },
+    {
+      "titulo": "Técnico Superior Mantenimiento Electrónico",
+      "institucion": "San Valero",
+      "periodo": "2019-2021"
+    }
+  ],
+  "certificaciones": [
+    "Salesforce Platform Developer I",
+    "Salesforce Administrator"
+  ]
+}

@@ -1,4 +1,127 @@
 /* ============================================
+   DATA LOADING & RENDERING
+   ============================================ */
+async function loadData() {
+    try {
+        const response = await fetch('data.json');
+        const data = await response.json();
+        renderPage(data);
+    } catch (error) {
+        console.error('Error cargando datos:', error);
+    }
+}
+
+function renderPage(data) {
+    renderHero(data.personal);
+    renderAbout(data.about);
+    renderExperience(data.experiencia);
+    renderEducation(data.educacion);
+    renderCertifications(data.certificaciones);
+    renderContact(data.personal);
+}
+
+function renderHero(personal) {
+    document.getElementById('hero-nombre').textContent = personal.nombre + '.';
+    document.getElementById('hero-subtitulo').textContent = 'Construyo cosas en Salesforce.';
+    
+    const descripcionElement = document.getElementById('hero-descripcion');
+    descripcionElement.innerHTML = personal.descripcion
+        .replace('Senior Salesforce Developer', '<span style="color:var(--accent)">Senior Salesforce Developer</span>')
+        .replace('Nubika Cloud Solutions', '<span style="color:var(--accent)">Nubika Cloud Solutions</span>');
+}
+
+function renderAbout(about) {
+    const parrafosContainer = document.getElementById('about-parrafos');
+    about.parrafos.forEach(texto => {
+        const p = document.createElement('p');
+        p.innerHTML = texto
+            .replace('Deloitte', '<strong>Deloitte</strong>')
+            .replace('Inetum', '<strong>Inetum</strong>');
+        parrafosContainer.appendChild(p);
+    });
+
+    const techList = document.getElementById('tech-list');
+    about.tecnologias.forEach(tech => {
+        const li = document.createElement('li');
+        li.innerHTML = `<span>▹</span> ${tech}`;
+        techList.appendChild(li);
+    });
+}
+
+function renderExperience(experiencia) {
+    const timeline = document.getElementById('timeline');
+    
+    experiencia.forEach(job => {
+        const jobCard = document.createElement('div');
+        jobCard.className = 'job-card';
+        
+        jobCard.innerHTML = `
+            <div class="job-header">
+                <h3>${job.puesto}</h3>
+                <span class="company">@ ${job.empresa}</span>
+                <span class="date">${job.fecha} | ${job.ubicacion}</span>
+            </div>
+            <div class="job-details">
+                <ul>
+                    ${job.responsabilidades.map(resp => 
+                        `<li>${resp.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</li>`
+                    ).join('')}
+                </ul>
+                <div class="tech-stack-mini">
+                    ${job.tecnologias.map(tech => 
+                        `<span class="tech-badge">${tech}</span>`
+                    ).join('')}
+                </div>
+            </div>
+        `;
+        
+        timeline.appendChild(jobCard);
+    });
+}
+
+function renderEducation(educacion) {
+    const educationList = document.getElementById('education-list');
+    
+    educacion.forEach(edu => {
+        const eduItem = document.createElement('div');
+        eduItem.className = 'education-item';
+        eduItem.innerHTML = `
+            <h4>${edu.titulo}</h4>
+            <p>${edu.institucion} | ${edu.periodo}</p>
+        `;
+        educationList.appendChild(eduItem);
+    });
+}
+
+function renderCertifications(certificaciones) {
+    const certList = document.getElementById('certifications-list');
+    
+    certificaciones.forEach(cert => {
+        const certItem = document.createElement('div');
+        certItem.className = 'skill-item';
+        certItem.innerHTML = `
+            <span class="check-icon">✔</span> ${cert}
+        `;
+        certList.appendChild(certItem);
+    });
+}
+
+function renderContact(personal) {
+    const contactEmail = document.getElementById('contact-email');
+    contactEmail.href = `mailto:${personal.email}`;
+    
+    const socialLinks = document.getElementById('social-links');
+    socialLinks.innerHTML = `
+        <a href="${personal.linkedin}" target="_blank" aria-label="LinkedIn">
+            <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="${personal.github}" aria-label="GitHub">
+            <i class="fab fa-github"></i>
+        </a>
+    `;
+}
+
+/* ============================================
    SCROLL ANIMATION (Intersection Observer)
    ============================================ */
 function initScrollAnimation() {
@@ -169,7 +292,10 @@ class Particle {
 /* ============================================
    INITIALIZE APPLICATION
    ============================================ */
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+    // Load and render data first
+    await loadData();
+    
     // Initialize scroll animations
     initScrollAnimation();
 
