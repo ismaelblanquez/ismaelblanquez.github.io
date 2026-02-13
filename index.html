@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Nuestro San Valentín</title>
+    <title>7 Meses · Yanoah & Ismael</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -13,6 +13,9 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <div class="progress" aria-hidden="true">
+      <span class="progress__bar"></span>
+    </div>
     <div class="ambient" aria-hidden="true">
       <div class="glow"></div>
       <div class="glow glow--two"></div>
@@ -21,30 +24,40 @@
 
     <header class="hero" id="inicio">
       <div class="hero__content">
-        <p class="hero__eyebrow">San Valentín 2026 · Para ti</p>
-        <h1 class="hero__title">Nuestra historia, paso a paso</h1>
+        <p class="hero__eyebrow">San Valentín 2026 · Para ti, mi princesa</p>
+        <h1 class="hero__title">7 meses, mil recuerdos y un “para siempre”</h1>
         <p class="hero__subtitle">
-          Una carta convertida en web: 7 meses de amor, fe y promesas hechas con calma.
+          Mi amor, esto es nuestra historia en formato scroll. Sin prisa, con el Señor en el
+          centro y con el corazón lleno.
         </p>
-        <button class="hero__cta" data-scroll="#capitulos">Descubrir nuestra historia</button>
+        <div class="hero__actions">
+          <button class="hero__cta" data-scroll="#capitulos">Descubrir nuestra historia</button>
+          <button class="hero__cta hero__cta--ghost" id="musicToggle" type="button">
+            Música: off
+          </button>
+        </div>
         <div class="hero__badges">
-          <span>7 meses</span>
-          <span>Un camino con propósito</span>
-          <span>Siempre juntos</span>
+          <span>7 meses juntitos</span>
+          <span>Sobre la roca</span>
+          <span>Te amo con locura</span>
         </div>
       </div>
       <div class="hero__cover">
-        <div class="card">
+        <div class="card" data-flip>
           <div class="card__front">
-            <p>Para mi princesa</p>
+            <p>Para mi princesa ❤️</p>
             <span>14 · 02 · 2026</span>
           </div>
           <div class="card__back">
             <p>
-              Gracias por caminar conmigo, por nuestras conversaciones, por tus abrazos y por
-              enseñarme a amar bonito.
+              Gracias por caminar conmigo, por nuestras risas, por orar conmigo y por enseñarme a
+              amar bonito.
             </p>
           </div>
+        </div>
+        <div class="polaroids" aria-hidden="true">
+          <div class="polaroid">Tu foto aquí</div>
+          <div class="polaroid">Nuestro momento</div>
         </div>
       </div>
       <div class="scroll-indicator" aria-hidden="true">
@@ -60,19 +73,19 @@
           <p class="section__eyebrow">Nuestra línea del tiempo</p>
           <h2>Del inicio a este San Valentín</h2>
           <p>
-            Cada mes ha sido un capítulo: conversaciones, fe en el centro, apoyo mutuo y un amor
-            que crece despacio y firme.
+            Cada mes fue un capítulo: conversaciones largas, fe en el centro, apoyo mutuo y un
+            amor que crece despacio y firme.
           </p>
         </div>
 
         <div class="timeline">
-          <article class="timeline__item">
+          <article class="timeline__item" data-reveal>
             <div class="timeline__dot"></div>
             <div class="timeline__content">
               <h3>Mes 1 · La promesa</h3>
               <p>
-                Comenzamos con una carta y con el deseo de caminar juntos con propósito. Aprendimos
-                a escucharnos, a orar y a guardar el corazón.
+                Empezamos con una carta y con el deseo de caminar con propósito. Aprendimos a
+                escucharnos, a orar y a guardar el corazón.
               </p>
               <div class="timeline__tags">
                 <span>Carta</span>
@@ -82,13 +95,13 @@
             </div>
           </article>
 
-          <article class="timeline__item">
+          <article class="timeline__item" data-reveal>
             <div class="timeline__dot"></div>
             <div class="timeline__content">
               <h3>Mes 2 · Paz y seguridad</h3>
               <p>
-                Descubrimos lo bonito de un amor sano. Las conversaciones largas se convirtieron en
-                hogar, y las sonrisas en refugio.
+                Descubrimos lo bonito de amar sano. Las conversaciones largas se volvieron hogar y
+                tus sonrisas, mi refugio.
               </p>
               <div class="timeline__tags">
                 <span>Confianza</span>
@@ -98,13 +111,13 @@
             </div>
           </article>
 
-          <article class="timeline__item">
+          <article class="timeline__item" data-reveal>
             <div class="timeline__dot"></div>
             <div class="timeline__content">
               <h3>Mes 3 · Crecer contigo</h3>
               <p>
-                Fuimos perdiendo vergüenzas, cantando más, y disfrutando de lo cotidiano. Tú, yo y
-                la certeza de que este camino vale la pena.
+                Fuimos perdiendo vergüenzas, cantando más y disfrutando lo cotidiano. Tú, yo y la
+                certeza de que este camino vale la pena.
               </p>
               <div class="timeline__tags">
                 <span>Valentía</span>
@@ -114,13 +127,13 @@
             </div>
           </article>
 
-          <article class="timeline__item">
+          <article class="timeline__item" data-reveal>
             <div class="timeline__dot"></div>
             <div class="timeline__content">
               <h3>Mes 4 · Apoyo real</h3>
               <p>
                 Entre responsabilidades, estudios y cambios, decidimos ser equipo. Nos sostuvimos
-                en lo bueno y en lo difícil.
+                en lo bueno y en lo difícil, sin soltar la mano.
               </p>
               <div class="timeline__tags">
                 <span>Equipo</span>
@@ -130,7 +143,7 @@
             </div>
           </article>
 
-          <article class="timeline__item">
+          <article class="timeline__item" data-reveal>
             <div class="timeline__dot"></div>
             <div class="timeline__content">
               <h3>Mes 5 · Más cerca</h3>
@@ -146,7 +159,7 @@
             </div>
           </article>
 
-          <article class="timeline__item">
+          <article class="timeline__item" data-reveal>
             <div class="timeline__dot"></div>
             <div class="timeline__content">
               <h3>Mes 6 · Navidad y gratitud</h3>
@@ -162,13 +175,13 @@
             </div>
           </article>
 
-          <article class="timeline__item">
+          <article class="timeline__item" data-reveal>
             <div class="timeline__dot"></div>
             <div class="timeline__content">
               <h3>Mes 7 · El futuro nos espera</h3>
               <p>
-                Entre exámenes, distancia y planes, aprendimos a valorar cada minuto juntos. Ya
-                vamos más cerca del año que del inicio, y esto solo comienza.
+                Entre exámenes, distancia y planes, aprendimos a valorar cada minuto. Ya vamos más
+                cerca del año que del inicio, y esto solo comienza.
               </p>
               <div class="timeline__tags">
                 <span>Esperanza</span>
@@ -186,27 +199,27 @@
           <h2>Momentos que guardo en el corazón</h2>
         </div>
         <div class="highlight-grid">
-          <article>
+          <article data-reveal>
             <h3>Fe en el centro</h3>
             <p>
-              Lo que empezamos como una ilusión se volvió un caminar firme, guiado por la fe y la
+              Lo que empezó como ilusión se volvió un caminar firme, guiado por la fe y la
               gratitud.
             </p>
           </article>
-          <article>
+          <article data-reveal>
             <h3>Siempre aprendiendo</h3>
             <p>
               Cada mes me muestra una nueva versión de ti: valiente, dulce, fuerte y brillante.
             </p>
           </article>
-          <article>
+          <article data-reveal>
             <h3>Equipo de verdad</h3>
             <p>
               En los días fáciles y los difíciles, aprendimos a cuidarnos y a sostenernos sin
               soltar las manos.
             </p>
           </article>
-          <article>
+          <article data-reveal>
             <h3>Ilusión por el futuro</h3>
             <p>
               Sueños, planes y el deseo de seguir sumando años, experiencias y promesas.
@@ -215,14 +228,36 @@
         </div>
       </section>
 
+      <section class="section mystery" id="misterio">
+        <div class="section__header">
+          <p class="section__eyebrow">El misterio de las flores</p>
+          <h2>¿Por qué tardé tanto?</h2>
+          <p>
+            Mi amor, sé que llevas tiempo esperando una flor. Siete meses, para ser exactos. Y te
+            preguntarás por qué nunca llegaba…
+          </p>
+        </div>
+        <div class="mystery__text" data-reveal>
+          <p>
+            No era porque no quisiera. Era porque ninguna flor normal me parecía suficiente. Una
+            rosa común es preciosa, pero se marchita en unos días. Y lo nuestro no se marchita.
+          </p>
+          <p>
+            Estaba buscando algo que se pareciera a nosotros: único, diferente, y sobre todo, que
+            durara en el tiempo. Porque tú eres para siempre, patdoalavida.
+          </p>
+        </div>
+        <div class="mystery__hint" aria-hidden="true">✨🌹✨</div>
+      </section>
+
       <section class="section gifts" id="sorpresa">
         <div class="section__header">
           <p class="section__eyebrow">Tu sorpresa</p>
           <h2>Lo que te mereces desde hace tiempo</h2>
           <p>
             Me pediste flores durante mucho tiempo, y por fin llega la primera. Esta vez no es
-            cualquier flor, es una rosa eterna, azul eléctrico, como tu color favorito, para que
-            dure tanto como lo que siento.
+            cualquier flor: es una rosa eterna, azul eléctrico, tu color favorito, para que dure
+            tanto como lo que siento.
           </p>
         </div>
         <div class="gift-box" data-gift>
@@ -230,12 +265,12 @@
           <div class="gift-box__body"></div>
           <div class="gift-box__ribbon"></div>
           <div class="gift-box__content">
-            <div class="gift-item">
+            <div class="gift-item" data-reveal>
               <span class="gift-item__icon">🌹</span>
               <h3>Rosa eterna azul</h3>
               <p>Para recordarte que quiero cuidarte cada día durante años.</p>
             </div>
-            <div class="gift-item">
+            <div class="gift-item" data-reveal>
               <span class="gift-item__icon">♾️</span>
               <h3>Pulsera infinito</h3>
               <p>Un infinito con corazón azul, como símbolo de nuestro “siempre”.</p>
@@ -255,7 +290,7 @@
             <h3>Siempre contigo</h3>
             <p>
               No quiero correr, quiero caminar a tu lado. Quiero aprender contigo, crecer contigo
-              y celebrar contigo cada etapa.
+              y celebrar contigo cada etapa. Mi meta eres tú.
             </p>
             <ul>
               <li>Escucharte cuando tengas miedo.</li>
@@ -277,20 +312,20 @@
           <p class="section__eyebrow">Final (por ahora)</p>
           <h2>Gracias por ser mi hogar</h2>
           <p>
-            Este San Valentín es solo un capítulo más de nuestra historia. Hoy celebramos todo lo
-            que ya hemos vivido y todo lo que viene. Te amo con locura.
+            Este San Valentín es un capítulo más de nuestra historia. Hoy celebramos lo vivido y
+            lo que viene. Te amo con locura, mi amor.
           </p>
         </div>
         <div class="finale__grid">
-          <div class="finale__card">
+          <div class="finale__card" data-reveal>
             <h3>Tu color favorito</h3>
             <p>El azul eléctrico será nuestro sello de amor eterno.</p>
           </div>
-          <div class="finale__card">
+          <div class="finale__card" data-reveal>
             <h3>Nuestro ritmo</h3>
             <p>Sin prisa, sin pausas, con el corazón en paz.</p>
           </div>
-          <div class="finale__card">
+          <div class="finale__card" data-reveal>
             <h3>Siempre juntos</h3>
             <p>Hoy, mañana y el resto de mi vida.</p>
           </div>

@@ -26,6 +26,24 @@ body {
   overflow-x: hidden;
 }
 
+.progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  z-index: 5;
+}
+
+.progress__bar {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, var(--rose), var(--accent));
+  box-shadow: 0 0 12px rgba(93, 123, 255, 0.5);
+}
+
 a {
   color: inherit;
   text-decoration: none;
@@ -116,6 +134,12 @@ button {
   color: var(--muted);
 }
 
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
 .hero__cta {
   border: none;
   background: linear-gradient(120deg, var(--accent), var(--rose));
@@ -128,6 +152,12 @@ button {
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   width: fit-content;
+}
+
+.hero__cta--ghost {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text);
+  border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
 .hero__cta:hover {
@@ -170,6 +200,10 @@ button {
   transform: rotateY(180deg);
 }
 
+.card.is-flipped {
+  transform: rotateY(180deg);
+}
+
 .card__front,
 .card__back {
   position: absolute;
@@ -195,6 +229,26 @@ button {
   font-size: 14px;
   color: var(--muted);
   line-height: 1.6;
+}
+
+.polaroids {
+  display: grid;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.polaroid {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 12px 14px 26px;
+  border-radius: 14px;
+  font-size: 12px;
+  color: var(--muted);
+  transform: rotate(-2deg);
+}
+
+.polaroid:nth-child(2) {
+  transform: rotate(3deg);
 }
 
 .scroll-indicator {
@@ -276,6 +330,11 @@ button {
   border: 1px solid rgba(255, 255, 255, 0.06);
   position: relative;
   overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.timeline__item:active {
+  transform: scale(0.98);
 }
 
 .timeline__item::after {
@@ -327,6 +386,32 @@ button {
   border-radius: 18px;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: transform 0.3s ease;
+}
+
+.highlight-grid article:active {
+  transform: scale(0.98);
+}
+
+.mystery {
+  background: radial-gradient(circle at top, rgba(93, 123, 255, 0.08), transparent 55%);
+}
+
+.mystery__text {
+  background: rgba(18, 21, 44, 0.6);
+  padding: 22px;
+  border-radius: 20px;
+  color: var(--muted);
+  display: grid;
+  gap: 16px;
+  line-height: 1.7;
+  box-shadow: var(--shadow);
+}
+
+.mystery__hint {
+  text-align: center;
+  font-size: 22px;
+  opacity: 0.7;
 }
 
 .highlight-grid h3 {
@@ -345,6 +430,11 @@ button {
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: var(--shadow);
   overflow: hidden;
+  transition: transform 0.4s ease;
+}
+
+.gift-box:active {
+  transform: scale(0.99);
 }
 
 .gift-box__lid {
@@ -469,6 +559,11 @@ button {
   border-radius: 18px;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: transform 0.3s ease;
+}
+
+.finale__card:active {
+  transform: scale(0.98);
 }
 
 .footer {
@@ -493,6 +588,17 @@ button {
   animation-name: floatHeart;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
+}
+
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 @keyframes floatHeart {
