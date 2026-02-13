@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400;500;600&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
@@ -474,30 +474,93 @@
       <section class="section gifts" id="sorpresa">
         <div class="section__header">
           <p class="section__eyebrow">Tu sorpresa</p>
-          <h2>Lo que te mereces desde hace tiempo</h2>
-          <p>
-            Me pediste flores durante mucho tiempo, y por fin llega la primera. Esta vez no es
-            cualquier flor: es una rosa eterna, azul eléctrico, tu color favorito, para que dure
-            tanto como lo que siento.
+          <h2 id="giftTitle">Algo preparado solo para ti</h2>
+          <p id="giftSubtitle">
+            No quiero adelantarte nada… Solo quiero que lo descubras cuando lo consigas abrir.
           </p>
+        </div>
+        <div class="gift-showcase" data-reveal>
+          <div class="gift-aura" aria-hidden="true"></div>
+          <div class="gift-orb">
+            <span class="gift-orb__rose">🌹</span>
+            <span class="gift-orb__spark"></span>
+            <span class="gift-orb__spark gift-orb__spark--two"></span>
+          </div>
+          <div class="gift-pedestal"></div>
+          <p class="gift-caption">Preparado con mucho amor y mucha intención.</p>
         </div>
         <div class="gift-box" data-gift>
           <div class="gift-box__lid"></div>
           <div class="gift-box__body"></div>
           <div class="gift-box__ribbon"></div>
+          <div class="gift-box__sparkles" aria-hidden="true"></div>
+          <div class="gift-challenge" id="giftChallenge">
+            <p class="gift-challenge__title">Desbloquea tu sorpresa</p>
+            <div class="gift-challenge__steps">
+              <div class="gift-challenge__step" data-step="1">
+                Toca la esfera 3 veces. <span class="gift-challenge__count" id="tapCount">0/3</span>
+              </div>
+              <div class="gift-challenge__step" data-step="2">Mantén pulsado 2 segundos.</div>
+              <div class="gift-challenge__step" data-step="3">Desliza el sello hasta el final.</div>
+            </div>
+            <div class="gift-challenge__actions">
+              <button class="gift-challenge__orb" id="giftTap" type="button" aria-label="Tocar esfera">
+                ✨
+              </button>
+              <button class="gift-challenge__hold" id="giftHold" type="button">
+                Mantener pulsado
+              </button>
+            </div>
+            <div class="gift-challenge__slider">
+              <input
+                id="giftSlider"
+                type="range"
+                min="0"
+                max="100"
+                value="0"
+                aria-label="Desliza para abrir"
+              />
+            </div>
+            <p class="gift-challenge__hint">Cuando lo consigas, la sorpresa se revela.</p>
+          </div>
           <div class="gift-box__content">
+            <div class="gift-letter">
+              <p>
+                Esta no es una flor cualquiera. Es la primera, la esperada, la que dice “te elijo
+                siempre”.
+              </p>
+            </div>
             <div class="gift-item" data-reveal>
               <span class="gift-item__icon">🌹</span>
               <h3>Rosa eterna azul</h3>
               <p>Para recordarte que quiero cuidarte cada día durante años.</p>
+              <div class="gift-item__tags">
+                <span>3 años</span>
+                <span>Azul eléctrico</span>
+                <span>Primera flor</span>
+              </div>
             </div>
             <div class="gift-item" data-reveal>
               <span class="gift-item__icon">♾️</span>
               <h3>Pulsera infinito</h3>
               <p>Un infinito con corazón azul, como símbolo de nuestro “siempre”.</p>
+              <div class="gift-item__tags">
+                <span>Infinito</span>
+                <span>Corazón azul</span>
+                <span>Para siempre</span>
+              </div>
+            </div>
+            <div class="gift-quote" data-reveal>
+              “Lo nuestro no se marchita.”
             </div>
           </div>
           <button class="gift-box__button" type="button">Abrir sorpresa</button>
+        </div>
+        <div class="gift-footer" data-reveal>
+          <p>
+            Esta es nuestra primera flor, y por eso tenía que ser especial. No es solo un regalo,
+            es una promesa en tus manos.
+          </p>
         </div>
       </section>
 

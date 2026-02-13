@@ -15,9 +15,22 @@ const giftButton = document.querySelector(".gift-box__button");
 if (giftBox && giftButton) {
   giftButton.addEventListener("click", () => {
     giftBox.classList.toggle("is-open");
+    giftBox.classList.add("is-revealed");
     giftButton.textContent = giftBox.classList.contains("is-open")
       ? "Cerrar sorpresa"
       : "Abrir sorpresa";
+    if (giftBox.classList.contains("is-open")) {
+      const rect = giftBox.getBoundingClientRect();
+      for (let i = 0; i < 18; i += 1) {
+        const spark = document.createElement("span");
+        spark.className = "spark";
+        spark.style.left = `${rect.left + rect.width * (0.3 + Math.random() * 0.4)}px`;
+        spark.style.top = `${rect.top + rect.height * (0.2 + Math.random() * 0.4)}px`;
+        spark.style.position = "fixed";
+        document.body.appendChild(spark);
+        setTimeout(() => spark.remove(), 700);
+      }
+    }
   });
 }
 
@@ -215,10 +228,11 @@ const letterButton = document.querySelector("#letterButton");
 const letterText = document.querySelector("#letterText");
 const letterCursor = document.querySelector("#letterCursor");
 const envelope = document.querySelector("#envelope");
+const letterPaper = document.querySelector("#letterPaper");
 let letterOpen = false;
 
 const letterMessage =
-  "Mi amor, feliz San Valentín. Hoy quiero escribirte con calma, como me gusta hacerlo, para recordarte lo que ya sabes pero que nunca me canso de decirte. Eres mi princesa, mi paz y mi hogar. Me sigue pareciendo increíble cómo el Señor nos juntó y cómo, mes a mes, nos ha ido enseñando a amar mejor, con propósito y con verdad.\n\nSiete meses parecen poco para algunos, pero para mí han sido suficientes para saber que eres tú. Tú eres mi meta, mi compañera, la mujer con la que quiero caminar despacio pero firme. Gracias por orar conmigo, por cuidarme cuando no estoy al 100%, por creer en lo nuestro incluso cuando ha habido ruido fuera. Gracias por tener un corazón precioso y por hacerme sentir seguro, escuchado y amado.\n\nSé que llevo tiempo sin darte flores y sé que tú las querías desde hace mucho. No era porque no quisiera; era porque quería algo que estuviera a la altura de lo que tenemos. Una flor normal se marchita en días, y lo nuestro no es algo que se marchite. Por eso hoy te doy una rosa eterna azul eléctrico, tu color favorito, para recordarte que lo nuestro está hecho para durar. Y junto con ella, una pulsera con infinito y corazón azul, porque yo te elijo hoy, mañana y siempre.\n\nQuiero seguir caminando contigo, aprender contigo, cantar contigo, reír contigo y sostenerte en cada etapa. Quiero que sigamos poniendo al Señor en el centro, porque ahí todo es más bonito y más fuerte. Y quiero que sepas que nunca vas a ser menos de lo que mereces; eres más de lo que pedí, eres un regalo, y yo estoy agradecido cada día.\n\nTe amo con locura, mi amor. Gracias por estos 7 meses. Gracias por ser tú. Feliz San Valentín, mi princesa preciosa. Siempre tuyo, Ismael.";
+  "Mi amor, feliz San Valentín. Hoy quería escribirte con calma, como a mí me gusta, para que leas esto despacito y sientas todo lo que tengo en el corazón. Eres mi princesa, mi paz, mi casa y mi oración favorita. Me sigue pareciendo un regalo lo que el Señor ha hecho con nosotros: cómo nos juntó, cómo nos ha enseñado a caminar con propósito y cómo nos ha ido haciendo más fuertes mes a mes.\n\nSiete meses pueden parecer poco, pero para mí han sido suficientes para saber que eres tú. Tú eres mi meta, mi compañera, la mujer con la que quiero caminar despacio pero firme. Gracias por orar conmigo, por cuidarme cuando no estoy al 100%, por creer en lo nuestro incluso cuando el ruido de fuera ha querido distraernos. Gracias por tu corazón precioso, por tu paciencia y por hacerme sentir seguro, escuchado y amado.\n\nTe he escuchado pedir flores durante tanto tiempo… y sí, lo sé, he tardado. Pero no era porque no quisiera; era porque ninguna flor normal me parecía suficiente. Una rosa común es preciosa, pero se marchita en días. Y lo nuestro no se marchita. Por eso hoy tu primera flor es una rosa eterna azul eléctrico, tu color favorito, para que dure años y te recuerde que mi amor por ti no es de temporada, es de vida. Y junto con ella, una pulsera con infinito y corazón azul, porque yo te elijo hoy, mañana y siempre.\n\nQuiero seguir caminando contigo, aprender contigo, cantar contigo, reír contigo y sostenerte en cada etapa. Quiero que sigamos poniendo al Señor en el centro, porque ahí todo es más bonito, más fuerte y más real. Quiero seguir siendo transparente contigo, seguir mejorando para ti y contigo, y que nunca dudes de esto: eres más de lo que pedí, y te voy a amar patdoalavida.\n\nGracias por cada abrazo, por cada conversación, por cada mirada que me calma. Gracias por ser mi alegría diaria y mi refugio. Gracias por estos 7 meses y por todo lo que viene. Feliz San Valentín, mi princesa preciosa. Te amo con locura, hoy y siempre.\n\nSiempre tuyo, Ismael.";
 
 let typeInterval;
 const typeWriter = (text, element) => {
@@ -226,12 +240,14 @@ const typeWriter = (text, element) => {
   clearInterval(typeInterval);
   element.textContent = "";
   let index = 0;
+  if (letterPaper) letterPaper.classList.add("is-writing");
   typeInterval = setInterval(() => {
     element.textContent += text.charAt(index);
     index += 1;
     if (index >= text.length) {
       clearInterval(typeInterval);
       if (letterCursor) letterCursor.style.display = "none";
+      if (letterPaper) letterPaper.classList.remove("is-writing");
     }
   }, 80);
 };
@@ -248,6 +264,7 @@ letterButton?.addEventListener("click", () => {
       letterText.textContent = "Abre la carta y encuentra lo que te quiero decir.";
     }
     if (letterCursor) letterCursor.style.display = "none";
+    if (letterPaper) letterPaper.classList.remove("is-writing");
   }
   letterButton.textContent = letterOpen ? "Cerrar carta" : "Abrir carta";
 });
@@ -293,4 +310,87 @@ const launchSparkles = () => {
 
 celebrateButton?.addEventListener("click", () => {
   launchSparkles();
+});
+
+const giftTap = document.querySelector("#giftTap");
+const giftHold = document.querySelector("#giftHold");
+const giftSlider = document.querySelector("#giftSlider");
+const giftChallengeSteps = document.querySelectorAll(".gift-challenge__step");
+const tapCountLabel = document.querySelector("#tapCount");
+const giftTitle = document.querySelector("#giftTitle");
+const giftSubtitle = document.querySelector("#giftSubtitle");
+let tapCount = 0;
+let holdDone = false;
+let sliderDone = false;
+let holdTimer;
+
+const updateGiftChallenge = () => {
+  if (giftChallengeSteps[0]) {
+    giftChallengeSteps[0].classList.toggle("is-done", tapCount >= 3);
+  }
+  if (giftChallengeSteps[1]) {
+    giftChallengeSteps[1].classList.toggle("is-done", holdDone);
+  }
+  if (giftChallengeSteps[2]) {
+    giftChallengeSteps[2].classList.toggle("is-done", sliderDone);
+  }
+  if (tapCountLabel) {
+    tapCountLabel.textContent = `${Math.min(tapCount, 3)}/3`;
+  }
+  if (giftBox && tapCount >= 3 && holdDone && sliderDone) {
+    giftBox.classList.add("is-unlocked");
+    if (giftTitle) {
+      giftTitle.textContent = "Lo que te mereces desde hace tiempo";
+    }
+    if (giftSubtitle) {
+      giftSubtitle.textContent =
+        "Me pediste flores durante mucho tiempo, y por fin llega la primera: una rosa eterna azul eléctrico y una pulsera con infinito y corazón azul.";
+    }
+  }
+};
+
+const resetGiftChallenge = () => {
+  tapCount = 0;
+  holdDone = false;
+  sliderDone = false;
+  if (giftSlider) giftSlider.value = 0;
+  if (giftBox) giftBox.classList.remove("is-unlocked");
+  if (giftTitle) giftTitle.textContent = "Algo preparado solo para ti";
+  if (giftSubtitle) {
+    giftSubtitle.textContent =
+      "No quiero adelantarte nada… Solo quiero que lo descubras cuando lo consigas abrir.";
+  }
+  updateGiftChallenge();
+};
+
+giftTap?.addEventListener("click", () => {
+  tapCount += 1;
+  updateGiftChallenge();
+});
+
+giftHold?.addEventListener("pointerdown", () => {
+  holdTimer = setTimeout(() => {
+    holdDone = true;
+    updateGiftChallenge();
+  }, 2000);
+});
+
+giftHold?.addEventListener("pointerup", () => {
+  clearTimeout(holdTimer);
+});
+
+giftHold?.addEventListener("pointerleave", () => {
+  clearTimeout(holdTimer);
+});
+
+giftSlider?.addEventListener("input", (event) => {
+  const value = Number(event.target.value);
+  sliderDone = value >= 100;
+  updateGiftChallenge();
+});
+
+giftButton?.addEventListener("click", () => {
+  if (giftBox?.classList.contains("is-open")) {
+    resetGiftChallenge();
+  }
 });

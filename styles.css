@@ -783,21 +783,28 @@ button {
   right: 12px;
   bottom: 12px;
   height: 180px;
-  background: rgba(5, 6, 18, 0.9);
+  background: linear-gradient(180deg, rgba(12, 14, 32, 0.95), rgba(8, 9, 22, 0.95));
   border-radius: 12px;
   padding: 14px;
   overflow: auto;
   transform: translateY(40px);
   opacity: 0;
   transition: transform 0.6s ease, opacity 0.6s ease;
+  box-shadow: 0 10px 30px rgba(7, 9, 22, 0.7);
 }
 
 .letter__text {
   color: var(--text);
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.7;
   text-align: left;
   white-space: pre-wrap;
+  font-family: "Caveat", "Poppins", sans-serif;
+  letter-spacing: 0.2px;
+}
+
+.letter.is-writing {
+  box-shadow: 0 0 25px rgba(93, 123, 255, 0.35);
 }
 
 .letter::-webkit-scrollbar {
@@ -882,6 +889,176 @@ button {
   background: radial-gradient(circle at top, rgba(93, 123, 255, 0.1), transparent 50%);
 }
 
+.gift-showcase {
+  position: relative;
+  display: grid;
+  place-items: center;
+  gap: 10px;
+  padding: 24px 0 10px;
+}
+
+
+.gift-aura {
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(93, 123, 255, 0.35), transparent 70%);
+  filter: blur(10px);
+  animation: pulseAura 3.4s ease-in-out infinite;
+}
+
+.gift-orb {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(circle at top, rgba(255, 255, 255, 0.3), rgba(93, 123, 255, 0.25));
+  display: grid;
+  place-items: center;
+  box-shadow: 0 0 35px rgba(93, 123, 255, 0.5);
+  position: relative;
+}
+
+.gift-orb__rose {
+  font-size: 42px;
+  filter: drop-shadow(0 0 10px rgba(93, 123, 255, 0.4));
+}
+
+.gift-orb__spark {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.9);
+  top: 12px;
+  right: 18px;
+  animation: sparkle 2s ease-in-out infinite;
+}
+
+.gift-orb__spark--two {
+  top: auto;
+  bottom: 16px;
+  left: 18px;
+  animation-delay: 0.6s;
+}
+
+.gift-pedestal {
+  width: 140px;
+  height: 12px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.1), rgba(93, 123, 255, 0.3), rgba(255, 255, 255, 0.1));
+  box-shadow: 0 6px 18px rgba(7, 9, 22, 0.6);
+}
+
+.gift-caption {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.gift-challenge {
+  position: absolute;
+  inset: 16px;
+  background: rgba(7, 9, 22, 0.88);
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 16px;
+  display: grid;
+  gap: 12px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.gift-box.is-open .gift-challenge {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.gift-box.is-unlocked .gift-challenge {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.gift-challenge__title {
+  font-weight: 600;
+  text-align: center;
+}
+
+.gift-challenge__steps {
+  display: grid;
+  gap: 8px;
+}
+
+.gift-challenge__step {
+  background: rgba(255, 255, 255, 0.06);
+  padding: 10px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.gift-challenge__count {
+  display: inline-flex;
+  margin-left: 6px;
+  font-size: 11px;
+  color: var(--accent);
+}
+
+.gift-challenge__actions {
+  display: grid;
+  gap: 10px;
+  justify-items: center;
+}
+
+.gift-challenge__orb {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  border: none;
+  background: radial-gradient(circle at top, rgba(255, 255, 255, 0.4), rgba(93, 123, 255, 0.4));
+  color: var(--text);
+  font-size: 20px;
+  box-shadow: 0 0 18px rgba(93, 123, 255, 0.6);
+  animation: pulseAura 2.6s ease-in-out infinite;
+}
+
+.gift-challenge__hold {
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text);
+  font-size: 12px;
+}
+
+.gift-challenge__step.is-done {
+  color: var(--text);
+  border: 1px solid rgba(93, 123, 255, 0.6);
+}
+
+.gift-challenge__slider input {
+  width: 100%;
+}
+
+.gift-challenge__hint {
+  font-size: 11px;
+  text-align: center;
+  color: rgba(242, 245, 255, 0.6);
+}
+
+@keyframes pulseAura {
+  0%,
+  100% {
+    transform: scale(0.95);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+}
+
 .gift-box {
   position: relative;
   padding: 32px 24px 80px;
@@ -891,6 +1068,21 @@ button {
   box-shadow: var(--shadow);
   overflow: hidden;
   transition: transform 0.4s ease;
+}
+
+.gift-box.is-revealed {
+  box-shadow: 0 0 30px rgba(93, 123, 255, 0.4);
+}
+
+.gift-box__sparkles {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 20% 20%, rgba(93, 123, 255, 0.2), transparent 40%),
+    radial-gradient(circle at 80% 30%, rgba(255, 93, 162, 0.2), transparent 45%),
+    radial-gradient(circle at 50% 80%, rgba(255, 255, 255, 0.12), transparent 50%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
 }
 
 .gift-box:active {
@@ -934,14 +1126,46 @@ button {
   transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
+.gift-letter {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 12px 14px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
 .gift-item {
   background: rgba(255, 255, 255, 0.06);
   padding: 16px;
   border-radius: 16px;
 }
 
+.gift-item__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.gift-item__tags span {
+  font-size: 10px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+}
+
 .gift-item__icon {
   font-size: 28px;
+}
+
+.gift-quote {
+  text-align: center;
+  font-family: "Playfair Display", serif;
+  font-size: 16px;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.08);
+  padding: 12px 14px;
+  border-radius: 14px;
 }
 
 .gift-box__button {
@@ -962,9 +1186,20 @@ button {
   transform: rotateX(120deg);
 }
 
-.gift-box.is-open .gift-box__content {
+.gift-box.is-unlocked .gift-box__content {
   opacity: 1;
   transform: translateY(0);
+}
+
+.gift-box.is-open .gift-box__sparkles {
+  opacity: 1;
+}
+
+.gift-footer {
+  margin-top: 16px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--muted);
 }
 
 .promise__content {
