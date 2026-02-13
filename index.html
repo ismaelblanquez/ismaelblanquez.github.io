@@ -3,127 +3,295 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Portfolio de Ismael Blánquez - Senior Salesforce Developer.">
-    <meta name="theme-color" content="#0a192f">
-    <title>Ismael Blánquez | Senior Salesforce Developer</title>
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💼</text></svg>">
-    
+    <title>Para Yanoah ❤️</title>
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;600&family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- Font Awesome CDN (Fixed CORS) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
-    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-    <!-- Loader -->
-    <div id="loader" class="loader-container">
-        <div class="loader-logo">IB.</div>
-    </div>
+    <!-- Hero Section -->
+    <header>
+        <h1>Para Mi Princesa 💙</h1>
+        <p>Un viaje desde que todo empezó hasta el infinito...</p>
+        <div class="scroll-indicator">⬇</div>
+    </header>
 
-    <!-- Particle Background Canvas - Must be first -->
-    <canvas id="canvas-bg"></canvas>
-
-    <!-- Navigation -->
-    <nav id="navbar" class="navbar">
-        <div class="logo">IB.</div>
-        
-        <div class="menu-toggle" id="mobile-menu-btn">
-            <i class="fas fa-bars"></i>
-        </div>
-
-        <div class="nav-links" id="nav-links">
-            <ol>
-                <li><a href="#about"><span>01.</span> Sobre Mí</a></li>
-                <li><a href="#experience"><span>02.</span> Experiencia</a></li>
-                <li><a href="#skills"><span>03.</span> Habilidades</a></li>
-                <li><a href="#contact"><span>04.</span> Contacto</a></li>
-            </ol>
-        </div>
-    </nav>
-
-    <!-- Main Content -->
-    <main id="content">
-        <section class="hero" id="hero">
-            <p class="hero-greeting">Hola, mi nombre es</p>
-            <h1 id="hero-name" class="hero-title">Cargando...</h1>
-            <h2 class="hero-subtitle">Desarrollo soluciones en Salesforce.</h2>
-            <div id="hero-description" class="hero-description"></div>
-            <a href="#experience" class="btn-primary">Ver mi trabajo</a>
-        </section>
-
-        <section id="about" class="section">
-            <h2 class="section-heading"><span>01.</span> Sobre Mí</h2>
-            <div class="inner-grid">
-                <div class="about-text">
-                    <div id="about-text-content"></div>
-                    <ul id="tech-list" class="tech-grid"></ul>
-                </div>
-                <div class="about-image-container">
-                    <div class="image-wrapper">
-                        <div id="profile-image-slot"></div>
-                    </div>
-                    <div class="image-border"></div>
-                </div>
-            </div>
-        </section>
-
-        <section id="experience" class="section">
-            <h2 class="section-heading"><span>02.</span> Dónde he trabajado</h2>
-            <div id="timeline" class="timeline-container"></div>
-        </section>
-
-        <section id="skills" class="section">
-            <h2 class="section-heading"><span>03.</span> Educación y Certificaciones</h2>
-            <div class="skills-grid">
-                <div class="card cert-card">
-                    <div class="card-header">
-                        <i class="fas fa-certificate accent-icon"></i>
-                        <h3>Certificaciones</h3>
-                    </div>
-                    <div id="certifications-list" class="cert-list"></div>
-                </div>
-                <div class="card edu-card">
-                    <div class="card-header">
-                        <i class="fas fa-graduation-cap accent-icon"></i>
-                        <h3>Educación</h3>
-                    </div>
-                    <div id="education-list" class="edu-list"></div>
-                </div>
-            </div>
-        </section>
-
-        <section id="contact" class="section">
-            <span class="small-heading">04. ¿Qué sigue?</span>
-            <h2 class="big-heading">Ponte en Contacto</h2>
-            <p id="contact-desc" class="contact-desc"></p>
+    <!-- Timeline Story -->
+    <main>
+        <section id="story">
             
-            <div class="contact-actions">
-                <a id="contact-btn" href="" class="btn-primary">
-                    <i class="fas fa-paper-plane"></i> Enviar Mensaje
-                </a>
-                <a href="CV_Ismael_Blanquez.pdf" target="_blank" class="btn-resume-contact">
-                    <i class="fas fa-file-pdf"></i> Descargar Currículum
-                </a>
+            <!-- Month 1 -->
+            <div class="timeline-item">
+                <span class="date">27 Julio 2025 - 1 Mes</span>
+                <h2>El Comienzo de Algo Grande</h2>
+                <div class="content-container">
+                    <p class="content-preview">Buenos días mi princesa, espero que hayas podido dormir bien!!!<br><br>Hoy es 27, y es un mes desde que empezamos a caminar juntos con un propósito...</p>
+                    <div class="content-full">
+Supongo que tardarás en despertarte así que te voy a mandar un mensaje solo por no despertarte todavía, que tienes que descansar jeje…
+
+Hoy es 27, y es un día especial para nosotros. No deja de ser un día más, pero para mí es importante porque me recuerda que hemos continuado en nuestra relación un poco más. 
+
+Un mes parece no ser importante, pero en este último mes hemos vivido cosas increíbles juntos, nos hemos conocido más y estamos construyendo algo increíble juntos.
+
+Que vueltas da la vida eh, estoy planteándome ya ir allí y todo, vivir solo pero a tu lado, un cambio pero con enfoque, porque quiero que veas que no quiero correr contigo, sino caminar junto con el Señor a tu lado.
+
+Me está encantando estas etapas en las que ahora hemos formalizado el hacer un devocional y el orar juntos. Estamos enfocando muy bien nuestra relación y quiero que siga siendo así, el estar sobre la roca está siendo algo increíble. 
+
+Y si, te estoy amando demasiado, estoy enamorado hasta las pestañas, y me gusta ser crítico, pero sé que contigo es con quien quiero pasar el resto de mi vida.
+
+Y no quiero que te preocupes, no quiero que pienses que no vas a ser suficiente y no quiero que llegues a creer que en algún momento voy a dejar de quererte, porque siempre voy a amarte! 
+
+Ahora sí que estoy seguro de que lo que siento es amor. Que me transmites seguridad, paz, y que me estás acercando mucho más al Señor. Y no quiero que pienses que quiero correr, para nada. Quiero que pasemos por todas las etapas, quiero que hagamos todo bien. He aprendido de mis errores en el pasado, y quiero que vayamos despacio, quiero que aprendamos juntos y que nos ayudemos mutuamente. Te quiero a ti, para siempre, patdoalavida.
+
+Así que aunque sea una tontería quería escribirte esto, para que sepas lo que siento, lo que está pasando por mi cabeza estos días, que sepas que si! Que eres más que suficiente, eres más de lo que he pedido, eres la futura mujer de mis hijas y quiero disfrutar de mi vida pero a tu lado. 
+
+Y te voy a estar siempre agradecido, siempre te daré las gracias. Primero al Señor y después a ti también por elegirme. 
+
+Gracias mi amor por ser como eres, por estar cada día a mi lado, por haber orado por mí y haberme demostrado que me vas a cuidar hasta cuando esté malo. Sé que no me vas a fallar, y quiero que sepas que yo a ti tampoco. Y que vamos a estar siempre juntos para lo bueno y lo malo.
+
+Te amo, mi princesa preciosa ❤️
+
+Gracias, gracias y gracias! ❤️
+
+Un mes contigo… y estoy convencido de que quiero que sea una vida a tu lado❤️
+
+Hoy hacemos un mes juntos, y aunque para muchos pueda parecer “poco tiempo”, yo lo veo como el comienzo de algo muy grande para mi. No grande por la cantidad de días, sino por todo lo que este tiempo está significando para mí.
+
+Un mes desde que empezamos a caminar juntos con un propósito.
+Un mes desde que te di esa carta y desde que hicimos que esto tomase un nuevo sentido,  no solo para compartir buenos momentos contigo (que también), sino también una misma fe, sueños, y un mismo caminar.
+Un mes desde que comencé a ver en ti no solo a la chica que me gusta, sino a la compañera de vida con la que quiero honrar a Dios.
+
+No sabes cuánto valoro cada conversación que tengo contigo, cada sonrisa tuya que me llena de amor, de paz, cada mirada tuya que me hace sentir seguro y que me encanta. A tu lado, he descubierto lo bonito que es amar de forma sana, madura, y con Cristo en medio. Porque lo que estamos construyendo no es una historia cualquiera. Es una historia donde Dios tiene la pluma con la que la va escribiendo.
+
+Hay un versículo que me gusta mucho:
+“Sobre toda cosa guardada, guarda tu corazón, porque de él mana la vida” (Proverbios 4:23).
+Y créeme que mi deseo es guardar tu corazón como si fuera un tesoro. Cuidarte con mis palabras, con mis gestos, con mis decisiones. No hacerte sentir amada solo cuando todo es fácil, sino también cuando la vida nos exija ser pacientes, comprensivos y fieles al amor que hemos decidido vivir juntos.
+
+Quiero amarte como dice 1 Corintios 13: con paciencia, sin egoísmo, sin buscar lo mío, perdonando, creyendo, esperando y soportando. No porque lo sepa hacer perfecto, sino porque quiero esforzarme cada día por hacerlo mejor, contigo.
+
+Gracias por este primer mes. Gracias por ser como eres, por tu forma de apoyarme cuando lo necesito, por tu manera de hacerme sentir, escuchado y amado. Gracias por orar conmigo. Por animarme. Por creer en lo que estamos construyendo. Por tus abrazos. Por como eres. Por el tiempo que pasas siempre conmigo.
+
+Te prometo que esto no es pasajero. Estoy aquí, presente, constante… y con muchas ganas de seguir sumando meses, años y una vida contigo.
+
+No sé qué nos traerá el futuro, pero sé con quién quiero vivirlo y es contigo ❤️
+Feliz primer mes, mi amor.
+Esto acaba de empezar, y tengo mucha ilusión de poder formar parte de esto contigo, a tu lado y para siempre.
+Que Dios nos guíe, nos moldee, y nos enseñe a amar como Él nos ama.
+
+Te amo. Mucho y para siempre 
+Ismael ❤️ 27-Julio-2025 🦋❤️
+                    </div>
+                </div>
+                <button class="read-more-btn">Leer más...</button>
             </div>
+
+            <!-- Month 3 -->
+            <div class="timeline-item">
+                <span class="date">27 Octubre 2025 - 3 Meses</span>
+                <h2>Creciendo Juntos</h2>
+                <div class="content-container">
+                    <p class="content-preview">Hoy es 27 amor, hacemos 3 meses juntos… y puede que hayamos pasado por “pocas cosas” todavía, pero para mí está siendo un caminar super bonito...</p>
+                    <div class="content-full">
+Porque entre todas las cosas estamos manteniendo al Señor en el centro.
+
+Estamos creciendo un montón juntos y estoy aprendiendo muchísimo de ti. Estás dejando algo al lado tus vergüenzas y estoy descubriendo a la nueva Yanoah, la cual quiero que sepas que me encanta. De la cual, no cambiaría nada nunca.
+
+Espero que el Señor nos siga cuidando, como ha hecho estos meses pero ya para toda la vida, porque ya te he dicho que contigo voy en serio y quiero estar a tu lado para siempre.
+
+Es verdad que eres mucho más de lo que necesitaba, yo sierpe te he querido a ti y no lo sabía hasta que el Señor me lo ha demostrado, no eres consciente de lo feliz que estoy sierpe me encuentro contigo.
+
+Así que un mes más, te agradezco mucho que lo hayas podido pasar a mi lado, lo he disfrutado mucho y te pido que como estos, tengamos muchos más.
+
+Porque un día espero tener una familia contigo, y no me veo ni me veré nunca con nadie más.
+
+Gracias por ser como eres y por haber llegado a mi vida, eres increíble mi amor. Para mí y para el Señor siempre vas a ser perfecta! 
+
+Te amo con locura, feliz mesniversario jejejej
+                    </div>
+                </div>
+                <button class="read-more-btn">Leer más...</button>
+            </div>
+
+            <!-- Month 4 -->
+            <div class="timeline-item">
+                <span class="date">27 Noviembre 2025 - 4 Meses</span>
+                <h2>Aventuras y Desafíos</h2>
+                <div class="content-container">
+                    <p class="content-preview">4 meses ya eh, quien lo iba a decir!! Quien iba a decir que tú y yo acabaríamos juntos, escribiendo esta historia tan bonita...</p>
+                    <div class="content-full">
+Y el uno con el otro, sin olvidarnos de que es el Señor el que está escribiendo todo a nuestro lado. 
+
+Y es muy loco, el darme cuenta de todo lo que te amo, de lo que hemos pasado juntos ya, disfrutando el uno del otro en cada cosa por pequeña que sea…
+
+Hemos pasado por momentos buenos y por otros que nos han desafiado, y en este mes estaremos en medio de todo lo que tiene que ver con el piso y tú en medio de la uni y las prácticas… y ahí en medio de todo estaremos juntos para apoyarnos en lo que haga falta junto con el Señor.
+
+Este mes me ha enseñado mucho más de ti, últimamente tienes menos miedo a cantar a mi lado, has perdido vergüenzas y también estamos aprendiendo a estar juntos, estoy seguro de que vamos a vivir muchas más aventuras juntos, y esta me está encantando no te voy a mentir.
+
+Simplemente quería recordarte todo lo que voy a amarte, que no quiero estar con nadie más, que quiero estar contigo y para siempre. Que aunque pasemos por malos momentos, que seguro que los tendremos, no pienso tirar la toalla, porque no soy de las personas que se rinden fácilmente. 
+
+Quiero que sepas que me encanta cada detalle de ti, por pequeño que parezca, el cómo eres, el cómo me siento estando contigo, el cómo me cuidas, el cómo te preocupas por mí y cuidas cada detalle…
+
+Eres increíble amor, y me lo estás demostrando cada día, y estoy tremendamente agradecido al Señor de que puedas formar parte de mi vida.
+
+Porque sabes que es más loco? Que algún día estaremos juntos, casados, y algún día conformaremos una familia, seremos uno… y si, es mi visión de nuestra relación, te veo ya así y no porque tenga prisa, sino porque contigo quiero ir en serio, a mi me pareces increible y te lo pienso dejar claro cada día.
+
+4 meses, parece poco pero si vivimos 3 veces más esto que hemos vivido ya haremos el año, y el tiempo pasa mucho más rápido de lo que parece.
+
+Te quiero pedir un favor, quiero que seas fuerte, que no te rindas tampoco, porque no siempre estaré al 100%, a veces como humano que soy, estaré triste, cansado, hablaré peor o no estaré a la altura, y quiero pedirte perdón por ello, porque me encantaría ser el hombre perfecto para ti cada día, pero soy realista, y no lo soy. Ese es Can Yaman… jejeje 
+
+Pero ahora fuera de bromas, no soy perfecto, fallo muchas veces y quiero que seas capaz de perdonarme, porque yo te prometo que desde el primer día estoy dando todo lo que puedo de mí por ti, estoy esforzándome para estar a la altura de lo que mereces, porque eres increíble, y mereces todo en esta vida, pero por desgracia no te lo puedo dar. 
+
+Así que te pido que confíes en el Señor primero, y que cuando te falle te acuerdes de que soy humano, y que lo primero que hagas es ir al Señor y después conmigo, quiero que sigamos siendo transparentes, que es la huella que nos está definiendo como relación, que desde el principio seamos capaces de hablar de cualquier cosa por mucho que pueda dolernos, porque yo creo que esa es la base de lo que estamos construyendo, quiero que sigamos en la misma línea, quiero seguir amándote como lo estoy haciendo hasta ahora, porque me estás demostrando cada día que tengo que hacerlo porque eres tú la persona que el Señor ha puesto en mi vida.
+
+Y sé que muchas veces piensas que no, piensas que un fallo tuyo puede costarnos la relación, que como estamos en ese periodo de prueba que es el noviazgo, existe la posibilidad de que te deje. 
+
+Para el carro monada, quiero que sepas que eso no va a pasar, quiero estar contigo por muchísimas razones, estoy enamorado de ti por muchísimas razones, quiero casarme contigo por muchísimas razones, quiero tener una familia a tu lado por muchísimas razones, pero no tengo *NINGUNA* razón para dejarte.
+
+Y quiero que cuando te pase eso por la cabeza tengas la libertad de contármelo, así yo tendré la libertad de decirte que eso no va a pasar, porque yo cuando decido estar con una persona lo estaré hasta el final, y más si es contigo, porque tú me has enseñado lo que es amar de verdad, lo que es mejorar cada día, me has dado una razón más por la que agradecer cada dia el regalo que es estar a tu lado, y quiero poder seguir celebrando meses juntos.
+
+No me quiero extender más porque me da la sensación de que esto ya va a ser muy largo, pero prefiero que te entretengas leyendo esto, porque sale de mi corazón, ❤️ un corazón completamente enamorado de la chica con la que quiere pasar el resto de su vida, así que Yanoah, gracias por estos 4 meses que me has regalado, que sigamos teniendo muchos más juntos y sigamos fortaleciendo así nuestra relación. Te amo con locura hoy y siempre, en lo bueno y en lo mejor ❤️🥰 *27* 🦆✨
+                    </div>
+                </div>
+                <button class="read-more-btn">Leer más...</button>
+            </div>
+
+            <!-- Month 5 -->
+            <div class="timeline-item">
+                <span class="date">27 Diciembre 2025 - 5 Meses</span>
+                <h2>Pruebas de Fuego</h2>
+                <div class="content-container">
+                    <p class="content-preview">“El amor es paciente, es bondadoso...” 5 meses ya, mi amor… ¡quién nos lo iba a decir! Hoy, al escribirte esto, me doy cuenta de que este mes no ha sido un mes cualquiera.</p>
+                    <div class="content-full">
+El amor no es envidioso. El amor no es engreído ni orgulloso. No actúa con bajeza ni busca su propio bien; no se irrita ni piensa mal; no se alegra con la injusticia, sino que se alegra con la verdad. Todo lo sufre, todo lo cree, todo lo espera, todo lo soporta.”
+1 CORINTIOS 13:4-7 RV2020
+
+Ha sido un mes de pruebas de fuego. Sé que hemos tenido a mucha gente en nuestra contra, que hemos escuchado ruido fuera y que no ha sido fácil mantener la paz en medio de la tormenta. Pero, ¿sabes qué? Justo eso me hace estar más seguro de lo nuestro. Porque aunque muchos se pusieran en contra, el Señor nos ha estado guardando, nos ha protegido y nos ha demostrado que cuando Él está en el centro, nada ni nadie puede derrumbar lo que estamos construyendo.
+
+Y sé que también ha habido mucha incertidumbre, sobre todo con el tema del piso, con mis dudas, con no saber qué iba a pasar… pero Dios es fiel, Yanoah. Y mira cómo son las cosas: después de toda esa incertidumbre, el regalo que me trae este nuevo mes es que lo voy a pasar cerca de ti. Se acabaron las dudas con la mudanza, ahora toca disfrutar de tenernos más cerca, de poder apoyarte mejor en tu día a día y de seguir creciendo juntos.
+
+Quiero darte las gracias por mantenerte firme, por confiar en el Señor y en mí, incluso cuando las cosas se ponían feas. Me has demostrado una vez más la mujer increíble que eres.
+
+Este mes me ha confirmado que no importa la oposición que tengamos, porque yo tengo clara mi meta: mi meta eres tú, es formar esa familia contigo algún día, es servir a Dios a tu lado. Que el mundo diga lo que quiera, que nosotros seguiremos caminando con la mirada puesta en el Señor.
+
+Te prometo que en este nuevo mes, ahora que estaré más cerca, me voy a esforzar aún más por cuidarte, por ser ese apoyo que necesitas y por recordarte cada día por qué te elegí. No soy perfecto, lo sabes, sigo teniendo mis fallos y mis días "humanos", pero quiero comprometerme a ello contigo.
+
+Gracias por estos 5 meses, por ser mi compañera de batallas y de buenos momentos. Estoy deseando ver todo lo que Dios tiene preparado para nosotros ahora que empieza esta nueva etapa más cerquita el uno del otro.
+
+Te amo con locura, hoy, mañana y siempre. Eres el regalo más bonito que me ha dado el Señor. ¡Felices 5 meses, amor!
+“Si Dios es por nosotros, ¿quién contra nosotros?”
+— Romanos 8:31
+Ismael ❤️ 27 🦆✨
+                    </div>
+                </div>
+                <button class="read-more-btn">Leer más...</button>
+            </div>
+
+            <!-- Month 6 (Christmas & New Year) -->
+            <div class="timeline-item">
+                <span class="date">Enero 2026 - 6 Meses y Año Nuevo</span>
+                <h2>Medio Año y un Nuevo Comienzo</h2>
+                <div class="content-container">
+                    <p class="content-preview">6 meses juntos, quien lo iba a decir? Si hace un año me hacían apostar por si mi vida iba a ser como está siendo ahora, hubiera perdido seguro...</p>
+                    <div class="content-full">
+**Navidad y 6 Meses:**
+Buenos días amor ❤️ FELIZ NAVIDAD 🎄🎁❤️ 
+
+Nuestra primera navidad juntitos eh, quien lo iba a decir? en unos días hacemos medio añito juntos… quien lo iba a decir? Estoy allí en la Puebla contigo, quien lo iba a decir? Jejeje 
+
+La verdad es que mi vida ha dado un cambio bastante brusco estos meses, pero muy para bien, y te estoy muy agradecido de lo que estás haciendo en mi vida. Gracias por ser como eres, por ser esa ayuda idónea que el Señor me ha dado.
+
+Y te quiero seguir pidiendo paciencia para estar conmigo, soy bastante imperfecto como habrás podido observar y aún así, en los momentos complicados quiero que sepas que siempre te voy a amar, que te quiero proteger, que te quiero defender, que te AMO hoy y SIEMPRE! 
+
+así que te agradezco este tiempo a mi lado, estas risas, los buenos momentos que hemos disfrutado hasta ahora y los que nos quedan por disfrutar agradezco tanto que estés a mi lado que no soy capaz de expresarlo ni en mil mensajes.
+
+Te amo mucho amor, estoy súper orgulloso de ti.
+
+Ah por cierto, ayer me entraron a casa, un goldo lojo con una lalga balba blanca… le di con mis luchacos y no ofreció mucha resistencia… tenía dos regalos, por si cuando te despiertes quieres que te los lleve, que creo que iban para ti!
+
+**Año Nuevo 2026:**
+Feliz 2026, mi amor! ❤️🥳🎄🎁🫂
+Se me hace increíble estar escribiéndote esto. Si me llegan a decir a principios de 2025 que iba a terminar el año así, con el corazón tan lleno y con una mujer tan increíble a mi lado, no me lo hubiera creído. Gracias, Yanoah. Gracias por formar parte de mi vida en este 2025, por haber llegado para revolucionarlo todo y por ser esa compañera que tanto le pedí a Dios sin saberlo.
+Gracias por cómo eres, por tu paciencia, por cómo me estás enseñando a amar mejor y por cada momento que hemos disfrutado juntos estos meses. Miro atrás y veo que, a pesar de todo lo que hemos tenido en contra, lo bueno supera a todo lo demás por goleada.
+Y ahora… hola 2026! 
+Sé que este nuevo año vendrá cargado de sorpresas. Soy realista y sé que tendremos momentos de cima y momentos de valle, días de reírnos hasta que nos duela la tripa y días más complicados en los que nos dolerá la tripa pero sin reírnos. Pero tengo una cosa muy clara en esta vida 😜 en todos ellos vamos a estar juntos. Quiero que entremos a este año agarrados de la mano, pero sobre todo, agarrados del Señor. Porque si nos mantenemos firmes en Él, sabiendo que Él es lo primero, no habrá nada que nos pueda tumbar.
+Me acordaba antes de esa historia que me contabas de "tomar las uvas debajo de la mesa" para encontrar pareja… Me hace gracia, porque yo sigo creyendo que lo nuestro no fue suerte, ni rituales, ni casualidad. Fue el Señor quien orquestó todo para juntarnos. Él sabía que yo te necesitaba a ti y que tú me necesitabas a mí. Y llegar hasta aquí, juntos y fortalecidos, es la prueba de Su fidelidad.
+Estoy súper orgulloso de ti, amor. De la mujer que eres, de lo que estás logrando contigo misma y de la novia increíble que eres conmigo. Me inspiras a querer ser mejor hombre cada día.
+Que este 2026 sea solo el primer capítulo completo de toda una vida a tu lado. Quiero seguir sumando años, canas y experiencias contigo hoy y siempre.
+Vamos a comernos este año (además de las uvas). Estoy listo para todo lo que viene, siempre que sea contigo.
+Te amo con locura, a disfrutar de nuestro año! ❤️🦆✨
+                    </div>
+                </div>
+                <button class="read-more-btn">Leer más...</button>
+            </div>
+
+            <!-- Month 7 (Current) -->
+            <div class="timeline-item">
+                <span class="date">27 Febrero 2026 - 7 Meses</span>
+                <h2>Wooooow 7 meses juntos!!! ❤️🦆✨</h2>
+                <div class="content-container">
+                    <p class="content-preview">Aunque tarde un poco en acostarme por escribir esto merece la pena, porque sé que será con lo que te levantes mañana...</p>
+                    <div class="content-full">
+Estarás ahora recién despierta y cuando veas que te ha llegado un mensaje, espero que lo leas con ilusión jejeje… 
+
+Y es que el 7 es un número especial, el 2 también… y quería escribirte porque para mí tú estás siendo súper especial ❤️
+
+Este mes hemos vivido un poco de todo, pero hemos estado cuanto más cerca y casi a la vez cuanto más lejos, entre la perrita, el piso, tus exámenes… casi no hemos podido estar juntos. Aún así, cada minuto que he podido pasar a tu lado ha merecido la pena, y pagaría por volver a repetir cada uno lo que hiciera falta.
+
+Estoy súper contento y agradecido de estar contigo, de que estemos construyendo esta historia juntos, y de poder decir oficialmente que ya estamos más cerca del año juntos que de cuando empezamos, ya hemos pasado la mitad de nuestro primer añito jejej… 
+
+Y es cierto que cada día sigo aprendiendo más cosas de ti y contigo, y quiero que sepas que me estás encantando y cada día más, que no quiero que te preocupes por cosas que no van a suceder, que quiero que siempre seas feliz porque te amo con locura y esto ya es para siempre te guste o no jejeje.
+
+Te amo demasiado amor, y quiero que lo tengas presente para el resto de tu vida, cuando pases por buenos momentos y por malos, quiero pasarlo contigo.
+
+Este mes que nos viene pienso que va a ser bonito y duro, porque va a ser la preparación para la boda y esto cierto que va a ser un cúmulo de emociones, pero pienso que voy a disfrutar mucho cantando contigo.
+
+Amor gracias por todo y te quiero pedir perdón si te he hecho daño, te pido perdón si te he fallado en algún momento o si no he llegado a lo que mereces, espero estar siempre a la altura, te amo muchísimo y siempre te amaré! Feliz mesniversario ✨❤️🦆
+                    </div>
+                </div>
+                <button class="read-more-btn">Leer más...</button>
+            </div>
+
+        </section>
+
+        <!-- Gift Section -->
+        <section id="gift">
+            <h2 style="margin-bottom: 20px;">Tengo algo para ti...</h2>
+            <p style="margin-bottom: 30px; opacity: 0.8;">Toca la caja para descubrirlo 💙</p>
             
-            <div class="social-links-footer" id="social-links"></div>
+            <div class="gift-box-container">
+                <div class="gift-box">🎁</div>
+                
+                <div class="gift-reveal">
+                    <div class="gift-item">
+                        <img src="assets/blue-rose.png" alt="Rosa Azul Eterna">
+                        <h3>Rosa Eterna Azul Eléctrico</h3>
+                        <p>Como nuestro amor, que nunca se marchita 💙</p>
+                    </div>
+                    
+                    <div class="gift-item">
+                        <img src="assets/bracelet.png" alt="Pulsera Infinito">
+                        <h3>Infinito y Corazón Azul</h3>
+                        <p>Para recordarte que mi corazón es tuyo, para siempre.</p>
+                    </div>
+
+                    <div class="final-message">
+                        Te amo, Yanoah. Feliz San Valentín.
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
 
-    <!-- Footer -->
     <footer>
-        <p>Diseñado y construido por <span class="accent">Ismael Blánquez</span></p>
+        <p>Hecho con todo mi amor para ti ❤️ - Ismael</p>
     </footer>
 
-    <!-- Scripts -->
-    <script src="config.js"></script>
-    <script src="utils.js"></script>
-    <script src="script.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>
