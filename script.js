@@ -161,7 +161,7 @@ const notes = [
   "Mi meta eres tú, y quiero caminar contigo siempre.",
   "Gracias por cuidarme y por hacerme sentir en casa.",
   "No hay nada que me guste más que verte sonreír.",
-  "Contigo aprendí lo que es amar bonito.",
+  "Contigo aprendí lo que es amar de verdad.",
   "Eres mi princesa preciosa, hoy y siempre.",
   "Gracias por estar conmigo en lo bueno y en lo difícil.",
 ];
@@ -205,7 +205,7 @@ let reasons = [
   "Porque me haces sentir seguro",
   "Porque eres mi compañera",
   "Porque me apoyas siempre",
-  "Porque me enseñas a amar bonito",
+  "Porque me enseñas a amar de verdad",
   "Porque contigo soy mejor hombre",
   "Porque eres mi alegría diaria",
   "Porque me haces reír en serio",
