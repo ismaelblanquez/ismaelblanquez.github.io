@@ -9,30 +9,50 @@ smoothLinks.forEach((button) => {
   });
 });
 
-const giftBox = document.querySelector("[data-gift]");
-const giftButton = document.querySelector(".gift-box__button");
+const giftStage = document.querySelector("#giftStage");
+const giftReveal = document.querySelector("#giftReveal");
+const giftVouchers = document.querySelector("#giftVouchers");
+const giftRevealButton = document.querySelector("#giftRevealButton");
 
-if (giftBox && giftButton) {
-  giftButton.addEventListener("click", () => {
-    giftBox.classList.toggle("is-open");
-    giftBox.classList.add("is-revealed");
-    giftButton.textContent = giftBox.classList.contains("is-open")
-      ? "Cerrar sorpresa"
-      : "Abrir sorpresa";
-    if (giftBox.classList.contains("is-open")) {
-      const rect = giftBox.getBoundingClientRect();
-      for (let i = 0; i < 18; i += 1) {
-        const spark = document.createElement("span");
-        spark.className = "spark";
-        spark.style.left = `${rect.left + rect.width * (0.3 + Math.random() * 0.4)}px`;
-        spark.style.top = `${rect.top + rect.height * (0.2 + Math.random() * 0.4)}px`;
-        spark.style.position = "fixed";
-        document.body.appendChild(spark);
-        setTimeout(() => spark.remove(), 700);
-      }
+const openGiftPortal = () => {
+  if (giftStage?.classList.contains("is-open")) return;
+  giftStage?.classList.add("is-open");
+  setTimeout(() => giftReveal?.classList.add("is-open"), 500);
+  setTimeout(() => giftVouchers?.classList.add("is-open"), 1200);
+  const rect = giftStage?.getBoundingClientRect();
+  if (!rect) return;
+  for (let i = 0; i < 20; i += 1) {
+    const spark = document.createElement("span");
+    spark.className = "spark";
+    spark.style.left = `${rect.left + rect.width * (0.2 + Math.random() * 0.6)}px`;
+    spark.style.top = `${rect.top + rect.height * (0.2 + Math.random() * 0.6)}px`;
+    spark.style.position = "fixed";
+    document.body.appendChild(spark);
+    setTimeout(() => spark.remove(), 700);
+  }
+  setTimeout(() => {
+    const vouchersRect = giftVouchers?.getBoundingClientRect();
+    if (!vouchersRect) return;
+    for (let i = 0; i < 18; i += 1) {
+      const spark = document.createElement("span");
+      spark.className = "spark";
+      spark.style.left = `${vouchersRect.left + vouchersRect.width * (0.2 + Math.random() * 0.6)}px`;
+      spark.style.top = `${vouchersRect.top + vouchersRect.height * (0.2 + Math.random() * 0.6)}px`;
+      spark.style.position = "fixed";
+      document.body.appendChild(spark);
+      setTimeout(() => spark.remove(), 700);
     }
-  });
-}
+  }, 1250);
+};
+
+giftRevealButton?.addEventListener("click", () => {
+  openGiftPortal();
+  if (giftTitle) giftTitle.textContent = "Lo que te mereces desde hace tiempo";
+  if (giftSubtitle) {
+    giftSubtitle.textContent =
+      "Me pediste flores durante mucho tiempo, y por fin llega la primera: una rosa eterna azul eléctrico y una pulsera con infinito y corazón azul.";
+  }
+});
 
 const heartsContainer = document.createElement("div");
 heartsContainer.className = "floating-hearts";
@@ -296,101 +316,25 @@ patoButton?.addEventListener("click", () => {
 });
 
 const celebrateButton = document.querySelector("#celebrateButton");
-const launchSparkles = () => {
-  for (let i = 0; i < 12; i += 1) {
+const heartStage = document.querySelector("#heartStage");
+const launchSparkles = (origin) => {
+  if (!origin) return;
+  const rect = origin.getBoundingClientRect();
+  for (let i = 0; i < 24; i += 1) {
     const spark = document.createElement("span");
     spark.className = "spark";
-    spark.style.left = `${50 + (Math.random() * 40 - 20)}%`;
-    spark.style.top = `${30 + Math.random() * 20}%`;
+    spark.style.left = `${rect.left + rect.width * (0.2 + Math.random() * 0.6)}px`;
+    spark.style.top = `${rect.top + rect.height * (0.2 + Math.random() * 0.6)}px`;
     spark.style.position = "fixed";
     document.body.appendChild(spark);
-    setTimeout(() => spark.remove(), 600);
+    setTimeout(() => spark.remove(), 700);
   }
 };
 
 celebrateButton?.addEventListener("click", () => {
-  launchSparkles();
+  heartStage?.classList.add("is-active");
+  launchSparkles(heartStage);
 });
 
-const giftTap = document.querySelector("#giftTap");
-const giftHold = document.querySelector("#giftHold");
-const giftSlider = document.querySelector("#giftSlider");
-const giftChallengeSteps = document.querySelectorAll(".gift-challenge__step");
-const tapCountLabel = document.querySelector("#tapCount");
 const giftTitle = document.querySelector("#giftTitle");
 const giftSubtitle = document.querySelector("#giftSubtitle");
-let tapCount = 0;
-let holdDone = false;
-let sliderDone = false;
-let holdTimer;
-
-const updateGiftChallenge = () => {
-  if (giftChallengeSteps[0]) {
-    giftChallengeSteps[0].classList.toggle("is-done", tapCount >= 3);
-  }
-  if (giftChallengeSteps[1]) {
-    giftChallengeSteps[1].classList.toggle("is-done", holdDone);
-  }
-  if (giftChallengeSteps[2]) {
-    giftChallengeSteps[2].classList.toggle("is-done", sliderDone);
-  }
-  if (tapCountLabel) {
-    tapCountLabel.textContent = `${Math.min(tapCount, 3)}/3`;
-  }
-  if (giftBox && tapCount >= 3 && holdDone && sliderDone) {
-    giftBox.classList.add("is-unlocked");
-    if (giftTitle) {
-      giftTitle.textContent = "Lo que te mereces desde hace tiempo";
-    }
-    if (giftSubtitle) {
-      giftSubtitle.textContent =
-        "Me pediste flores durante mucho tiempo, y por fin llega la primera: una rosa eterna azul eléctrico y una pulsera con infinito y corazón azul.";
-    }
-  }
-};
-
-const resetGiftChallenge = () => {
-  tapCount = 0;
-  holdDone = false;
-  sliderDone = false;
-  if (giftSlider) giftSlider.value = 0;
-  if (giftBox) giftBox.classList.remove("is-unlocked");
-  if (giftTitle) giftTitle.textContent = "Algo preparado solo para ti";
-  if (giftSubtitle) {
-    giftSubtitle.textContent =
-      "No quiero adelantarte nada… Solo quiero que lo descubras cuando lo consigas abrir.";
-  }
-  updateGiftChallenge();
-};
-
-giftTap?.addEventListener("click", () => {
-  tapCount += 1;
-  updateGiftChallenge();
-});
-
-giftHold?.addEventListener("pointerdown", () => {
-  holdTimer = setTimeout(() => {
-    holdDone = true;
-    updateGiftChallenge();
-  }, 2000);
-});
-
-giftHold?.addEventListener("pointerup", () => {
-  clearTimeout(holdTimer);
-});
-
-giftHold?.addEventListener("pointerleave", () => {
-  clearTimeout(holdTimer);
-});
-
-giftSlider?.addEventListener("input", (event) => {
-  const value = Number(event.target.value);
-  sliderDone = value >= 100;
-  updateGiftChallenge();
-});
-
-giftButton?.addEventListener("click", () => {
-  if (giftBox?.classList.contains("is-open")) {
-    resetGiftChallenge();
-  }
-});

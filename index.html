@@ -419,17 +419,17 @@
 
       <section class="section mystery" id="misterio">
         <div class="section__header">
-          <p class="section__eyebrow">El misterio de las flores</p>
+          <p class="section__eyebrow">El misterio del detalle</p>
           <h2>¿Por qué tardé tanto?</h2>
           <p>
-            Mi amor, sé que llevas tiempo esperando una flor. Siete meses, para ser exactos. Y te
-            preguntarás por qué nunca llegaba…
+            Mi amor, sé que llevas tiempo esperando un detalle. Siete meses, para ser exactos. Y
+            te preguntarás por qué nunca llegaba…
           </p>
         </div>
         <div class="mystery__text" data-reveal>
           <p>
-            No era porque no quisiera. Era porque ninguna flor normal me parecía suficiente. Una
-            rosa común es preciosa, pero se marchita en unos días. Y lo nuestro no se marchita.
+            No era porque no quisiera. Era porque nada normal me parecía suficiente. Lo nuestro
+            no es algo de pocos días, es algo que quiero cuidar para siempre.
           </p>
           <p>
             Estaba buscando algo que se pareciera a nosotros: único, diferente, y sobre todo, que
@@ -479,88 +479,86 @@
             No quiero adelantarte nada… Solo quiero que lo descubras cuando lo consigas abrir.
           </p>
         </div>
-        <div class="gift-showcase" data-reveal>
-          <div class="gift-aura" aria-hidden="true"></div>
-          <div class="gift-orb">
-            <span class="gift-orb__rose">🌹</span>
-            <span class="gift-orb__spark"></span>
-            <span class="gift-orb__spark gift-orb__spark--two"></span>
-          </div>
-          <div class="gift-pedestal"></div>
-          <p class="gift-caption">Preparado con mucho amor y mucha intención.</p>
-        </div>
-        <div class="gift-box" data-gift>
-          <div class="gift-box__lid"></div>
-          <div class="gift-box__body"></div>
-          <div class="gift-box__ribbon"></div>
-          <div class="gift-box__sparkles" aria-hidden="true"></div>
-          <div class="gift-challenge" id="giftChallenge">
-            <p class="gift-challenge__title">Desbloquea tu sorpresa</p>
-            <div class="gift-challenge__steps">
-              <div class="gift-challenge__step" data-step="1">
-                Toca la esfera 3 veces. <span class="gift-challenge__count" id="tapCount">0/3</span>
+        <div class="gift-portal" data-reveal>
+          <div class="gift-portal__stage" id="giftStage">
+            <div class="gift-portal__halo"></div>
+            <div class="gift-box" aria-hidden="true">
+              <div class="gift-box__lid">
+                <span class="gift-box__seal">🦆</span>
+                <span class="gift-box__ribbon"></span>
               </div>
-              <div class="gift-challenge__step" data-step="2">Mantén pulsado 2 segundos.</div>
-              <div class="gift-challenge__step" data-step="3">Desliza el sello hasta el final.</div>
-            </div>
-            <div class="gift-challenge__actions">
-              <button class="gift-challenge__orb" id="giftTap" type="button" aria-label="Tocar esfera">
-                ✨
-              </button>
-              <button class="gift-challenge__hold" id="giftHold" type="button">
-                Mantener pulsado
-              </button>
-            </div>
-            <div class="gift-challenge__slider">
-              <input
-                id="giftSlider"
-                type="range"
-                min="0"
-                max="100"
-                value="0"
-                aria-label="Desliza para abrir"
-              />
-            </div>
-            <p class="gift-challenge__hint">Cuando lo consigas, la sorpresa se revela.</p>
-          </div>
-          <div class="gift-box__content">
-            <div class="gift-letter">
-              <p>
-                Esta no es una flor cualquiera. Es la primera, la esperada, la que dice “te elijo
-                siempre”.
-              </p>
-            </div>
-            <div class="gift-item" data-reveal>
-              <span class="gift-item__icon">🌹</span>
-              <h3>Rosa eterna azul</h3>
-              <p>Para recordarte que quiero cuidarte cada día durante años.</p>
-              <div class="gift-item__tags">
-                <span>3 años</span>
-                <span>Azul eléctrico</span>
-                <span>Primera flor</span>
+              <div class="gift-box__base">
+                <span class="gift-box__ribbon"></span>
               </div>
             </div>
-            <div class="gift-item" data-reveal>
-              <span class="gift-item__icon">♾️</span>
-              <h3>Pulsera infinito</h3>
-              <p>Un infinito con corazón azul, como símbolo de nuestro “siempre”.</p>
-              <div class="gift-item__tags">
-                <span>Infinito</span>
-                <span>Corazón azul</span>
-                <span>Para siempre</span>
-              </div>
+            <h3>Un regalo con historia</h3>
+            <p>
+              Toca el regalo para abrirlo. Lo que viene está hecho con todo mi amor.
+            </p>
+            <button class="hero__cta" id="giftRevealButton" type="button">Abrir regalo</button>
+          </div>
+          <div class="gift-portal__reveal" id="giftReveal">
+            <div class="gift-portal__item">
+              <span class="gift-portal__icon">🌹</span>
+              <h4>Rosa eterna azul eléctrico</h4>
+              <p>La primera, la esperada, la que dura años como lo nuestro.</p>
             </div>
-            <div class="gift-quote" data-reveal>
-              “Lo nuestro no se marchita.”
+            <div class="gift-portal__item">
+              <span class="gift-portal__icon">♾️</span>
+              <h4>Pulsera infinito con corazón azul</h4>
+              <p>Un símbolo de lo que somos: siempre, patdoalavida.</p>
             </div>
           </div>
-          <button class="gift-box__button" type="button">Abrir sorpresa</button>
-        </div>
-        <div class="gift-footer" data-reveal>
-          <p>
-            Esta es nuestra primera flor, y por eso tenía que ser especial. No es solo un regalo,
-            es una promesa en tus manos.
-          </p>
+          <div class="gift-portal__vouchers" id="giftVouchers">
+            <div class="voucher">
+              <div class="voucher__shine" aria-hidden="true"></div>
+              <div class="voucher__tag">Vale 01</div>
+              <div class="voucher__stamp">Canjeable</div>
+              <h4>Vale por una cena juntos</h4>
+              <p>Yo invito, tú eliges el sitio y yo pongo el cariño.</p>
+              <div class="voucher__code">VAL-27</div>
+            </div>
+            <div class="voucher">
+              <div class="voucher__shine" aria-hidden="true"></div>
+              <div class="voucher__tag">Vale 02</div>
+              <div class="voucher__stamp">Para siempre</div>
+              <h4>Vale por un abrazo infinito</h4>
+              <p>Sin tiempo, sin prisa, solo tú y yo.</p>
+              <div class="voucher__code">INF-02</div>
+            </div>
+            <div class="voucher">
+              <div class="voucher__shine" aria-hidden="true"></div>
+              <div class="voucher__tag">Vale 03</div>
+              <div class="voucher__stamp">Sorpresa</div>
+              <h4>Vale por una cita sorpresa</h4>
+              <p>Confía en mí, quiero verte sonreír.</p>
+              <div class="voucher__code">CIT-07</div>
+            </div>
+            <div class="voucher">
+              <div class="voucher__shine" aria-hidden="true"></div>
+              <div class="voucher__tag">Vale 04</div>
+              <div class="voucher__stamp">Plan</div>
+              <h4>Vale por una tarde de pelis</h4>
+              <p>Palomitas, manta y tú cerquita.</p>
+              <div class="voucher__code">PEL-14</div>
+            </div>
+            <div class="voucher">
+              <div class="voucher__shine" aria-hidden="true"></div>
+              <div class="voucher__tag">Vale 05</div>
+              <div class="voucher__stamp">Paseo</div>
+              <h4>Vale por un paseo de la mano</h4>
+              <p>Sin destino, solo nosotros.</p>
+              <div class="voucher__code">PAS-22</div>
+            </div>
+            <div class="voucher">
+              <div class="voucher__shine" aria-hidden="true"></div>
+              <div class="voucher__tag">Vale 06</div>
+              <div class="voucher__stamp">Carta</div>
+              <h4>Vale por una carta escrita a mano</h4>
+              <p>Con todo lo que no me cabe en un mensaje.</p>
+              <div class="voucher__code">CAR-27</div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -624,6 +622,14 @@
           <p>Un toque y se enciende todo lo bonito que siento por ti.</p>
         </div>
         <button class="hero__cta" id="celebrateButton" type="button">Lanzar brillo</button>
+        <div class="heart-stage" id="heartStage" aria-live="polite">
+          <div class="heart"></div>
+          <div class="heart__text">
+            <h3 class="heart__title">Feliz San Valentín</h3>
+            <p class="heart__names">Yanoah &amp; Ismael</p>
+            <p class="heart__date">14 · 02 · 2026</p>
+          </div>
+        </div>
       </section>
     </main>
 
