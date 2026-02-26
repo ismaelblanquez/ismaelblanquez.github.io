@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>8 Meses · Yanoah & Ismael</title>
+    <meta name="description" content="8 meses de nuestra historia. Una experiencia interactiva llena de amor." />
+
+    <!-- Tipografías -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet" />
+
+    <!-- Estilos -->
+    <link rel="stylesheet" href="../styles/shared.css" />
+    <link rel="stylesheet" href="../styles/ocho-meses.css" />
+</head>
+
+<body>
+    <!-- Ambiente visual -->
+    <div class="ambient-bg" aria-hidden="true">
+        <div class="orb orb--accent"></div>
+        <div class="orb orb--rose"></div>
+        <div class="orb orb--teal"></div>
+    </div>
+    <div class="particles" aria-hidden="true"></div>
+
+    <!-- Barra de lectura -->
+    <div class="reading-progress" aria-hidden="true">
+        <div class="reading-progress__bar"></div>
+    </div>
+
+    <!-- Botón volver -->
+    <a href="../" class="back-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7" />
+        </svg>
+        Inicio
+    </a>
+
+    <!-- =============================================
+         INTRO CINEMÁTICA
+         ============================================= -->
+    <div class="intro-screen">
+        <div class="intro-screen__hearts" aria-hidden="true"></div>
+        <div class="intro-screen__duck" aria-hidden="true">🦆</div>
+        <div class="intro-screen__number">8</div>
+        <p class="intro-screen__label">meses de historia</p>
+        <p class="intro-screen__names">Yanoah & Ismael</p>
+        <button class="btn btn--primary intro-screen__cta" type="button">
+            Abrir nuestra historia ✨
+        </button>
+    </div>
+
+    <!-- ===== CONTENIDO PRINCIPAL ===== -->
+    <main>
+
+        <!-- =============================================
+           1. STORIES — Nuestra historia mes a mes
+           ============================================= -->
+        <section class="stories-section page-section" id="stories">
+            <p class="page-section__eyebrow" data-reveal>Nuestra historia</p>
+            <h2 class="page-section__title" data-reveal>8 meses en 8 historias</h2>
+            <p class="page-section__subtitle" data-reveal>
+                Toca a la derecha para avanzar, a la izquierda para retroceder. Como nuestras historias de Instagram,
+                pero solo nuestras. 💕
+            </p>
+
+            <div class="stories-container" data-reveal>
+                <!-- Progress bar arriba -->
+                <div class="stories-progress">
+                    <div class="stories-progress__segment">
+                        <div class="stories-progress__fill"></div>
+                    </div>
+                    <div class="stories-progress__segment">
+                        <div class="stories-progress__fill"></div>
+                    </div>
+                    <div class="stories-progress__segment">
+                        <div class="stories-progress__fill"></div>
+                    </div>
+                    <div class="stories-progress__segment">
+                        <div class="stories-progress__fill"></div>
+                    </div>
+                    <div class="stories-progress__segment">
+                        <div class="stories-progress__fill"></div>
+                    </div>
+                    <div class="stories-progress__segment">
+                        <div class="stories-progress__fill"></div>
+                    </div>
+                    <div class="stories-progress__segment">
+                        <div class="stories-progress__fill"></div>
+                    </div>
+                    <div class="stories-progress__segment">
+                        <div class="stories-progress__fill"></div>
+                    </div>
+                </div>
+
+                <!-- Story 1 -->
+                <div class="story-slide story-slide--1 is-active">
+                    <div class="story-slide__bg"></div>
+                    <span class="story-slide__emoji">🦋</span>
+                    <span class="story-slide__month">Mes 1 · Julio 2025</span>
+                    <h3 class="story-slide__title">La promesa</h3>
+                    <p class="story-slide__text">
+                        Empezó con una carta y el deseo de caminar con propósito. Sobre toda cosa guardada, guardar tu
+                        corazón. Desde el primer día supe que esto era especial.
+                    </p>
+                    <p class="story-slide__quote">"No sé qué nos traerá el futuro, pero sé con quién quiero vivirlo"</p>
+                </div>
+
+                <!-- Story 2 -->
+                <div class="story-slide story-slide--2">
+                    <div class="story-slide__bg"></div>
+                    <span class="story-slide__emoji">🪨</span>
+                    <span class="story-slide__month">Mes 2 · Agosto 2025</span>
+                    <h3 class="story-slide__title">Sobre la roca</h3>
+                    <p class="story-slide__text">
+                        Devocional juntos, orar juntos. Me transmites seguridad, paz y me acercas al Señor. Estoy
+                        enamorado hasta las pestañas y ya lo sé: contigo quiero estar para siempre.
+                    </p>
+                    <p class="story-slide__quote">"Patdoalavida ya era más que una frase… era una promesa"</p>
+                </div>
+
+                <!-- Story 3 -->
+                <div class="story-slide story-slide--3">
+                    <div class="story-slide__bg"></div>
+                    <span class="story-slide__emoji">🎤</span>
+                    <span class="story-slide__month">Mes 3 · Septiembre 2025</span>
+                    <h3 class="story-slide__title">Sin vergüenzas</h3>
+                    <p class="story-slide__text">
+                        Empezaste a cantar a mi lado, a perder vergüenzas. Descubrí a la nueva Yanoah y me encantó. La
+                        transparencia se convirtió en nuestra huella.
+                    </p>
+                    <p class="story-slide__quote">"La huella que nos define: ser capaces de hablar de todo"</p>
+                </div>
+
+                <!-- Story 4 -->
+                <div class="story-slide story-slide--4">
+                    <div class="story-slide__bg"></div>
+                    <span class="story-slide__emoji">🏠</span>
+                    <span class="story-slide__month">Mes 4 · Octubre 2025</span>
+                    <h3 class="story-slide__title">Apoyo real</h3>
+                    <p class="story-slide__text">
+                        El piso, la uni, las prácticas… en medio de todo, siempre juntos. No tengo ninguna razón para
+                        dejarte y sí un millón para quedarme.
+                    </p>
+                    <p class="story-slide__quote">"Algún día estaremos juntos, casados, seremos uno"</p>
+                </div>
+
+                <!-- Story 5 -->
+                <div class="story-slide story-slide--5">
+                    <div class="story-slide__bg"></div>
+                    <span class="story-slide__emoji">🛡️</span>
+                    <span class="story-slide__month">Mes 5 · Noviembre 2025</span>
+                    <h3 class="story-slide__title">Si Dios es por nosotros</h3>
+                    <p class="story-slide__text">
+                        Gente en contra, ruido fuera… pero el Señor nos guardó. Al final, el regalo: la mudanza a la
+                        Puebla, más cerca de ti.
+                    </p>
+                    <p class="story-slide__quote">"Si Dios es por nosotros, ¿quién contra nosotros?" — Romanos 8:31</p>
+                </div>
+
+                <!-- Story 6 -->
+                <div class="story-slide story-slide--6">
+                    <div class="story-slide__bg"></div>
+                    <span class="story-slide__emoji">🎄</span>
+                    <span class="story-slide__month">Mes 6 · Diciembre 2025</span>
+                    <h3 class="story-slide__title">Nuestra primera Navidad</h3>
+                    <p class="story-slide__text">
+                        Si me llegan a decir a principios de 2025 que terminaría el año así, no me lo hubiera creído.
+                        Gracias, Yanoah, por revolucionarlo todo.
+                    </p>
+                    <p class="story-slide__quote">"Vamos a comernos este año, siempre que sea contigo"</p>
+                </div>
+
+                <!-- Story 7 -->
+                <div class="story-slide story-slide--7">
+                    <div class="story-slide__bg"></div>
+                    <span class="story-slide__emoji">⭐</span>
+                    <span class="story-slide__month">Mes 7 · Enero 2026</span>
+                    <h3 class="story-slide__title">Más cerca del año</h3>
+                    <p class="story-slide__text">
+                        Entre exámenes y la distancia, cada minuto contigo ha merecido la pena. Ya pasamos la mitad.
+                        Esto es para siempre, te guste o no.
+                    </p>
+                    <p class="story-slide__quote">"Pagaría por volver a repetir cada minuto contigo"</p>
+                </div>
+
+                <!-- Story 8 -->
+                <div class="story-slide story-slide--8">
+                    <div class="story-slide__bg"></div>
+                    <span class="story-slide__emoji">💫</span>
+                    <span class="story-slide__month">Mes 8 · Febrero 2026</span>
+                    <h3 class="story-slide__title">Hoy. Aquí. Contigo.</h3>
+                    <p class="story-slide__text">
+                        8 meses. La boda, cantar contigo, los nervios, las emociones. Todo ha sido especial porque ha
+                        sido contigo. Y esto solo acaba de empezar.
+                    </p>
+                    <p class="story-slide__quote">"Mi meta eres tú, es formar esa familia contigo"</p>
+                </div>
+
+                <!-- Zonas de toque -->
+                <div class="stories-touch stories-touch--prev"></div>
+                <div class="stories-touch stories-touch--next"></div>
+            </div>
+
+            <p class="stories-hint" data-reveal>
+                <span>👆</span> Toca para avanzar entre historias
+            </p>
+        </section>
+
+        <!-- =============================================
+           2. NUESTRO DICCIONARIO
+           ============================================= -->
+        <section class="page-section dictionary" id="diccionario">
+            <p class="page-section__eyebrow" data-reveal>Solo nuestro</p>
+            <h2 class="page-section__title" data-reveal>Nuestro diccionario</h2>
+            <p class="page-section__subtitle" data-reveal>
+                Palabras que solo nosotros entendemos. Toca cada una para ver su definición.
+            </p>
+
+            <div class="dictionary__grid" data-reveal>
+                <div class="dict-entry">
+                    <p class="dict-entry__word">
+                        <span class="dict-entry__word-emoji">🦆</span> Patdoalavida
+                    </p>
+                    <p class="dict-entry__phonetic">/pat·do·a·la·vi·da/</p>
+                    <span class="dict-entry__type">sustantivo · promesa</span>
+                    <p class="dict-entry__def">
+                        Expresión que define nuestro compromiso eterno. Simbolizado por un pato porque lo nuestro es
+                        único, diferente y para siempre. No es una frase bonita, es una decisión.
+                    </p>
+                    <p class="dict-entry__example">"Quack quack: no te suelto jamás 🦆"</p>
+                </div>
+
+                <div class="dict-entry">
+                    <p class="dict-entry__word">
+                        <span class="dict-entry__word-emoji">🪨</span> Sobre la roca
+                    </p>
+                    <p class="dict-entry__phonetic">/so·bre la ro·ca/</p>
+                    <span class="dict-entry__type">adverbio · fundamento</span>
+                    <p class="dict-entry__def">
+                        Construir nuestra relación con el Señor en el centro. No sobre arena, no sobre emociones
+                        pasajeras. Sobre la roca firme de la fe.
+                    </p>
+                    <p class="dict-entry__example">"Contigo y con Él, siempre sobre la roca"</p>
+                </div>
+
+                <div class="dict-entry">
+                    <p class="dict-entry__word">
+                        <span class="dict-entry__word-emoji">🐢</span> Pasitos de tortuga
+                    </p>
+                    <p class="dict-entry__phonetic">/pa·si·tos de tor·tu·ga/</p>
+                    <span class="dict-entry__type">modo · velocidad</span>
+                    <p class="dict-entry__def">
+                        Nuestra forma de avanzar en la relación: sin prisa pero sin pausa. No queremos correr, queremos
+                        disfrutar cada etapa del camino.
+                    </p>
+                    <p class="dict-entry__example">"De aquí a la luna a pasitos de tortuga"</p>
+                </div>
+
+                <div class="dict-entry">
+                    <p class="dict-entry__word">
+                        <span class="dict-entry__word-emoji">👑</span> Mi princesa
+                    </p>
+                    <p class="dict-entry__phonetic">/mi prin·ce·sa/</p>
+                    <span class="dict-entry__type">sustantivo · identidad</span>
+                    <p class="dict-entry__def">
+                        La forma en que la veo: preciosa, valiosa, digna de ser cuidada y protegida. No un título vacío,
+                        sino cómo me siento cada vez que la miro.
+                    </p>
+                    <p class="dict-entry__example">"Buenos días mi princesa preciosa ❤️"</p>
+                </div>
+
+                <div class="dict-entry">
+                    <p class="dict-entry__word">
+                        <span class="dict-entry__word-emoji">2️⃣7️⃣</span> El 27
+                    </p>
+                    <p class="dict-entry__phonetic">/el vein·ti·sie·te/</p>
+                    <span class="dict-entry__type">número · sagrado</span>
+                    <p class="dict-entry__def">
+                        El día que marca cada mesniversario. El día que empezó todo: 27 de julio de 2025. Cada mes, el
+                        27 me recuerda otro capítulo más de nuestra historia.
+                    </p>
+                    <p class="dict-entry__example">"¡Feliz mesniversario! 27 🦆✨"</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- =============================================
+           3. SCRATCH CARDS — Rasca y descubre
+           ============================================= -->
+        <section class="page-section scratch-section" id="scratch">
+            <p class="page-section__eyebrow" data-reveal>Rasca y descubre</p>
+            <h2 class="page-section__title" data-reveal>Mensajes escondidos</h2>
+            <p class="page-section__subtitle" data-reveal>
+                Toca varias veces cada tarjeta para descubrir lo que escondo dentro.
+            </p>
+
+            <div class="scratch-grid" data-reveal>
+                <div class="scratch-card">
+                    <div class="scratch-card__hidden">
+                        <span class="scratch-card__hidden-emoji">🌅</span>
+                        <p class="scratch-card__hidden-text">Cada mañana le doy gracias a Dios por ti</p>
+                    </div>
+                    <div class="scratch-card__cover">
+                        <span class="scratch-card__cover-icon">✨</span>
+                        <span class="scratch-card__cover-label">Rasca aquí</span>
+                    </div>
+                </div>
+
+                <div class="scratch-card">
+                    <div class="scratch-card__hidden">
+                        <span class="scratch-card__hidden-emoji">🏡</span>
+                        <p class="scratch-card__hidden-text">Ya te está esperando tu casita, solo tienes que venir</p>
+                    </div>
+                    <div class="scratch-card__cover">
+                        <span class="scratch-card__cover-icon">💝</span>
+                        <span class="scratch-card__cover-label">Rasca aquí</span>
+                    </div>
+                </div>
+
+                <div class="scratch-card">
+                    <div class="scratch-card__hidden">
+                        <span class="scratch-card__hidden-emoji">👰</span>
+                        <p class="scratch-card__hidden-text">Algún día serás mi esposa y estaré orgulloso</p>
+                    </div>
+                    <div class="scratch-card__cover">
+                        <span class="scratch-card__cover-icon">🔮</span>
+                        <span class="scratch-card__cover-label">Rasca aquí</span>
+                    </div>
+                </div>
+
+                <div class="scratch-card">
+                    <div class="scratch-card__hidden">
+                        <span class="scratch-card__hidden-emoji">🦆</span>
+                        <p class="scratch-card__hidden-text">Quack quack: eres mi para siempre</p>
+                    </div>
+                    <div class="scratch-card__cover">
+                        <span class="scratch-card__cover-icon">🎁</span>
+                        <span class="scratch-card__cover-label">Rasca aquí</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =============================================
+           4. VISION BOARD — Nuestro futuro juntos
+           ============================================= -->
+        <section class="page-section vision-section" id="futuro">
+            <p class="page-section__eyebrow" data-reveal>Lo que viene</p>
+            <h2 class="page-section__title" data-reveal>Nuestro futuro juntos</h2>
+            <p class="page-section__subtitle" data-reveal>
+                Cada tarjeta es un sueño que quiero vivir contigo. Pasa el dedo para verlas brillar.
+            </p>
+
+            <div class="vision-grid" data-reveal>
+                <div class="vision-card" data-tilt>
+                    <div class="vision-card__glow"></div>
+                    <span class="vision-card__icon">💍</span>
+                    <h3 class="vision-card__title">El día que te pida matrimonio</h3>
+                    <p class="vision-card__text">Un día, cuando menos te lo esperes, me verás de rodillas con un anillo.
+                        Y lloraremos los dos.</p>
+                    <span class="vision-card__tag">Próximo capítulo</span>
+                </div>
+
+                <div class="vision-card" data-tilt>
+                    <div class="vision-card__glow"></div>
+                    <span class="vision-card__icon">⛪</span>
+                    <h3 class="vision-card__title">La boda de verdad</h3>
+                    <p class="vision-card__text">Tú de blanco, yo nerviosísimo, nuestras familias, el pastor… y la
+                        promesa delante de Dios: "hasta que la muerte nos separe".</p>
+                    <span class="vision-card__tag">Prometido</span>
+                </div>
+
+                <div class="vision-card" data-tilt>
+                    <div class="vision-card__glow"></div>
+                    <span class="vision-card__icon">🏡</span>
+                    <h3 class="vision-card__title">Nuestro hogar</h3>
+                    <p class="vision-card__text">Un pisito con nuestra decoración, nuestras fotos en la pared, la cocina
+                        oliendo a lo que sea que intentemos cocinar juntos.</p>
+                    <span class="vision-card__tag">En construcción</span>
+                </div>
+
+                <div class="vision-card" data-tilt>
+                    <div class="vision-card__glow"></div>
+                    <span class="vision-card__icon">✈️</span>
+                    <h3 class="vision-card__title">Viajar juntos</h3>
+                    <p class="vision-card__text">Aeropuertos, playas, montañas, ciudades nuevas… pero lo mejor de cada
+                        viaje siempre vas a ser tú.</p>
+                    <span class="vision-card__tag">Lista de deseos</span>
+                </div>
+
+                <div class="vision-card" data-tilt>
+                    <div class="vision-card__glow"></div>
+                    <span class="vision-card__icon">👶</span>
+                    <h3 class="vision-card__title">Mini nosotros</h3>
+                    <p class="vision-card__text">Cuando Dios quiera, unos pequeñitos con tu sonrisa y mi locura. Una
+                        familia sobre la roca.</p>
+                    <span class="vision-card__tag">Algún día</span>
+                </div>
+
+                <div class="vision-card" data-tilt>
+                    <div class="vision-card__glow"></div>
+                    <span class="vision-card__icon">👴👵</span>
+                    <h3 class="vision-card__title">Viejitos juntos</h3>
+                    <p class="vision-card__text">Sentados en un banco, con pelo blanco, mirándonos como el primer día.
+                        Diciéndote: "¿ves? Te dije que era para siempre."</p>
+                    <span class="vision-card__tag">Final feliz</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- =============================================
+           4b. LOVE QUIZ — ¿Cuánto nos conocemos?
+           ============================================= -->
+        <section class="page-section quiz-section" id="quiz">
+            <p class="page-section__eyebrow" data-reveal>Juego de parejas</p>
+            <h2 class="page-section__title" data-reveal>¿Cuánto nos conocemos?</h2>
+            <p class="page-section__subtitle" data-reveal>
+                5 preguntas sobre nuestra historia. ¿Acertarás todas?
+            </p>
+
+            <div class="quiz-container" data-reveal>
+                <div class="quiz-card" id="quizCard">
+                    <div class="quiz-card__progress">
+                        <span class="quiz-card__progress-text">Pregunta <span id="quizCurrent">1</span>/5</span>
+                        <div class="quiz-card__progress-bar">
+                            <div class="quiz-card__progress-fill" id="quizProgressFill"></div>
+                        </div>
+                    </div>
+                    <p class="quiz-card__question" id="quizQuestion"></p>
+                    <div class="quiz-card__options" id="quizOptions"></div>
+                </div>
+
+                <!-- Resultado final del quiz -->
+                <div class="quiz-result" id="quizResult" style="display: none;">
+                    <span class="quiz-result__emoji" id="quizResultEmoji"></span>
+                    <h3 class="quiz-result__title" id="quizResultTitle"></h3>
+                    <p class="quiz-result__text" id="quizResultText"></p>
+                    <button class="btn btn--primary quiz-result__retry" type="button" id="quizRetry">Jugar de nuevo
+                        🔄</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- =============================================
+           4c. WISH LANTERNS — Lanza deseos al cielo
+           ============================================= -->
+        <section class="page-section lanterns-section" id="deseos">
+            <div class="lanterns-background">
+                <!-- Capa de estrellas dinámicas se puede añadir por JS si queremos, o dejar en CSS -->
+            </div>
+
+            <div class="lantern-content">
+                <p class="page-section__eyebrow" data-reveal>Lanza al cielo</p>
+                <h2 class="page-section__title" data-reveal>Farolillos de deseos</h2>
+                <p class="page-section__subtitle" data-reveal>
+                    Escribe un deseo para nosotros y míralo iluminar la noche. Cada farolillo es un pedacito de nuestro
+                    futuro.
+                </p>
+
+                <div class="lantern-launcher" data-reveal>
+                    <div class="lantern-sky" id="lanternSky"></div>
+
+                    <div class="lantern-ui-card">
+                        <div class="lantern-input">
+                            <input type="text" class="lantern-input__field" id="lanternInput"
+                                placeholder="Pide un deseo..." maxlength="60" />
+                            <button class="btn btn--primary lantern-input__btn" type="button" id="lanternBtn">
+                                Lanzar 🏮
+                            </button>
+                        </div>
+
+                        <div class="lantern-presets-wrapper">
+                            <p class="lantern-presets-title">O elige uno especial:</p>
+                            <div class="lantern-presets">
+                                <button class="lantern-preset" data-wish="Que siempre estemos juntos">🤝 Juntos</button>
+                                <button class="lantern-preset" data-wish="Que el Señor nos guíe">✝️ Guía</button>
+                                <button class="lantern-preset" data-wish="Llegar a nuestro añito">🎂 Añito</button>
+                                <button class="lantern-preset" data-wish="Que un día nos casemos">💍 Boda</button>
+                                <button class="lantern-preset" data-wish="Nunca perder la risa">😂 Risa</button>
+                                <button class="lantern-preset" data-wish="Patdoalavida forever">🦆 Pato</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =============================================
+           4d. PLAYLIST — Nuestro tocadiscos de recuerdos
+           ============================================= -->
+        <section class="page-section playlist-section" id="playlist">
+            <p class="page-section__eyebrow" data-reveal>Nuestra banda sonora</p>
+            <h2 class="page-section__title" data-reveal>El tocadiscos de los recuerdos</h2>
+            <p class="page-section__subtitle" data-reveal>
+                Cada pista es un capítulo de nuestra historia. Toca una para escuchar el recuerdo.
+            </p>
+
+            <div class="vinyl-player" data-reveal>
+                <!-- Vinilo girando -->
+                <div class="vinyl">
+                    <div class="vinyl__disc" id="vinylDisc">
+                        <div class="vinyl__grooves"></div>
+                        <div class="vinyl__label">
+                            <span class="vinyl__label-emoji" id="vinylEmoji">🦆</span>
+                            <span class="vinyl__label-text">Patdoalavida</span>
+                        </div>
+                    </div>
+                    <div class="vinyl__arm">
+                        <div class="vinyl__arm-pivot"></div>
+                        <div class="vinyl__arm-bar"></div>
+                        <div class="vinyl__arm-head"></div>
+                    </div>
+                </div>
+
+                <!-- Now Playing -->
+                <div class="now-playing" id="nowPlaying">
+                    <div class="now-playing__wave">
+                        <span></span><span></span><span></span><span></span><span></span>
+                        <span></span><span></span><span></span><span></span><span></span>
+                    </div>
+                    <p class="now-playing__label">Ahora sonando</p>
+                    <h3 class="now-playing__title" id="npTitle">Primer Acorde</h3>
+                    <p class="now-playing__artist" id="npArtist">La carta que lo empezó todo</p>
+                    <p class="now-playing__detail" id="npDetail">Cuando te di la carta y supe que esto iba a ser
+                        diferente. El primer compás de nuestra canción.</p>
+                </div>
+
+                <!-- Track selector -->
+                <div class="track-selector">
+                    <button class="track-chip is-active" data-emoji="🦋" data-title="Primer Acorde"
+                        data-artist="La carta que lo empezó todo"
+                        data-detail="Cuando te di la carta y supe que esto iba a ser diferente. El primer compás de nuestra canción. Los nervios, la ilusión, y esa certeza de que contigo quería caminar.">
+                        <span class="track-chip__num">1</span>
+                        <span class="track-chip__name">Primer Acorde</span>
+                    </button>
+                    <button class="track-chip" data-emoji="🪨" data-title="Sobre la Roca"
+                        data-artist="Fe, oración y cimiento"
+                        data-detail="Cuando decidimos poner al Señor en el centro. El devocional juntos, las oraciones. Esa base firme que nos sostiene cuando todo tiembla.">
+                        <span class="track-chip__num">2</span>
+                        <span class="track-chip__name">Sobre la Roca</span>
+                    </button>
+                    <button class="track-chip" data-emoji="🎤" data-title="Modo Karaoke"
+                        data-artist="Sin vergüenza, contigo"
+                        data-detail="Cuando empezaste a cantar a mi lado sin vergüenza. Descubrí a la Yanoah más auténtica, la que no tiene miedo, la que me enamora aún más.">
+                        <span class="track-chip__num">3</span>
+                        <span class="track-chip__name">Modo Karaoke</span>
+                    </button>
+                    <button class="track-chip" data-emoji="🛡️" data-title="Blindaje" data-artist="Romanos 8:31"
+                        data-detail="La gente en contra, el ruido externo, la incertidumbre. Pero Dios dijo: 'Si yo estoy con ustedes, ¿quién contra ustedes?' Y nos blindó con su amor.">
+                        <span class="track-chip__num">4</span>
+                        <span class="track-chip__name">Blindaje</span>
+                    </button>
+                    <button class="track-chip" data-emoji="🏠" data-title="La Puebla"
+                        data-artist="Más cerca, más juntos"
+                        data-detail="La mudanza, estar más cerca de ti. Se acabó la distancia, empezó una nueva etapa. Cada día poderte ver, apoyarte, cuidarte desde cerquita.">
+                        <span class="track-chip__num">5</span>
+                        <span class="track-chip__name">La Puebla</span>
+                    </button>
+                    <button class="track-chip" data-emoji="🎄" data-title="Feliz Navidad"
+                        data-artist="Luchacos edition 🥷"
+                        data-detail="Luces, risas, regalos... y ese goldo lojo con lalga balba blanca al que le di con mis luchacos 😂 Nuestra primera Navidad, la primera de muchas.">
+                        <span class="track-chip__num">6</span>
+                        <span class="track-chip__name">Feliz Navidad</span>
+                    </button>
+                    <button class="track-chip" data-emoji="📚" data-title="Entre Exámenes"
+                        data-artist="Elegirse cada día"
+                        data-detail="La perrita, el piso, tus exámenes, la distancia. Casi no nos vimos. Pero cada minuto contigo valió por mil. Y aprendí que el amor real es elegirse incluso cuando es difícil.">
+                        <span class="track-chip__num">7</span>
+                        <span class="track-chip__name">Entre Exámenes</span>
+                    </button>
+                    <button class="track-chip" data-emoji="💍" data-title="Para Siempre" data-artist="Patdoalavida 🦆"
+                        data-detail="8 meses. La boda, cantar contigo, las emociones. Y la certeza de que esto solo acaba de empezar. Mi meta eres tú. Hoy, mañana y el resto de mi vida.">
+                        <span class="track-chip__num">8</span>
+                        <span class="track-chip__name">Para Siempre</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- =============================================
+           5. PROMISE JAR — Tarro de promesas
+           ============================================= -->
+        <section class="page-section promise-jar" id="promesas">
+            <p class="page-section__eyebrow" data-reveal>Promesas guardadas</p>
+            <h2 class="page-section__title" data-reveal>Mi tarro de promesas</h2>
+            <p class="page-section__subtitle" data-reveal>
+                Cada papelito tiene una promesa que te hago. Toca el que quieras y descubre lo que guardo para ti.
+            </p>
+
+            <div data-reveal>
+                <div class="jar-visual">
+                    <div class="jar-visual__lid"></div>
+                    <div class="jar-visual__body">
+                        <button class="jar-paper"
+                            data-promise="Te prometo escucharte siempre, incluso cuando tenga sueño"
+                            data-icon="👂">Escuchar</button>
+                        <button class="jar-paper"
+                            data-promise="Te prometo ser tu apoyo real en cada desafío, no solo con palabras"
+                            data-icon="💪">Apoyo</button>
+                        <button class="jar-paper"
+                            data-promise="Te prometo recordarte cada día que eres más que suficiente"
+                            data-icon="⭐">Suficiente</button>
+                        <button class="jar-paper"
+                            data-promise="Te prometo pedir perdón cuando me equivoque, sin excusas"
+                            data-icon="🙏">Perdón</button>
+                        <button class="jar-paper" data-promise="Te prometo orar por ti y contigo cada día de mi vida"
+                            data-icon="✝️">Oración</button>
+                        <button class="jar-paper" data-promise="Te prometo no soltar tu mano jamás, pase lo que pase"
+                            data-icon="🤝">Mano</button>
+                        <button class="jar-paper"
+                            data-promise="Te prometo ser transparente contigo siempre, como desde el primer día"
+                            data-icon="💎">Verdad</button>
+                        <button class="jar-paper"
+                            data-promise="Te prometo esforzarme cada día por estar a la altura de lo que mereces"
+                            data-icon="🏆">Esfuerzo</button>
+                        <button class="jar-paper"
+                            data-promise="Te prometo que algún día me verás esperándote al final de un pasillo... 💍"
+                            data-icon="💍">Futuro</button>
+                        <button class="jar-paper"
+                            data-promise="Te prometo que lo nuestro es PATDOALAVIDA 🦆 y eso no va a cambiar nunca"
+                            data-icon="🦆">Siempre</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal de promesa revelada -->
+            <div class="paper-reveal">
+                <div class="paper-reveal__note">
+                    <span class="paper-reveal__icon"></span>
+                    <p class="paper-reveal__text"></p>
+                    <button class="paper-reveal__close" type="button">Guardar en el corazón 💕</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- =============================================
+           6. PROGRESO HACIA EL AÑO
+           ============================================= -->
+        <section class="year-progress" id="progreso">
+            <div class="year-progress__inner" data-reveal>
+                <p class="page-section__eyebrow">Rumbo al añito</p>
+                <h2 class="page-section__title">Cada vez más cerca</h2>
+                <div class="year-progress__bar-track">
+                    <div class="year-progress__bar-fill"></div>
+                </div>
+                <div class="year-progress__labels">
+                    <span>Jul 2025</span>
+                    <span>Hoy</span>
+                    <span>Jul 2026</span>
+                </div>
+                <p class="year-progress__highlight">
+                    <span>8</span> de 12 meses · A pasitos de tortuga 🐢
+                </p>
+            </div>
+        </section>
+
+        <!-- =============================================
+           7. OCEAN LETTER — Mensaje en la botella
+           ============================================= -->
+        <section class="page-section ocean-section" id="carta">
+            <p class="page-section__eyebrow" data-reveal>Mensaje en una botella</p>
+            <h2 class="page-section__title" data-reveal>Una carta desde el otro lado del mar</h2>
+            <p class="page-section__subtitle" data-reveal>
+                Imagina que esta carta cruzó un océano para llegar a ti. Toca la botella y descubre lo que lleva dentro.
+            </p>
+
+            <!-- Botella flotante -->
+            <div class="bottle" data-reveal>
+                <span class="bottle__visual">🍾</span>
+                <span class="bottle__label">Toca la botella para abrirla</span>
+            </div>
+
+            <!-- Carta que emerge -->
+            <div class="sea-letter">
+                <p class="sea-letter__greeting">Mi princesa preciosa…</p>
+                <p class="sea-letter__body" id="seaLetterBody"></p>
+                <span class="sea-letter__cursor" style="display: none;"></span>
+                <p class="sea-letter__signature" id="seaLetterSignature">
+                    Con todo mi amor, para siempre<br>Ismael ❤️🦆
+                </p>
+            </div>
+
+            <!-- Olas decorativas -->
+            <div class="ocean-waves" aria-hidden="true">
+                <div class="wave"></div>
+                <div class="wave"></div>
+                <div class="wave"></div>
+            </div>
+        </section>
+
+        <!-- =============================================
+           8. GALAXY FINALE
+           ============================================= -->
+        <section class="page-section galaxy-finale" id="final">
+            <div class="galaxy-finale__stars" aria-hidden="true"></div>
+            <div class="galaxy-finale__heart" data-reveal>❤️</div>
+            <h2 class="galaxy-finale__message" data-reveal>Te amo con locura</h2>
+            <p class="galaxy-finale__names" data-reveal>Yanoah & Ismael</p>
+            <p class="galaxy-finale__date" data-reveal>27 · 02 · 2026 · 8 meses</p>
+
+            <div class="galaxy-finale__verse" data-reveal>
+                "El amor todo lo sufre, todo lo cree, todo lo espera, todo lo soporta."
+                <cite>1 Corintios 13:7</cite>
+            </div>
+
+            <button class="btn btn--primary galaxy-finale__celebrate-btn" type="button" data-reveal>
+                ¡Celebrar! 🎉
+            </button>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer-8">
+        <div class="footer-8__duck" aria-hidden="true">🦆</div>
+        <p>Hecho con amor · 8 meses juntos</p>
+        <p>Patdoalavida ❤️ · 27 · 02 · 2026</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../scripts/shared.js"></script>
+    <script src="../scripts/ocho-meses.js"></script>
+</body>
+
+</html>
