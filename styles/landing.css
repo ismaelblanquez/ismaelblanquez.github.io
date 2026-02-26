@@ -1,0 +1,447 @@
+/* ==========================================================================
+   LANDING PAGE — Rueda Selectora de Momentos
+   Nuestra Historia · Yanoah & Ismael
+   ========================================================================== */
+
+/* --- Hero landing --- */
+.landing-hero {
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: var(--space-xl) var(--space-md);
+    position: relative;
+    z-index: 2;
+}
+
+.landing-hero__eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: var(--space-sm);
+    animation: fadeInUp 1s var(--ease-out) 0.2s both;
+}
+
+.landing-hero__title {
+    font-family: var(--font-display);
+    font-size: clamp(32px, 8vw, 56px);
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: var(--space-sm);
+    animation: fadeInUp 1s var(--ease-out) 0.4s both;
+}
+
+.landing-hero__title .ampersand {
+    color: var(--rose);
+    font-style: italic;
+}
+
+.landing-hero__subtitle {
+    color: var(--muted);
+    font-size: 14px;
+    max-width: 340px;
+    margin: 0 auto var(--space-lg);
+    animation: fadeInUp 1s var(--ease-out) 0.6s both;
+}
+
+.landing-hero__duck {
+    font-size: 28px;
+    animation: float 3s ease-in-out infinite;
+    margin-bottom: var(--space-md);
+}
+
+/* --- Sección selector / rueda --- */
+.selector-section {
+    padding: var(--space-xl) var(--space-md) var(--space-2xl);
+    position: relative;
+    z-index: 2;
+}
+
+.selector-section__header {
+    text-align: center;
+    margin-bottom: var(--space-xl);
+}
+
+.selector-section__eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: var(--space-sm);
+}
+
+.selector-section__title {
+    font-family: var(--font-display);
+    font-size: clamp(22px, 5vw, 34px);
+    font-weight: 700;
+}
+
+/* --- Carrusel / Rueda de momentos --- */
+.wheel {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    perspective: 800px;
+}
+
+.wheel__track {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    padding: var(--space-lg) var(--space-md);
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+}
+
+.wheel__track::-webkit-scrollbar {
+    display: none;
+}
+
+/* --- Tarjeta de momento --- */
+.moment-card {
+    flex: 0 0 280px;
+    scroll-snap-align: center;
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 14px;
+    position: relative;
+    overflow: hidden;
+    transition: all var(--duration-normal) var(--ease-out);
+    cursor: pointer;
+    text-decoration: none;
+    min-height: 340px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+}
+
+.moment-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity var(--duration-normal);
+}
+
+.moment-card:hover::before,
+.moment-card:focus-visible::before {
+    opacity: 1;
+}
+
+.moment-card:active {
+    transform: scale(0.97);
+}
+
+/* Variantes de color para cada tarjeta */
+.moment-card--valentines {
+    border-color: rgba(255, 93, 162, 0.2);
+}
+
+.moment-card--valentines::before {
+    background: radial-gradient(circle at top, rgba(255, 93, 162, 0.12), transparent 70%);
+}
+
+.moment-card--valentines .moment-card__icon {
+    background: linear-gradient(135deg, rgba(255, 93, 162, 0.2), rgba(255, 93, 162, 0.05));
+    color: var(--rose);
+}
+
+.moment-card--8months {
+    border-color: rgba(93, 123, 255, 0.25);
+    box-shadow: 0 0 30px rgba(93, 123, 255, 0.1);
+}
+
+.moment-card--8months::before {
+    background: radial-gradient(circle at top, rgba(93, 123, 255, 0.15), transparent 70%);
+}
+
+.moment-card--8months .moment-card__icon {
+    background: linear-gradient(135deg, rgba(93, 123, 255, 0.25), rgba(93, 123, 255, 0.05));
+    color: var(--accent);
+}
+
+/* Tarjeta nueva / destacada */
+.moment-card--new {
+    border-color: rgba(255, 215, 0, 0.2);
+    animation: pulse 3s ease-in-out infinite;
+}
+
+.moment-card--new .moment-card__badge {
+    display: flex;
+}
+
+/* Tarjeta bloqueada */
+.moment-card--locked {
+    opacity: 0.5;
+    pointer-events: none;
+    filter: grayscale(0.3);
+}
+
+.moment-card--locked .moment-card__icon {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--muted);
+}
+
+.moment-card--locked::after {
+    content: '🔒';
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    font-size: 18px;
+}
+
+/* Tarjeta del anillo */
+.moment-card--ring {
+    opacity: 0.4;
+    pointer-events: none;
+    border-color: rgba(255, 215, 0, 0.15);
+}
+
+.moment-card--ring::after {
+    content: '🔒';
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    font-size: 18px;
+}
+
+.moment-card--ring .moment-card__icon {
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 215, 0, 0.03));
+    color: var(--gold);
+}
+
+/* Partes de la tarjeta */
+.moment-card__icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    margin-top: var(--space-sm);
+}
+
+.moment-card__badge {
+    display: none;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    border-radius: var(--radius-full);
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    background: linear-gradient(135deg, var(--gold), #ffb800);
+    color: #1a1a2e;
+}
+
+.moment-card__title {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.moment-card__date {
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 1px;
+}
+
+.moment-card__desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.5;
+}
+
+.moment-card__countdown {
+    font-size: 12px;
+    color: var(--rose);
+    font-weight: 500;
+    padding: 6px 14px;
+    background: rgba(255, 93, 162, 0.1);
+    border-radius: var(--radius-full);
+    border: 1px solid rgba(255, 93, 162, 0.15);
+}
+
+.moment-card__cta {
+    margin-top: auto;
+    padding: 10px 22px;
+    border-radius: var(--radius-full);
+    font-size: 13px;
+    font-weight: 600;
+    background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+    color: white;
+    transition: all var(--duration-fast);
+}
+
+.moment-card__cta:hover {
+    box-shadow: 0 8px 20px var(--accent-glow);
+    transform: translateY(-1px);
+}
+
+.moment-card__cta--rose {
+    background: linear-gradient(135deg, var(--rose), #e8458f);
+}
+
+/* --- Indicadores del carrusel --- */
+.wheel__dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: var(--space-md);
+}
+
+.wheel__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.15);
+    border: none;
+    transition: all var(--duration-fast);
+    cursor: pointer;
+}
+
+.wheel__dot.is-active {
+    background: var(--accent);
+    width: 24px;
+    border-radius: var(--radius-full);
+}
+
+/* --- Instrucción de swipe --- */
+.swipe-hint {
+    text-align: center;
+    color: var(--muted);
+    font-size: 12px;
+    margin-top: var(--space-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    animation: fadeIn 1s var(--ease-out) 1.5s both;
+}
+
+.swipe-hint__hand {
+    animation: swipeHand 2s ease-in-out infinite;
+    display: inline-block;
+}
+
+@keyframes swipeHand {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    50% {
+        transform: translateX(12px);
+    }
+}
+
+/* --- Footer --- */
+.landing-footer {
+    text-align: center;
+    padding: var(--space-xl) var(--space-md);
+    color: var(--muted);
+    font-size: 12px;
+    position: relative;
+    z-index: 2;
+}
+
+.landing-footer__duck {
+    font-size: 20px;
+    margin-bottom: var(--space-sm);
+    animation: float 4s ease-in-out infinite;
+}
+
+/* --- Scroll indicator --- */
+.scroll-down {
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    color: var(--muted);
+    font-size: 11px;
+    letter-spacing: 2px;
+    animation: fadeIn 1s var(--ease-out) 1.2s both;
+}
+
+.scroll-down__arrow {
+    width: 20px;
+    height: 30px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    position: relative;
+}
+
+.scroll-down__arrow::after {
+    content: '';
+    position: absolute;
+    top: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 3px;
+    height: 8px;
+    background: var(--accent);
+    border-radius: 2px;
+    animation: scrollDot 2s ease-in-out infinite;
+}
+
+@keyframes scrollDot {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+
+    50% {
+        opacity: 0.3;
+        transform: translateX(-50%) translateY(8px);
+    }
+}
+
+/* --- Responsive --- */
+@media (min-width: 640px) {
+    .moment-card {
+        flex: 0 0 320px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .wheel__track {
+        justify-content: center;
+        flex-wrap: wrap;
+        overflow: visible;
+        scroll-snap-type: none;
+    }
+
+    .moment-card {
+        flex: 0 0 280px;
+    }
+
+    .swipe-hint {
+        display: none;
+    }
+
+    .wheel__dots {
+        display: none;
+    }
+}

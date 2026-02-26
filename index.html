@@ -2,265 +2,164 @@
 <html lang="es">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LINUX QUEST — Birthday Edition | David</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Nuestra Historia · Yanoah & Ismael</title>
+    <meta name="description"
+        content="Nuestra historia de amor escrita sin papel. Cada capítulo, cada recuerdo, cada momento vivido juntos." />
+
+    <!-- Tipografías -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet" />
+
+    <!-- Estilos -->
+    <link rel="stylesheet" href="styles/shared.css" />
+    <link rel="stylesheet" href="styles/landing.css" />
 </head>
 
 <body>
-
-    <!-- SCAN LINE OVERLAY -->
-    <div class="scan-lines" aria-hidden="true"></div>
-
-    <!-- ===================== INTRO SCREEN ===================== -->
-    <div id="screen-intro" class="screen active">
-        <canvas id="matrix-canvas"></canvas>
-        <div class="intro-content">
-            <div class="glitch-title" data-text="LINUX QUEST">LINUX QUEST</div>
-            <div class="intro-subtitle">⚔️ &nbsp; B I R T H D A Y &nbsp; E D I T I O N &nbsp; ⚔️</div>
-            <div class="intro-box">
-                <p>Hoy, <span class="hl">26 de febrero</span>, es tu cumpleaños, <span class="hl">David</span>.</p>
-                <p>Pero mientras el sistema preparaba tu celebración...</p>
-                <p class="danger-txt">☠ &nbsp; KERNEL_DAEMON &nbsp; ha &nbsp; atacado. &nbsp; ☠</p>
-                <p>Ha cifrado tus archivos, infectado los procesos y tomado el control del sistema operativo.</p>
-                <p>Tienes exactamente <span class="hl">90 minutos</span> para detenerlo.</p>
-                <p class="small-tip">⚠ Si el tiempo llega a cero... el sistema cae para siempre.</p>
-            </div>
-            <button id="btn-start" class="btn-primary pulse-anim">[ INICIAR MISIÓN ]</button>
-            <p class="hint-note">TIP: La Chuleta siempre está disponible, pero cada uso te cuesta <strong>15
-                    HP</strong>.</p>
-        </div>
+    <!-- ===== Ambiente visual ===== -->
+    <div class="ambient-bg" aria-hidden="true">
+        <div class="orb orb--accent"></div>
+        <div class="orb orb--rose"></div>
+        <div class="orb orb--teal"></div>
     </div>
+    <div class="particles" aria-hidden="true"></div>
 
-    <!-- ===================== GAME SCREEN ===================== -->
-    <div id="screen-game" class="screen">
+    <!-- ===== Hero ===== -->
+    <header class="landing-hero" id="inicio">
+        <div class="landing-hero__duck" aria-hidden="true">🦆</div>
+        <p class="landing-hero__eyebrow">Nuestra historia · desde el 27 de julio 2025</p>
+        <h1 class="landing-hero__title">
+            Yanoah <span class="ampersand">&</span> Ismael
+        </h1>
+        <p class="landing-hero__subtitle">
+            Cada capítulo de lo nuestro vive aquí. Explora los momentos que nos
+            definen, descubre lo que hemos vivido y lo que nos queda por escribir juntos.
+        </p>
+        <div class="scroll-down" aria-hidden="true">
+            <span>DESCUBRE</span>
+            <div class="scroll-down__arrow"></div>
+        </div>
+    </header>
 
-        <!-- HUD -->
-        <header id="hud">
-            <div class="hud-side" id="hud-david">
-                <div class="hud-name">⚔️ DAVID</div>
-                <div class="hp-wrap">
-                    <div class="hp-track">
-                        <div class="hp-fill hero-fill" id="david-hp-bar"></div>
+    <!-- ===== Rueda selectora de momentos ===== -->
+    <main>
+        <section class="selector-section" id="momentos">
+            <div class="selector-section__header" data-reveal>
+                <p class="selector-section__eyebrow">Elige un momento</p>
+                <h2 class="selector-section__title">Nuestros capítulos</h2>
+            </div>
+
+            <div class="wheel" data-reveal>
+                <div class="wheel__track" id="wheelTrack">
+
+                    <!-- ————— San Valentín 2026 ————— -->
+                    <a href="san-valentin/" class="moment-card moment-card--valentines">
+                        <div class="moment-card__icon">🌹</div>
+                        <h3 class="moment-card__title">San Valentín</h3>
+                        <span class="moment-card__date">14 · 02 · 2026</span>
+                        <p class="moment-card__desc">
+                            Nuestra primera carta de amor digital. 7 meses de historia,
+                            regalos, promesas y mucho amor.
+                        </p>
+                        <span class="moment-card__cta moment-card__cta--rose">Revivir momento</span>
+                    </a>
+
+                    <!-- ————— 8 MESES (¡NUEVO!) ————— -->
+                    <a href="8-meses/" class="moment-card moment-card--8months moment-card--new">
+                        <div class="moment-card__badge">✨ NUEVO</div>
+                        <div class="moment-card__icon">💫</div>
+                        <h3 class="moment-card__title">8 Meses</h3>
+                        <span class="moment-card__date">27 · 02 · 2026</span>
+                        <p class="moment-card__desc">
+                            Una carta interactiva especial para celebrar 8 meses
+                            de esta historia increíble.
+                        </p>
+                        <span class="moment-card__cta">Descubrir</span>
+                    </a>
+
+                    <!-- ————— 9 MESES (Bloqueado) ————— -->
+                    <div class="moment-card moment-card--locked" data-unlock-date="2026-03-27">
+                        <div class="moment-card__icon">🌸</div>
+                        <h3 class="moment-card__title">9 Meses</h3>
+                        <span class="moment-card__date">27 · 03 · 2026</span>
+                        <p class="moment-card__desc">Un nuevo capítulo nos espera…</p>
+                        <span class="moment-card__countdown">Calculando…</span>
                     </div>
-                    <span class="hp-num" id="david-hp-num">100/100</span>
-                </div>
-            </div>
-            <div id="hud-center">
-                <div id="timer-box">
-                    <div id="timer-label">⏱ TIEMPO</div>
-                    <div id="timer-text">90:00</div>
-                </div>
-                <div id="mission-badge">MISIÓN <span id="mission-num">1</span> / 5</div>
-            </div>
-            <div class="hud-side" id="hud-boss">
-                <div class="hud-name">💀 KERNEL_DAEMON</div>
-                <div class="hp-wrap">
-                    <div class="hp-track">
-                        <div class="hp-fill boss-fill" id="boss-hp-bar"></div>
+
+                    <!-- ————— 10 MESES (Bloqueado) ————— -->
+                    <div class="moment-card moment-card--locked" data-unlock-date="2026-04-27">
+                        <div class="moment-card__icon">☀️</div>
+                        <h3 class="moment-card__title">10 Meses</h3>
+                        <span class="moment-card__date">27 · 04 · 2026</span>
+                        <p class="moment-card__desc">La historia continúa…</p>
+                        <span class="moment-card__countdown">Calculando…</span>
                     </div>
-                    <span class="hp-num" id="boss-hp-num">300/300</span>
+
+                    <!-- ————— 11 MESES (Bloqueado) ————— -->
+                    <div class="moment-card moment-card--locked" data-unlock-date="2026-05-27">
+                        <div class="moment-card__icon">🌙</div>
+                        <h3 class="moment-card__title">11 Meses</h3>
+                        <span class="moment-card__date">27 · 05 · 2026</span>
+                        <p class="moment-card__desc">Cada vez más cerca del año…</p>
+                        <span class="moment-card__countdown">Calculando…</span>
+                    </div>
+
+                    <!-- ————— 12 MESES / 1 AÑO (Bloqueado) ————— -->
+                    <div class="moment-card moment-card--locked" data-unlock-date="2026-06-27">
+                        <div class="moment-card__icon">🎉</div>
+                        <h3 class="moment-card__title">1 Año</h3>
+                        <span class="moment-card__date">27 · 06 · 2026</span>
+                        <p class="moment-card__desc">¡El gran día está por llegar!</p>
+                        <span class="moment-card__countdown">Calculando…</span>
+                    </div>
+
+                    <!-- ————— ANILLO (Bloqueado con ?) ————— -->
+                    <div class="moment-card moment-card--ring">
+                        <div class="moment-card__icon">💍</div>
+                        <h3 class="moment-card__title">Para siempre</h3>
+                        <span class="moment-card__date">? ? · ? ? · ? ? ? ?</span>
+                        <p class="moment-card__desc">
+                            Este capítulo se escribirá cuando llegue el momento…
+                        </p>
+                        <span class="moment-card__countdown">? ? ?</span>
+                    </div>
+
+                </div>
+
+                <!-- Dots de navegación -->
+                <div class="wheel__dots" aria-label="Navegación del carrusel">
+                    <button class="wheel__dot is-active" aria-label="San Valentín"></button>
+                    <button class="wheel__dot" aria-label="8 Meses"></button>
+                    <button class="wheel__dot" aria-label="9 Meses"></button>
+                    <button class="wheel__dot" aria-label="10 Meses"></button>
+                    <button class="wheel__dot" aria-label="11 Meses"></button>
+                    <button class="wheel__dot" aria-label="1 Año"></button>
+                    <button class="wheel__dot" aria-label="Para siempre"></button>
+                </div>
+
+                <div class="swipe-hint">
+                    <span class="swipe-hint__hand">👆</span>
+                    Desliza para explorar
                 </div>
             </div>
-        </header>
+        </section>
+    </main>
 
-        <!-- BATTLE SCENE -->
-        <div id="battle-scene">
-            <div class="fighter" id="fighter-david">
-                <div class="sprite-wrap" id="sprite-david">
-                    <div class="sprite-emoji">🧙‍♂️</div>
-                    <div class="sprite-weapon">⚔️</div>
-                </div>
-                <div class="fighter-label">── DAVID ──</div>
-                <div class="hit-text" id="hit-david"></div>
-            </div>
+    <!-- ===== Footer ===== -->
+    <footer class="landing-footer">
+        <div class="landing-footer__duck" aria-hidden="true">🦆</div>
+        <p>Hecho con amor · Nuestra Historia · 2025 – 2026</p>
+        <p>Patdoalavida ❤️</p>
+    </footer>
 
-            <div id="battle-center">
-                <div id="vs-label">VS</div>
-                <div id="battle-log"></div>
-            </div>
-
-            <div class="fighter" id="fighter-boss">
-                <div class="sprite-wrap" id="sprite-boss">
-                    <div class="sprite-emoji">☠️</div>
-                    <div class="sprite-weapon">💀</div>
-                </div>
-                <div class="fighter-label boss-lbl">── KERNEL_DAEMON ──</div>
-                <div class="hit-text boss-hit" id="hit-boss"></div>
-            </div>
-        </div>
-
-        <!-- MAIN AREA -->
-        <div id="main-area">
-
-            <!-- MISSION PANEL -->
-            <div id="mission-panel">
-                <div id="mission-title-bar"></div>
-                <div id="mission-story"></div>
-                <div id="mission-objective"></div>
-                <div id="lore-panel" class="hidden">
-                    <div class="lore-header">📖 CONOCIMIENTO DESBLOQUEADO</div>
-                    <pre id="lore-content"></pre>
-                    <button id="btn-next" class="btn-secondary">[ SIGUIENTE MISIÓN → ]</button>
-                </div>
-            </div>
-
-            <!-- TERMINAL -->
-            <div id="terminal-area">
-                <div id="term-header">
-                    <span class="tdot red"></span>
-                    <span class="tdot yellow"></span>
-                    <span class="tdot green"></span>
-                    <span id="term-title">david@linux-quest:~$ Terminal del Guardián</span>
-                </div>
-                <div id="term-output"></div>
-                <div id="term-input-row">
-                    <span class="prompt" id="term-prompt">david@linux-quest:~$&nbsp;</span>
-                    <input id="term-input" type="text" autocomplete="off" spellcheck="false"
-                        placeholder="escribe un comando...">
-                </div>
-            </div>
-
-        </div>
-
-        <!-- CHEAT SHEET BUTTON -->
-        <button id="btn-cheat">📋 CHULETA <span class="cheat-cost">(-15 HP)</span></button>
-
-        <!-- CHEAT SHEET PANEL -->
-        <div id="cheat-panel" class="hidden">
-            <div class="cheat-header">
-                📋 CHULETA DEL GUARDIÁN
-                <button id="btn-close-cheat">✕</button>
-            </div>
-            <div class="cheat-body">
-                <div class="cheat-col">
-                    <div class="cheat-title">⚡ COMANDOS</div>
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td><code>ls -all</code></td>
-                                <td>Lista archivos con permisos</td>
-                            </tr>
-                            <tr>
-                                <td><code>ps</code></td>
-                                <td>Procesos del usuario</td>
-                            </tr>
-                            <tr>
-                                <td><code>ps aux</code></td>
-                                <td>Todos los procesos</td>
-                            </tr>
-                            <tr>
-                                <td><code>top</code></td>
-                                <td>Monitor en tiempo real</td>
-                            </tr>
-                            <tr>
-                                <td><code>q</code></td>
-                                <td>Salir de top</td>
-                            </tr>
-                            <tr>
-                                <td><code>pstree</code></td>
-                                <td>Árbol de procesos</td>
-                            </tr>
-                            <tr>
-                                <td><code>kill PID</code></td>
-                                <td>Terminar proceso (SIGTERM)</td>
-                            </tr>
-                            <tr>
-                                <td><code>kill -9 PID</code></td>
-                                <td>Forzar terminación (SIGKILL)</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="cheat-col">
-                    <div class="cheat-title">🔐 PERMISOS rwx → OCTAL</div>
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td>r = 4</td>
-                                <td>w = 2</td>
-                                <td>x = 1</td>
-                            </tr>
-                            <tr>
-                                <td><strong>rwx = 7</strong></td>
-                                <td><strong>rw- = 6</strong></td>
-                                <td><strong>r-x = 5</strong></td>
-                            </tr>
-                            <tr>
-                                <td>r-- = 4</td>
-                                <td>-wx = 3</td>
-                                <td>--x = 1</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <p><code>rwxr-xr-x</code> → 7·5·5 → <strong>755</strong></p>
-                    <p><code>rw-r--r--</code> → 6·4·4 → <strong>644</strong></p>
-                    <div class="cheat-title" style="margin-top:10px">🔄 ESTADOS PROCESO</div>
-                    <p><strong>R</strong> Élu (ejecutando) &nbsp;|&nbsp; <strong>S</strong> Prêt (listo) &nbsp;|&nbsp;
-                        <strong>D</strong> Bloqué</p>
-                    <div class="cheat-title" style="margin-top:10px">🌲 ÁRBOL PID</div>
-                    <p>PID 1 = systemd (padre usuarios)</p>
-                    <p>PID 2 = kthreadd (padre kernel)</p>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    <!-- ===================== VICTORY SCREEN ===================== -->
-    <div id="screen-victory" class="screen">
-        <div id="confetti-container"></div>
-        <div class="end-content">
-            <div class="end-title victory-color">🎉 ¡VICTORIA! 🎉</div>
-            <div class="end-msg">
-                <p>¡Lo has conseguido, <strong>David</strong>!</p>
-                <p>El <span class="danger-txt">KERNEL_DAEMON</span> ha sido eliminado del sistema.</p>
-                <p>Tus archivos de cumpleaños han sido <strong>restaurados</strong>.</p>
-                <p class="bday-big">🎂 ¡FELIZ CUMPLEAÑOS, DAVID! 🎂</p>
-                <p>Eres un verdadero Guardián de Linux.</p>
-            </div>
-            <div id="victory-stats" class="end-stats"></div>
-            <div class="end-btns">
-                <button class="btn-secondary" id="btn-review">[ 📖 REPASO DE TEORÍA ]</button>
-                <button class="btn-primary" onclick="openReport()">[ 📄 INFORME DEL PROFESOR ]</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- ===================== DEATH SCREEN ===================== -->
-    <div id="screen-death" class="screen">
-        <div class="end-content">
-            <div class="end-title death-color">💀 SISTEMA CAÍDO 💀</div>
-            <div class="end-msg">
-                <p>El tiempo se ha agotado. El <span class="danger-txt">KERNEL_DAEMON</span> ha completado su ciclo.</p>
-                <p>...pero <strong>David</strong> nunca se rindió.</p>
-                <p class="bday-big">🎂 ¡FELIZ CUMPLEAÑOS, DAVID! 🎂</p>
-                <p>En la próxima vida, el kernel será tuyo.</p>
-            </div>
-            <div id="death-stats" class="end-stats"></div>
-            <div class="end-btns">
-                <button class="btn-primary" onclick="location.reload()">[ 🔄 REINTENTAR ]</button>
-                <button class="btn-secondary" onclick="openReport()">[ 📄 INFORME DEL PROFESOR ]</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- THEORY REVIEW MODAL -->
-    <div id="theory-modal" class="hidden">
-        <div class="modal-box">
-            <div class="modal-header">
-                📖 CONOCIMIENTO DEL GUARDIÁN
-                <button id="btn-close-modal">✕</button>
-            </div>
-            <div id="modal-body"></div>
-        </div>
-    </div>
-
-    <script src="game.js"></script>
+    <!-- Scripts -->
+    <script src="scripts/shared.js"></script>
+    <script src="scripts/landing.js"></script>
 </body>
 
 </html>
