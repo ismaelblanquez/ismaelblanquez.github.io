@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informe del Profesor — Linux Quest | David</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Share+Tech+Mono&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --blue: #1a56db;
+            --green: #057a55;
+            --red: #c81e1e;
+            --yellow: #92400e;
+            --bg: #f9fafb;
+            --card: #ffffff;
+            --border: #e5e7eb;
+            --text: #111827;
+            --muted: #6b7280;
+            --mono: 'Share Tech Mono', monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .page {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        /* HEADER */
+        .report-header {
+            background: linear-gradient(135deg, #1e3a5f 0%, #0f2027 100%);
+            color: white;
+            border-radius: 12px;
+            padding: 32px 36px;
+            margin-bottom: 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .report-header h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .report-header p {
+            color: #cbd5e1;
+            font-size: 0.95rem;
+        }
+
+        .report-badge {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 10px 18px;
+            text-align: center;
+        }
+
+        .report-badge .score {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #34d399;
+        }
+
+        .report-badge .score-lbl {
+            font-size: 0.75rem;
+            color: #94a3b8;
+        }
+
+        /* CARDS */
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 24px 28px;
+            margin-bottom: 24px;
+        }
+
+        .card-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 14px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card-title .badge {
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 20px;
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        /* STATS GRID */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 12px;
+        }
+
+        .stat-box {
+            background: #f3f4f6;
+            border-radius: 8px;
+            padding: 14px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .stat-val {
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        .stat-lbl {
+            font-size: 0.75rem;
+            color: var(--muted);
+        }
+
+        .stat-box.good .stat-val {
+            color: var(--green);
+        }
+
+        .stat-box.warn .stat-val {
+            color: var(--yellow);
+        }
+
+        .stat-box.bad .stat-val {
+            color: var(--red);
+        }
+
+        /* THEORY SECTIONS */
+        .theory-block {
+            margin-bottom: 20px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .theory-block-header {
+            background: #1e3a5f;
+            color: white;
+            padding: 10px 18px;
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+
+        .theory-block-body {
+            padding: 18px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .theory-block-body h3 {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #1e3a5f;
+            margin-bottom: 4px;
+        }
+
+        .theory-block-body p,
+        .theory-block-body li {
+            font-size: 0.875rem;
+            color: #374151;
+        }
+
+        .theory-block-body ul,
+        .theory-block-body ol {
+            padding-left: 18px;
+        }
+
+        .theory-block-body li {
+            margin-bottom: 4px;
+        }
+
+        .theory-block-body code {
+            font-family: var(--mono);
+            background: #f3f4f6;
+            border: 1px solid #e5e7eb;
+            padding: 1px 6px;
+            border-radius: 3px;
+            font-size: 0.82rem;
+            color: #1e40af;
+        }
+
+        .cmd-box {
+            background: #0f172a;
+            color: #00ff41;
+            font-family: var(--mono);
+            font-size: 0.82rem;
+            border-radius: 6px;
+            padding: 12px 16px;
+            line-height: 1.8;
+            white-space: pre-wrap;
+        }
+
+        /* SOLUTIONS TABLE */
+        .sol-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+
+        .sol-table th {
+            background: #f3f4f6;
+            font-weight: 600;
+            padding: 10px 12px;
+            text-align: left;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .sol-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+        }
+
+        .sol-table td code {
+            font-family: var(--mono);
+            background: #f3f4f6;
+            padding: 1px 6px;
+            border-radius: 3px;
+            color: #1e40af;
+        }
+
+        .outcome-victory {
+            color: var(--green);
+            font-weight: 700;
+        }
+
+        .outcome-death {
+            color: var(--red);
+            font-weight: 700;
+        }
+
+        /* PRINT */
+        @media print {
+            body {
+                background: white;
+            }
+
+            .no-print {
+                display: none;
+            }
+
+            .card,
+            .theory-block {
+                break-inside: avoid;
+            }
+        }
+
+        .print-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #1e3a5f;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 24px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 24px;
+        }
+
+        .print-btn:hover {
+            background: #1e40af;
+        }
+
+        .no-data {
+            color: var(--muted);
+            font-style: italic;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+        <button class="print-btn no-print" onclick="window.print()">🖨️ Imprimir / Guardar PDF</button>
+
+        <!-- HEADER -->
+        <div class="report-header">
+            <div>
+                <h1>📄 Informe del Profesor</h1>
+                <p>Linux Quest — Birthday Edition &nbsp;|&nbsp; Alumno: <strong>David</strong></p>
+                <p id="report-timestamp" style="margin-top:6px;color:#94a3b8;font-size:0.8rem"></p>
+            </div>
+            <div class="report-badge">
+                <div class="score" id="report-score">—</div>
+                <div class="score-lbl">RESULTADO</div>
+            </div>
+        </div>
+
+        <!-- STATS -->
+        <div class="card">
+            <div class="card-title">📊 Estadísticas de la Sesión</div>
+            <div class="stats-grid" id="stats-grid">
+                <p class="no-data">No hay datos de sesión. Juega primero.</p>
+            </div>
+        </div>
+
+        <!-- SOLUTIONS -->
+        <div class="card">
+            <div class="card-title">✅ Soluciones de las Misiones <span class="badge">Para uso del profesor</span></div>
+            <table class="sol-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Misión</th>
+                        <th>Comandos solución</th>
+                        <th>Respuestas reto</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>El Despertar</td>
+                        <td><code>ls -all</code></td>
+                        <td>Permisos kernel.conf en octal: <code>755</code></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Los Espectros</td>
+                        <td><code>ps</code> → <code>ps aux</code></td>
+                        <td>STAT del daemon: <code>R</code> (Élu, en ejecución)</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>El Vigilante</td>
+                        <td><code>top</code> → <code>q</code></td>
+                        <td>—</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>El Árbol Ancestral</td>
+                        <td><code>pstree</code></td>
+                        <td>PID padre de todos: <code>1</code> (systemd)</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>El Golpe Final</td>
+                        <td><code>kill 6666</code> → <code>kill -9 6666</code></td>
+                        <td>—</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- THEORY SECTIONS -->
+        <h2 style="font-size:1.1rem;font-weight:700;margin-bottom:16px;margin-top:8px">📖 Explicaciones Teóricas
+            Completas</h2>
+
+        <!-- T1: SoC -->
+        <div class="theory-block">
+            <div class="theory-block-header">1. Hardware y Sistemas Integrados (SoC)</div>
+            <div class="theory-block-body">
+                <div>
+                    <h3>Modelo de Von Neumann</h3>
+                    <p>Todo computador se basa en tres componentes fundamentales: <strong>Procesador (CPU)</strong> que
+                        ejecuta instrucciones, <strong>Memoria (RAM)</strong> que almacena datos e instrucciones
+                        temporalmente, y <strong>Entradas/Salidas (I/O)</strong> que permiten la comunicación con el
+                        exterior (teclado, pantalla, disco).</p>
+                </div>
+                <div>
+                    <h3>SoC — System on a Chip</h3>
+                    <p>Integra todas las funciones (procesador, GPU, memoria, sensores, WiFi) en un único chip.</p>
+                    <ul>
+                        <li><strong>Ventajas:</strong> Reducción de tamaño, menor consumo energético, menor peso. Ideal
+                            para dispositivos móviles.</li>
+                        <li><strong>Desventajas:</strong> No es ampliable ni actualizable. Si un componente falla, hay
+                            que cambiar todo el chip. Mayor coste de reparación.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- T2: Procesos -->
+        <div class="theory-block">
+            <div class="theory-block-header">2. Fundamentos de Procesos en el Sistema Operativo</div>
+            <div class="theory-block-body">
+                <div>
+                    <h3>Programa vs. Proceso</h3>
+                    <p>Un <strong>programa</strong> es un archivo estático almacenado en el disco (código dormido).
+                        Cuando el procesador lo carga en memoria y comienza a ejecutarlo, se convierte en un
+                        <strong>proceso</strong> (entidad viva con PID, estado y recursos asignados).</p>
+                </div>
+                <div>
+                    <h3>Estados de un Proceso</h3>
+                    <ul>
+                        <li><strong>Élu / Running (R):</strong> El proceso está usando activamente el procesador en este
+                            momento.</li>
+                        <li><strong>Prêt / Ready / Sleeping (S):</strong> El proceso está listo para ejecutarse,
+                            esperando su turno de CPU.</li>
+                        <li><strong>Bloqué / Blocked (D):</strong> El proceso está en pausa esperando un evento externo
+                            (I/O, recurso).</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Tipos de Procesos en Linux</h3>
+                    <ul>
+                        <li><strong>User mode:</strong> Procesos de usuario, con acceso restringido al hardware. Más
+                            seguros.</li>
+                        <li><strong>Kernel mode:</strong> Procesos del sistema (root), con acceso total al hardware y a
+                            la memoria. Peligrosos si se comprometen.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Comandos relacionados</h3>
+                    <div class="cmd-box">$ ps # Procesos del usuario actual (PID, TTY, TIME, CMD)
+                        $ ps aux # Todos los procesos (USER, PID, %CPU, %MEM, STAT, COMMAND)
+                        # Columna STAT: R=running, S=sleeping, D=blocked, Z=zombie</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- T3: Planificación -->
+        <div class="theory-block">
+            <div class="theory-block-header">3. Planificación de Procesos (Ordonnancement)</div>
+            <div class="theory-block-body">
+                <div>
+                    <h3>¿Por qué la planificación?</h3>
+                    <p>Aunque haya un solo núcleo de CPU, el SO crea la ilusión de paralelismo alternando entre procesos
+                        muy rápidamente (nanosegundos). El <strong>planificador (scheduler)</strong> decide qué proceso
+                        usa la CPU en cada momento.</p>
+                </div>
+                <div>
+                    <h3>Algoritmos Sin Requisición (ASR)</h3>
+                    <p>Un proceso corre hasta terminar voluntariamente antes de ceder la CPU al siguiente. Simple pero
+                        puede provocar bloqueos si un proceso no termina.</p>
+                </div>
+                <div>
+                    <h3>Algoritmos Con Requisición (AAR)</h3>
+                    <p>El SO puede interrumpir un proceso en cualquier momento para dar paso a otro. Es la base de los
+                        sistemas modernos multitarea.</p>
+                </div>
+                <div>
+                    <h3>Round Robin (Tourniquet)</h3>
+                    <p>El AAR más común. Cada proceso recibe un <strong>quantum</strong> de tiempo fijo (ej. 100ms). Al
+                        agotarse, el proceso vuelve al final de la cola y el siguiente toma la CPU. Ningún proceso
+                        monopoliza la CPU.</p>
+                </div>
+                <div>
+                    <h3>Prioridades</h3>
+                    <p>En Linux, la columna <code>PR</code> (priority) y <code>NI</code> (nice) en <code>top</code>
+                        indican prioridad. Valor PR más bajo = más urgente. NI negativo = mayor prioridad asignada
+                        manualmente.</p>
+                </div>
+                <div>
+                    <h3>Comando relacionado</h3>
+                    <div class="cmd-box">$ top # Monitor en tiempo real. Muestra PR, NI, %CPU, STAT
+                        # q para salir</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- T4: pstree -->
+        <div class="theory-block">
+            <div class="theory-block-header">4. Árbol de Procesos — pstree</div>
+            <div class="theory-block-body">
+                <div>
+                    <h3>El árbol genealógico</h3>
+                    <p>Todos los procesos en Linux forman una jerarquía. Cada proceso tiene un <strong>padre
+                            (PPID)</strong> y puede tener hijos.</p>
+                    <ul>
+                        <li><strong>PID 0:</strong> El proceso primordial del kernel (gestor de memoria, no visible
+                            directamente).</li>
+                        <li><strong>PID 1 — systemd:</strong> Padre de todos los procesos de usuario. Lo primero que
+                            arranca el kernel. Si muere, el sistema se apaga.</li>
+                        <li><strong>PID 2 — kthreadd:</strong> Padre de todos los hilos del kernel. Gestiona los
+                            procesos internos del SO.</li>
+                    </ul>
+                    <p>Si un proceso padre muere, sus hijos quedan huérfanos y son adoptados automáticamente por
+                        <code>systemd</code>.</p>
+                </div>
+                <div>
+                    <h3>Comando relacionado</h3>
+                    <div class="cmd-box">$ pstree # Vista en árbol de todos los procesos
+                        $ pstree -p # Incluye los PID entre paréntesis</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- T5: Deadlocks -->
+        <div class="theory-block">
+            <div class="theory-block-header">5. Interbloqueos (Deadlocks) y kill</div>
+            <div class="theory-block-body">
+                <div>
+                    <h3>¿Qué es un Deadlock?</h3>
+                    <p>Ocurre cuando dos o más procesos se bloquean mutuamente porque cada uno tiene un recurso que el
+                        otro necesita:</p>
+                    <ul>
+                        <li>Proceso A espera el recurso de B → B espera el recurso de A → ¡bucle infinito!</li>
+                        <li>El sistema se congela si no se resuelve externamente.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Algoritmo del Banquero (Dijkstra)</h3>
+                    <p>Previene deadlocks antes de que ocurran. Antes de asignar un recurso a un proceso, el SO calcula
+                        si el estado del sistema seguirá siendo "seguro". Si la asignación pudiera llevar a un deadlock,
+                        la deniega.</p>
+                </div>
+                <div>
+                    <h3>Señales de kill</h3>
+                    <ul>
+                        <li><code>kill PID</code> (SIGTERM, señal 15): Petición educada de terminar. El proceso puede
+                            ignorarla o limpiar antes de salir.</li>
+                        <li><code>kill -9 PID</code> (SIGKILL, señal 9): Orden forzada del kernel. No se puede ignorar
+                            ni bloquear. El proceso termina inmediatamente.</li>
+                    </ul>
+                    <p><strong>Regla:</strong> Siempre intenta SIGTERM primero. Usa SIGKILL solo si el proceso no
+                        responde.</p>
+                </div>
+                <div>
+                    <h3>Comandos relacionados</h3>
+                    <div class="cmd-box">$ ps aux # Identificar el PID del proceso a terminar
+                        $ kill 6666 # Intento educado (SIGTERM)
+                        $ kill -9 6666 # Fuerza bruta (SIGKILL) — indetenible</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PERMISSIONS SUMMARY -->
+        <div class="card">
+            <div class="card-title">🔐 Referencia Rápida: Permisos en Linux</div>
+            <p style="font-size:0.875rem;color:#374151;margin-bottom:14px">Los permisos se muestran en formato
+                <code>rwxrwxrwx</code>: propietario | grupo | otros.</p>
+            <div class="cmd-box">$ ls -all
+                # Ejemplo: -rwxr-xr-x 1 root root 8192 kernel.conf
+                # Desglose: - (archivo) | rwx (prop=7) | r-x (grupo=5) | r-x (otros=5) = 755
+                #
+                # r = leer (4)
+                # w = escribir (2)
+                # x = ejecutar (1)
+                # - = sin permiso (0)
+                #
+                # rwx = 4+2+1 = 7 rw- = 4+2+0 = 6 r-x = 4+0+1 = 5
+                # r-- = 4+0+0 = 4 --- = 0+0+0 = 0
+                #
+                # Bit SETUID (s en lugar de x en propietario):
+                # -rwsr-xr-x → el proceso corre con los permisos del propietario (root)</div>
+        </div>
+
+        <p style="text-align:center;color:#9ca3af;font-size:0.8rem;margin-top:24px">
+            Generado por Linux Quest — Birthday Edition &nbsp;|&nbsp; Clase de David
+        </p>
+    </div>
+
+    <script>
+        const raw = localStorage.getItem('linux_quest_report');
+        if (raw) {
+            const d = JSON.parse(raw);
+            document.getElementById('report-timestamp').textContent = 'Sesión del ' + d.timestamp;
+            const outcome = d.outcome === 'victory';
+            document.getElementById('report-score').textContent = outcome ? '🏆 VICTORIA' : '💀 CAÍDO';
+            document.getElementById('report-score').className = 'score ' + (outcome ? 'outcome-victory' : 'outcome-death');
+
+            const mins = Math.floor(d.timeLeft / 60), secs = d.timeLeft % 60;
+            const grid = document.getElementById('stats-grid');
+            grid.innerHTML = `
+      <div class="stat-box ${d.davidHP > 50 ? 'good' : d.davidHP > 20 ? 'warn' : 'bad'}">
+        <div class="stat-val">${d.davidHP}/100</div>
+        <div class="stat-lbl">HP Final de David</div>
+      </div>
+      <div class="stat-box ${d.missionsDone >= 5 ? 'good' : d.missionsDone >= 3 ? 'warn' : 'bad'}">
+        <div class="stat-val">${d.missionsDone}/5</div>
+        <div class="stat-lbl">Misiones completadas</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-val">${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}</div>
+        <div class="stat-lbl">Tiempo restante</div>
+      </div>
+      <div class="stat-box ${d.cheatsUsed === 0 ? 'good' : d.cheatsUsed <= 2 ? 'warn' : 'bad'}">
+        <div class="stat-val">${d.cheatsUsed}</div>
+        <div class="stat-lbl">Chuletas usadas</div>
+      </div>
+      <div class="stat-box ${d.wrongCmds + d.wrongAns === 0 ? 'good' : d.wrongCmds + d.wrongAns <= 5 ? 'warn' : 'bad'}">
+        <div class="stat-val">${d.wrongCmds + d.wrongAns}</div>
+        <div class="stat-lbl">Errores totales</div>
+      </div>
+    `;
+        }
+    </script>
+</body>
+
+</html>
