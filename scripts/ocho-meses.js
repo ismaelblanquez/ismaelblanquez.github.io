@@ -16,19 +16,26 @@ document.addEventListener('DOMContentLoaded', () => {
     function createIntroHearts() {
         const container = document.querySelector('.intro-screen__hearts');
         if (!container) return;
-        const emojis = ['❤️', '💕', '💗', '🦆', '✨', '🌹'];
-        for (let i = 0; i < 15; i++) {
-            const h = document.createElement('span');
+
+        // Limpiamos por si se llama múltiples veces
+        container.innerHTML = '';
+
+        const count = 25;
+        for (let i = 0; i < count; i++) {
+            const h = document.createElement('div');
             h.className = 'intro-heart';
-            h.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+            h.textContent = '❤️';
             h.style.left = Math.random() * 100 + '%';
-            h.style.animationDuration = (Math.random() * 6 + 8) + 's';
-            h.style.animationDelay = (Math.random() * 4) + 's';
-            h.style.fontSize = (Math.random() * 14 + 14) + 'px';
+            h.style.fontSize = (Math.random() * 15 + 10) + 'px';
+            h.style.animationDuration = (Math.random() * 4 + 4) + 's';
+            h.style.animationDelay = (Math.random() * 2) + 's';
             container.appendChild(h);
         }
     }
-    createIntroHearts();
+
+    if (introScreen) {
+        createIntroHearts();
+    }
 
     if (introBtn) {
         introBtn.addEventListener('click', () => {
@@ -64,27 +71,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const particlesContainer = document.querySelector('.particles');
         if (particlesContainer) createParticles(particlesContainer, 18);
-
-        initIntroHearts();
-    }
-
-    /* =============================================
-       0. INTRO HEARTS
-       ============================================= */
-    function initIntroHearts() {
-        const container = document.querySelector('.intro-screen__hearts');
-        if (!container) return;
-        const heartsCount = 25;
-        for (let i = 0; i < heartsCount; i++) {
-            const h = document.createElement('div');
-            h.className = 'intro-heart';
-            h.textContent = '❤️';
-            h.style.left = Math.random() * 100 + '%';
-            h.style.fontSize = (Math.random() * 15 + 10) + 'px';
-            h.style.animationDuration = (Math.random() * 4 + 4) + 's';
-            h.style.animationDelay = (Math.random() * 2) + 's';
-            container.appendChild(h);
-        }
     }
 
     /* =============================================

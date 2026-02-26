@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!dateStr) return;
 
             const target = new Date(dateStr + 'T00:00:00');
-            const { days, hours, minutes, passed } = timeUntil(target);
+            const { days, hours, minutes, passed } = window.SharedUtils.timeUntil(target);
             const display = el.querySelector('.moment-card__countdown');
 
             if (passed) {
