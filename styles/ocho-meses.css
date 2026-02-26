@@ -688,135 +688,7 @@
     color: var(--accent);
 }
 
-/* =============================================
-   4b. LOVE QUIZ — Juego interactivo
-   ============================================= */
-.quiz-section {
-    background: radial-gradient(circle at top, rgba(255, 93, 162, 0.06), transparent 55%);
-}
 
-.quiz-container {
-    max-width: 380px;
-    width: 100%;
-    margin: var(--space-lg) auto 0;
-}
-
-.quiz-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    padding: var(--space-xl) var(--space-lg);
-    text-align: center;
-}
-
-.quiz-card__progress {
-    margin-bottom: var(--space-lg);
-}
-
-.quiz-card__progress-text {
-    font-size: 12px;
-    color: var(--muted);
-    margin-bottom: 8px;
-    display: block;
-}
-
-.quiz-card__progress-bar {
-    height: 4px;
-    background: rgba(255, 255, 255, 0.06);
-    border-radius: 2px;
-    overflow: hidden;
-}
-
-.quiz-card__progress-fill {
-    height: 100%;
-    width: 20%;
-    background: linear-gradient(90deg, var(--accent), var(--rose));
-    border-radius: inherit;
-    transition: width 0.5s var(--ease-out);
-}
-
-.quiz-card__question {
-    font-family: var(--font-display);
-    font-size: 18px;
-    font-weight: 600;
-    line-height: 1.4;
-    margin-bottom: var(--space-lg);
-}
-
-.quiz-card__options {
-    display: grid;
-    gap: 10px;
-}
-
-.quiz-option {
-    padding: 14px 18px;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    color: var(--text);
-    font-size: 14px;
-    font-family: inherit;
-    cursor: pointer;
-    transition: all 0.3s var(--ease-out);
-    text-align: left;
-}
-
-.quiz-option:hover {
-    background: rgba(93, 123, 255, 0.1);
-    border-color: var(--accent);
-    transform: translateX(4px);
-}
-
-.quiz-option.is-correct {
-    background: rgba(122, 255, 170, 0.15);
-    border-color: #7affaa;
-    color: #7affaa;
-}
-
-.quiz-option.is-wrong {
-    background: rgba(255, 93, 93, 0.15);
-    border-color: #ff5d5d;
-    color: #ff5d5d;
-}
-
-.quiz-option:disabled {
-    cursor: not-allowed;
-    opacity: 0.6;
-}
-
-/* Resultado */
-.quiz-result {
-    background: var(--card);
-    border: 1px solid var(--border-hover);
-    border-radius: var(--radius-lg);
-    padding: var(--space-2xl) var(--space-lg);
-    text-align: center;
-}
-
-.quiz-result__emoji {
-    font-size: 56px;
-    display: block;
-    margin-bottom: var(--space-md);
-    animation: scaleIn 0.6s var(--ease-spring) both;
-}
-
-.quiz-result__title {
-    font-family: var(--font-display);
-    font-size: 22px;
-    font-weight: 700;
-    margin-bottom: var(--space-sm);
-}
-
-.quiz-result__text {
-    font-size: 14px;
-    color: var(--muted);
-    line-height: 1.6;
-    margin-bottom: var(--space-lg);
-}
-
-.quiz-result__retry {
-    margin-top: var(--space-sm);
-}
 
 /* =============================================
    4c. WISH LANTERNS — Farolillos inmersivo
@@ -2144,4 +2016,218 @@
 
 .juntos-know-controls .btn {
     width: 100%;
+}
+
+/* =============================================
+   RESPONSIVE — iPhone 13 y pantallas pequeñas
+   ============================================= */
+
+/* Fix para iOS Safari: position:fixed no funciona bien.
+   Usamos position:absolute como fallback para los orbes de fondo. */
+@supports (-webkit-touch-callout: none) {
+    .ambient-bg {
+        position: absolute;
+        pointer-events: none;
+    }
+
+    /* Reducir blur en iOS para evitar lag */
+    .ambient-bg .orb {
+        filter: blur(40px);
+        animation: none;
+        /* Desactivar animación de los orbes en iOS para rendimiento */
+        opacity: 0.5;
+    }
+
+    /* Reducir partículas en iOS */
+    .particles {
+        display: none;
+    }
+
+    /* Vinyl player: pausar animaciones pesadas en iOS */
+    .vinyl__disc {
+        animation-play-state: paused;
+    }
+}
+
+@media (max-width: 480px) {
+
+    /* --- Secciones base --- */
+    .page-section {
+        padding: var(--space-xl) var(--space-md);
+    }
+
+    .page-section__title {
+        font-size: clamp(22px, 7vw, 32px);
+    }
+
+    .page-section__subtitle {
+        font-size: 14px;
+    }
+
+    /* --- Header de secciones --- */
+    .page-section__eyebrow {
+        font-size: 10px;
+    }
+
+    /* --- Stories --- */
+    .stories-stage {
+        height: 300px;
+    }
+
+    .story-media {
+        height: 300px;
+    }
+
+    /* --- Diccionario --- */
+    .dict-entry__word {
+        font-size: 22px;
+    }
+
+    /* --- Scratch Cards --- */
+    .scratch-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-sm);
+    }
+
+    .scratch-card {
+        height: 130px;
+    }
+
+    /* --- Vision Board (2 cols en mobile) --- */
+    .vision-board {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-sm);
+    }
+
+    .vision-card {
+        padding: var(--space-md) var(--space-sm);
+    }
+
+    .vision-card__icon {
+        font-size: 28px;
+    }
+
+    .vision-card__title {
+        font-size: 13px;
+    }
+
+    .vision-card__text {
+        font-size: 11px;
+    }
+
+    /* --- Vinyl Player --- */
+    .vinyl-player {
+        max-width: 100%;
+        padding: 0 var(--space-sm);
+    }
+
+    .vinyl {
+        width: 220px;
+        height: 220px;
+    }
+
+    .now-playing {
+        margin: var(--space-sm) var(--space-sm) 0;
+        padding: var(--space-md);
+    }
+
+    .now-playing__title {
+        font-size: 18px;
+    }
+
+    .now-playing__detail {
+        font-size: 12px;
+    }
+
+    .track-selector {
+        gap: var(--space-sm);
+        padding: var(--space-sm);
+    }
+
+    .track-chip {
+        padding: 8px 14px;
+    }
+
+    /* --- Farolillos --- */
+    .lantern-sky {
+        height: 280px;
+    }
+
+    .lantern-ui-card {
+        margin: -30px var(--space-sm) 0;
+        padding: var(--space-md);
+    }
+
+    /* --- Promise Jar --- */
+    .jar-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--space-xs);
+    }
+
+    .jar-promise {
+        padding: var(--space-sm);
+        font-size: 10px;
+    }
+
+    /* --- Ocean Letter --- */
+    .sea-letter {
+        padding: var(--space-lg) var(--space-md);
+    }
+
+    .sea-letter__body {
+        font-size: 14px;
+    }
+
+    /* --- Juntos --- */
+    .juntos-mode {
+        grid-template-columns: 1fr;
+    }
+
+    .juntos-launcher {
+        max-width: 100%;
+    }
+
+    .juntos-truth-card {
+        min-height: 180px;
+        padding: var(--space-lg) var(--space-md);
+    }
+
+    .juntos-truth-question {
+        font-size: 18px;
+    }
+
+    .juntos-know-card {
+        min-height: 200px;
+        padding: var(--space-lg) var(--space-md);
+    }
+
+    .juntos-know-question {
+        font-size: 16px;
+    }
+
+    /* --- Galaxy Finale --- */
+    .galaxy-finale__message {
+        font-size: clamp(24px, 8vw, 40px);
+    }
+
+    /* --- Footer --- */
+    .footer-8 {
+        padding: var(--space-xl) var(--space-md);
+        font-size: 11px;
+    }
+
+    /* --- Botones --- */
+    .btn {
+        font-size: 13px;
+        padding: 12px 20px;
+    }
+
+    /* --- Intro screen --- */
+    .intro-screen {
+        padding: var(--space-lg) var(--space-md);
+    }
+
+    .intro-screen__number {
+        font-size: clamp(70px, 20vw, 120px);
+    }
 }

@@ -54,7 +54,6 @@ document.addEventListener('DOMContentLoaded', () => {
         initDictionary();
         initScratchCards();
         initVisionBoard();
-        initLoveQuiz();
         initWishLanterns();
         initPlaylist();
         initPromiseJar();
