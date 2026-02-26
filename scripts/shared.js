@@ -11,6 +11,12 @@ function initReveals() {
     const items = document.querySelectorAll('[data-reveal]');
     if (!items.length) return;
 
+    // Fallback de seguridad para iOS Safari:
+    // Si la API falla, revelamos todo después de 1 segundo para evitar página en blanco
+    const fallbackTimer = setTimeout(() => {
+        items.forEach(item => item.classList.add('is-visible'));
+    }, 1500);
+
     const observer = new IntersectionObserver(
         (entries) => {
             entries.forEach((entry) => {
@@ -20,10 +26,19 @@ function initReveals() {
                 }
             });
         },
-        { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
+        { threshold: 0.1, rootMargin: '0px 0px 50px 0px' }
     );
 
     items.forEach((item) => observer.observe(item));
+
+    // Si el observer se activa antes, limpiamos el fallback innecesario
+    const firstReveal = new IntersectionObserver((entries) => {
+        if (entries.some(e => e.isIntersecting)) {
+            clearTimeout(fallbackTimer);
+            firstReveal.disconnect();
+        }
+    });
+    firstReveal.observe(document.body);
 }
 
 /**

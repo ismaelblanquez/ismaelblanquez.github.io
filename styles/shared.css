@@ -80,7 +80,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-img, video, svg {
+img,
+video,
+svg {
   display: block;
   max-width: 100%;
 }
@@ -103,58 +105,106 @@ a {
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(30px) translateZ(0);
   }
+
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) translateZ(0);
   }
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+    transform: translateZ(0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateZ(0);
+  }
 }
 
 @keyframes scaleIn {
   from {
     opacity: 0;
-    transform: scale(0.85);
+    transform: scale(0.85) translateZ(0);
   }
+
   to {
     opacity: 1;
-    transform: scale(1);
+    transform: scale(1) translateZ(0);
   }
 }
 
 @keyframes pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
+
+  0%,
+  100% {
+    transform: scale(1) translateZ(0);
+  }
+
+  50% {
+    transform: scale(1.05) translateZ(0);
+  }
 }
 
 @keyframes shimmer {
-  0% { background-position: -200% center; }
-  100% { background-position: 200% center; }
+  0% {
+    background-position: -200% center;
+  }
+
+  100% {
+    background-position: 200% center;
+  }
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+
+  0%,
+  100% {
+    transform: translateY(0) translateZ(0);
+  }
+
+  50% {
+    transform: translateY(-10px) translateZ(0);
+  }
 }
 
 @keyframes glow-pulse {
-  0%, 100% { opacity: 0.4; }
-  50% { opacity: 1; }
+
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+
+  50% {
+    opacity: 1;
+  }
 }
 
 @keyframes spin-slow {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes blink {
-  0%, 50% { opacity: 1; }
-  51%, 100% { opacity: 0; }
+
+  0%,
+  50% {
+    opacity: 1;
+  }
+
+  51%,
+  100% {
+    opacity: 0;
+  }
 }
 
 /* --- Reveal animation base --- */
@@ -162,7 +212,7 @@ a {
   opacity: 0;
   transform: translateY(24px);
   transition: opacity var(--duration-slow) var(--ease-out),
-              transform var(--duration-slow) var(--ease-out);
+    transform var(--duration-slow) var(--ease-out);
 }
 
 [data-reveal].is-visible {
@@ -284,12 +334,15 @@ a {
     opacity: 0;
     transform: translateY(100vh) scale(0);
   }
+
   10% {
     opacity: 0.6;
   }
+
   90% {
     opacity: 0.3;
   }
+
   100% {
     opacity: 0;
     transform: translateY(-10vh) scale(1);
@@ -298,6 +351,7 @@ a {
 
 /* --- Reducción de movimiento --- */
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {
