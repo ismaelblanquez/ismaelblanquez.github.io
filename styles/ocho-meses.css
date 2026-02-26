@@ -75,6 +75,7 @@
     font-size: 20px;
     opacity: 0.15;
     animation: introHeartFloat linear infinite;
+    will-change: transform, opacity;
 }
 
 @keyframes introHeartFloat {
@@ -84,11 +85,11 @@
     }
 
     10% {
-        opacity: 0.18;
+        opacity: 0.5;
     }
 
     90% {
-        opacity: 0.1;
+        opacity: 0.3;
     }
 
     100% {
@@ -263,14 +264,24 @@
     padding: 24px 20px 32px;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.4s var(--ease-out), transform 0.4s var(--ease-out);
-    transform: translateX(30px) scale(0.97);
+    transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out);
+    transform: translateX(100%) scale(0.9);
+    z-index: 0;
 }
 
 .story-slide.is-active {
     opacity: 1;
     pointer-events: auto;
     transform: translateX(0) scale(1);
+    z-index: 2;
+}
+
+.story-slide.is-exiting {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(-20%) scale(0.95);
+    z-index: 1;
+    transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out);
 }
 
 .story-slide__bg {
@@ -464,11 +475,12 @@
     line-height: 1.7;
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.6s var(--ease-out), padding 0.4s;
+    transition: max-height 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), padding 0.4s;
+    will-change: max-height, padding;
 }
 
 .dict-entry.is-open .dict-entry__def {
-    max-height: 200px;
+    max-height: 800px;
     padding-top: var(--space-sm);
 }
 
@@ -481,11 +493,12 @@
     color: var(--rose);
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.6s var(--ease-out) 0.1s;
+    transition: max-height 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) 0.1s;
+    will-change: max-height;
 }
 
 .dict-entry.is-open .dict-entry__example {
-    max-height: 100px;
+    max-height: 300px;
     padding-top: 4px;
 }
 
@@ -543,34 +556,41 @@
 .scratch-card__cover {
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, #1e2350, #2a1840);
-    border: 1px solid var(--border);
+    background:
+        repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255, 255, 255, 0.05) 10px, rgba(255, 255, 255, 0.05) 20px),
+        linear-gradient(135deg, #a0b0c0 0%, #e2e8f0 100%);
+    border: 2px solid #cbd5e1;
     border-radius: inherit;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 8px;
-    transition: all 0.6s var(--ease-out);
+    transition: all 0.7s var(--ease-spring);
     z-index: 2;
+    box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.1), inset 0 2px 4px rgba(255, 255, 255, 0.5);
+    color: #475569;
 }
 
 .scratch-card__cover-icon {
     font-size: 32px;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
     animation: pulse 2s ease-in-out infinite;
 }
 
 .scratch-card__cover-label {
-    font-size: 12px;
-    color: var(--muted);
+    font-size: 13px;
+    font-weight: 600;
+    color: #334155;
     letter-spacing: 1px;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.8);
 }
 
 .scratch-card.is-revealed .scratch-card__cover {
     opacity: 0;
-    transform: scale(0.85) rotateY(90deg);
+    transform: scale(1.2) rotateX(180deg) rotateY(45deg);
     pointer-events: none;
-    transition: all 0.5s var(--ease-out);
+    transition: all 0.8s var(--ease-spring);
 }
 
 /* Efecto shimmer en la cubierta */

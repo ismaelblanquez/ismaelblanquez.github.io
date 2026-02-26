@@ -64,6 +64,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const particlesContainer = document.querySelector('.particles');
         if (particlesContainer) createParticles(particlesContainer, 18);
+
+        initIntroHearts();
+    }
+
+    /* =============================================
+       0. INTRO HEARTS
+       ============================================= */
+    function initIntroHearts() {
+        const container = document.querySelector('.intro-screen__hearts');
+        if (!container) return;
+        const heartsCount = 25;
+        for (let i = 0; i < heartsCount; i++) {
+            const h = document.createElement('div');
+            h.className = 'intro-heart';
+            h.textContent = '❤️';
+            h.style.left = Math.random() * 100 + '%';
+            h.style.fontSize = (Math.random() * 15 + 10) + 'px';
+            h.style.animationDuration = (Math.random() * 4 + 4) + 's';
+            h.style.animationDelay = (Math.random() * 2) + 's';
+            container.appendChild(h);
+        }
     }
 
     /* =============================================
@@ -219,175 +240,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* =============================================
-       8. LOVE QUIZ — Juego interactivo
+       (Removed unused Love Quiz to save space)
        ============================================= */
-    function initLoveQuiz() {
-        const questions = [
-            {
-                q: '¿Qué define nuestra relación con pocas palabras?',
-                options: ['Bonita y especial', 'Idiotas ✨', 'Perfecta desde el principio', 'Madura y seria'],
-                correct: 1
-            },
-            {
-                q: '¿Cuál es nuestra canción favorita?',
-                options: ['Tú me conoces', 'Me va a encantar', 'Rey de Reyes 👑', 'Para siempre'],
-                correct: 2
-            },
-            {
-                q: 'Si tuviéramos que elegir los dos una comida, ¿cuál sería?',
-                options: ['Pizza', 'Sushi', 'Macarrones 🍝', 'Hamburguesa'],
-                correct: 2
-            },
-            {
-                q: '¿Cuál es mi mayor miedo?',
-                options: ['Perder a mi familia', 'Que tú me dejes algún día', 'Que no tengamos futuro', 'Que el Señor me deje 🙏'],
-                correct: 3
-            },
-            {
-                q: '¿Qué es lo que más me preocupa de nuestra relación?',
-                options: ['La distancia', 'El futuro económico', 'Que estés tan bien en tu casa y que estar conmigo sea peor para ti', 'Nuestras diferencias de carácter'],
-                correct: 2
-            },
-            {
-                q: '¿Qué crees que haría si me pones los cuernos?',
-                options: ['Perdonarte y seguir', 'Hablar mucho y entenderlo', 'Dejarte 🚪', 'Me quedaría con la rabia por dentro'],
-                correct: 2
-            },
-            {
-                q: 'Si tuvieras que elegir el momento que más me gustó, ¿cuál sería?',
-                options: ['El día de la tagliatella 🍝', 'Ir al cine a ver Vaiana', 'La Playa', 'El día que te pedí salir'],
-                correct: 0
-            },
-            {
-                q: 'De los regalos que te he hecho, ¿cuál crees que más me gustó hacerte?',
-                options: ['Las cartas', 'El cumpleaños', 'La Navidad', 'San Valentín (la web) 💻'],
-                correct: 3
-            },
-            {
-                q: '¿Qué elegiría entre el PC y el móvil?',
-                options: ['El móvil 📱', 'El PC 🖥️', 'Los dos me dan igual', 'Depende del momento'],
-                correct: 1
-            },
-            {
-                q: 'Me han dicho siempre que soy muy agarrado y que no invito. ¿Qué piensas de eso?',
-                options: ['Es totalmente verdad jaja', 'Eres generoso conmigo, eso es lo que importa 💕', 'Sí eres un poco rata', 'A veces sí, a veces no'],
-                correct: 1
-            },
-            {
-                q: '¿Cuál crees que puede ser mi mayor inseguridad?',
-                options: ['Mi aspecto físico', 'Mi futuro laboral', 'No ser suficiente para ti 💙', 'Mis decisiones de vida'],
-                correct: 2
-            },
-            {
-                q: '¿Crees que hay algo que pienso y no te he llegado a decir?',
-                options: ['No, eres muy transparente', 'Algo sobre el miedo al futuro', 'Que a veces sientes que mereces más', 'Seguro que sí... algún día me lo contarás 🤫'],
-                correct: 3
-            },
-            {
-                q: '¿Crees que podría dejarte alguna vez?',
-                options: ['Sí, en algún momento lo pensarías', 'No, nunca lo pensarías', 'Quizás en algún momento difícil... pero al final no 💪', 'Me da un poco igual'],
-                correct: 2
-            },
-            {
-                q: '¿Cuántos meses llevamos juntos?',
-                options: ['6 meses', '7 meses', '9 meses', '8 meses 🎂'],
-                correct: 3
-            }
-        ];
-        const TOTAL = questions.length;
-
-        let currentQ = 0;
-        let score = 0;
-
-        const quizCard = document.getElementById('quizCard');
-        const quizResult = document.getElementById('quizResult');
-        const quizQuestion = document.getElementById('quizQuestion');
-        const quizOptions = document.getElementById('quizOptions');
-        const quizCurrent = document.getElementById('quizCurrent');
-        const quizProgressFill = document.getElementById('quizProgressFill');
-        const quizRetry = document.getElementById('quizRetry');
-
-        if (!quizCard) return;
-
-        function renderQuestion() {
-            const q = questions[currentQ];
-            if (quizCurrent) quizCurrent.textContent = currentQ + 1;
-            if (quizProgressFill) quizProgressFill.style.width = ((currentQ + 1) / TOTAL * 100) + '%';
-            quizQuestion.textContent = q.q;
-            quizOptions.innerHTML = '';
-
-            q.options.forEach((opt, i) => {
-                const btn = document.createElement('button');
-                btn.className = 'quiz-option';
-                btn.textContent = opt;
-                btn.addEventListener('click', () => handleAnswer(i, btn));
-                quizOptions.appendChild(btn);
-            });
-        }
-
-        function handleAnswer(index, btn) {
-            const q = questions[currentQ];
-            const allBtns = quizOptions.querySelectorAll('.quiz-option');
-            allBtns.forEach(b => b.disabled = true);
-
-            if (index === q.correct) {
-                btn.classList.add('is-correct');
-                score++;
-                launchConfetti(btn, 12);
-            } else {
-                btn.classList.add('is-wrong');
-                allBtns[q.correct].classList.add('is-correct');
-            }
-
-            setTimeout(() => {
-                currentQ++;
-                if (currentQ < TOTAL) {
-                    renderQuestion();
-                } else {
-                    showResult();
-                }
-            }, 1400);
-        }
-
-        function showResult() {
-            quizCard.style.display = 'none';
-            quizResult.style.display = '';
-
-            const resultEmoji = document.getElementById('quizResultEmoji');
-            const resultTitle = document.getElementById('quizResultTitle');
-            const resultText = document.getElementById('quizResultText');
-
-            const pct = score / TOTAL;
-            if (pct === 1) {
-                resultEmoji.textContent = '🏆';
-                resultTitle.textContent = `¡Perfecta! ${score}/${TOTAL}`;
-                resultText.textContent = '¡Lo sabes TODO sobre nosotros! Eres la mejor, mi princesa preciosa. Me conoces como nadie. Te amo mogollón.';
-                launchConfetti(quizResult, 60);
-            } else if (pct >= 0.7) {
-                resultEmoji.textContent = '💕';
-                resultTitle.textContent = `¡Muy bien! ${score}/${TOTAL}`;
-                resultText.textContent = 'Nos conoces muy bien — eres increíble. Hay cositas que aún podemos descubrir juntos, ¡qué buena excusa para seguir hablando!';
-            } else if (pct >= 0.5) {
-                resultEmoji.textContent = '🦆';
-                resultTitle.textContent = `${score}/${TOTAL} — Hay que repasar`;
-                resultText.textContent = 'Bueno… esto significa que tenemos que pasar más tiempo juntos. ¿Qué mejor excusa? 😏';
-            } else {
-                resultEmoji.textContent = '😂';
-                resultTitle.textContent = `${score}/${TOTAL} — Patdoalavida nivel 1`;
-                resultText.textContent = 'Jajaja que poco me conoces… pero eso es lo bonito — todavía tenemos tanto que descubrir juntos. ❤️';
-            }
-        }
-
-        quizRetry?.addEventListener('click', () => {
-            currentQ = 0;
-            score = 0;
-            quizCard.style.display = '';
-            quizResult.style.display = 'none';
-            renderQuestion();
-        });
-
-        renderQuestion();
-    }
 
     /* =============================================
        9. WISH LANTERNS — Farolillos inmersivos
@@ -623,11 +477,18 @@ Te amo con locura, hoy, mañana y el resto de mi vida.`;
 
             const bottleVisual = document.querySelector('.bottle__visual');
             if (bottleVisual) {
-                bottleVisual.style.transform = 'scale(1.3)';
+                // Anima visualmente la botella
+                bottleVisual.style.transform = 'scale(1.4) rotate(15deg)';
+                launchConfetti(bottle, 50); // Premium details: confeti al abrir!
+
                 setTimeout(() => {
-                    bottleVisual.style.opacity = '0.3';
-                    bottleVisual.style.transform = 'scale(0.8)';
-                }, 400);
+                    bottleVisual.style.opacity = '0.1';
+                    bottleVisual.style.transform = 'scale(0.8) translateY(20px)';
+                    // Reemplazamos icono visual pero sin ocultarlo bruscamente
+                    bottleVisual.textContent = '💌';
+                    bottleVisual.style.opacity = '0.8';
+                    bottleVisual.style.transform = 'scale(1)';
+                }, 500);
             }
 
             setTimeout(() => {
@@ -641,8 +502,8 @@ Te amo con locura, hoy, mañana y el resto de mi vida.`;
                             setTimeout(() => letterSignature.classList.add('is-visible'), 500);
                         }
                     });
-                }, 800);
-            }, 600);
+                }, 900);
+            }, 700);
         }
 
         bottle?.addEventListener('click', openBottle);
