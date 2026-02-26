@@ -114,9 +114,8 @@
     top: 16px;
     left: 16px;
     z-index: 100;
-    background: rgba(18, 21, 44, 0.85);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background: rgba(18, 21, 44, 0.95);
+    /* Removed backdrop-filter to prevent iOS GPU lag */
     border: 1px solid var(--border);
     color: var(--text);
     padding: 10px 18px;
@@ -788,9 +787,8 @@
 
 /* UI Flotante */
 .lantern-ui-card {
-    background: rgba(20, 15, 35, 0.6);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background: rgba(20, 15, 35, 0.85);
+    /* Removed backdrop-filter to prevent iOS GPU lag */
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: var(--radius-xl);
     padding: var(--space-lg);
@@ -1153,9 +1151,9 @@
 
 /* --- Now Playing display --- */
 .now-playing {
-    background: rgba(26, 26, 46, 0.6);
+    background: rgba(26, 26, 46, 0.90);
     border: 1px solid var(--border);
-    backdrop-filter: blur(10px);
+    /* Removed backdrop-filter to prevent iOS GPU lag */
     border-radius: var(--radius-lg);
     padding: var(--space-lg);
     text-align: center;
@@ -1262,6 +1260,7 @@
     margin-bottom: 4px;
     background: linear-gradient(135deg, #fff, #aaa);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
