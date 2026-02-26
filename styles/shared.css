@@ -276,43 +276,58 @@ a {
   pointer-events: none;
   z-index: 0;
   overflow: hidden;
+  /* isolation ensures orbs never capture touch events */
+  isolation: isolate;
 }
 
 .ambient-bg .orb {
   position: absolute;
   border-radius: 50%;
-  filter: blur(50px);
-  animation: float 12s ease-in-out infinite;
-  will-change: transform;
+  filter: blur(60px);
+  /* Use opacity animation ONLY — no transform on fixed elements.
+     will-change: transform on fixed layers intercepts mobile scroll. */
+  animation: orbPulse 8s ease-in-out infinite;
+}
+
+@keyframes orbPulse {
+
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+
+  50% {
+    opacity: 1;
+  }
 }
 
 .ambient-bg .orb--accent {
   width: 500px;
   height: 500px;
-  background: rgba(93, 123, 255, 0.35);
+  background: rgba(93, 123, 255, 0.4);
   top: -150px;
   left: -100px;
-  animation-duration: 14s;
+  animation-duration: 12s;
 }
 
 .ambient-bg .orb--rose {
   width: 420px;
   height: 420px;
-  background: rgba(255, 93, 162, 0.3);
+  background: rgba(255, 93, 162, 0.35);
   top: 55%;
   left: 60%;
-  animation-delay: -5s;
-  animation-duration: 18s;
+  animation-delay: -4s;
+  animation-duration: 16s;
 }
 
 .ambient-bg .orb--teal {
   width: 360px;
   height: 360px;
-  background: rgba(122, 255, 236, 0.2);
+  background: rgba(122, 255, 236, 0.25);
   top: 25%;
   left: 5%;
-  animation-delay: -9s;
-  animation-duration: 22s;
+  animation-delay: -8s;
+  animation-duration: 20s;
 }
 
 /* --- Partículas flotantes --- */
