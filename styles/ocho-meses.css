@@ -2097,27 +2097,6 @@
    RESPONSIVE — iPhone 13 y pantallas pequeñas
    ============================================= */
 
-/* Fix para iOS Safari: position:fixed no funciona bien.
-   Usamos position:absolute como fallback para los orbes de fondo. */
-@supports (-webkit-touch-callout: none) {
-    .ambient-bg {
-        position: absolute;
-        pointer-events: none;
-    }
-
-    /* Sólo reducir opacidad de los orbes — NO eliminar la animación
-       porque eso afectaría también a los corazones de la intro */
-    .ambient-bg .orb {
-        filter: blur(40px);
-        opacity: 0.25;
-    }
-
-    /* Ocultar partículas en iOS para mejorar rendimiento */
-    .particles {
-        display: none;
-    }
-}
-
 @media (max-width: 480px) {
 
     /* --- Secciones base --- */
@@ -2154,12 +2133,16 @@
 
     /* --- Scratch Cards --- */
     .scratch-grid {
-        grid-template-columns: 1fr 1fr;
-        gap: var(--space-sm);
+        grid-template-columns: 1fr;
+        gap: var(--space-md);
+        max-width: 280px;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .scratch-card {
-        height: 130px;
+        height: auto;
+        aspect-ratio: 4 / 3;
     }
 
     /* --- Vision Board (2 cols en mobile) --- */
