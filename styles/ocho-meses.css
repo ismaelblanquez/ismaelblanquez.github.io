@@ -782,9 +782,8 @@
     height: 400px;
     /* Mas alto para darle recorrido a los farolillos */
     position: relative;
-    overflow: hidden;
-    mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%);
-    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%);
+    overflow-x: hidden;
+    overflow-y: visible;
 }
 
 /* UI Flotante */
@@ -893,7 +892,6 @@
     animation: lanternFloat linear forwards;
     pointer-events: none;
     z-index: 5;
-    filter: drop-shadow(0 0 10px rgba(255, 80, 0, 0.5));
 }
 
 .floating-lantern__body {
@@ -2204,10 +2202,20 @@
     .lantern-launcher {
         max-width: 100%;
         width: 100%;
+        overflow: visible !important;
     }
 
     .lantern-sky {
-        height: 220px;
+        height: 300px;
+        overflow: visible !important;
+        z-index: 50;
+        /* Forzar estar por encima */
+    }
+
+    /* Forzar el renderizado en iOS para los farolillos dinámicos */
+    .floating-lantern {
+        z-index: 999 !important;
+        will-change: transform, opacity;
     }
 
     .lantern-ui-card {

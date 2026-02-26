@@ -299,10 +299,15 @@ document.addEventListener('DOMContentLoaded', () => {
             lantern.style.setProperty('--rot', rot + 'deg');
 
             /* Duración aleatoria para que unos suban más lento que otros */
+            /* Duración aleatoria para que unos suban más lento que otros */
             const duration = 12 + Math.random() * 10; // 12 a 22 segundos
             lantern.style.animationDuration = duration + 's';
 
             sky.appendChild(lantern);
+
+            // Fuerza un reflow/paint en iOS Safari para asegurar que el elemento dinámico 
+            // se dibuje antes de que empiece la animación acelerada por hardware
+            lantern.getBoundingClientRect();
 
             /* Eliminar después de la animación */
             setTimeout(() => lantern.remove(), duration * 1000);
