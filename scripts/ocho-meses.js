@@ -60,6 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
         initPromiseJar();
         initOceanLetter();
         initYearProgress();
+        initJuntos();
         initGalaxyFinale();
 
         const particlesContainer = document.querySelector('.particles');
@@ -206,31 +207,77 @@ document.addEventListener('DOMContentLoaded', () => {
     function initLoveQuiz() {
         const questions = [
             {
-                q: '¿Qué día del mes celebramos nuestro mesniversario?',
-                options: ['El 14', 'El 27', 'El 1', 'El 25'],
+                q: '¿Qué define nuestra relación con pocas palabras?',
+                options: ['Bonita y especial', 'Idiotas ✨', 'Perfecta desde el principio', 'Madura y seria'],
                 correct: 1
             },
             {
-                q: '¿Cuál es nuestra palabra secreta para "para siempre"?',
-                options: ['Loveyou', 'Siempre juntos', 'Patdoalavida', 'Infinito'],
+                q: '¿Cuál es nuestra canción favorita?',
+                options: ['Tú me conoces', 'Me va a encantar', 'Rey de Reyes 👑', 'Para siempre'],
                 correct: 2
             },
             {
-                q: '¿Qué animal nos representa?',
-                options: ['Un gato', 'Un oso', 'Un pato 🦆', 'Una mariposa'],
+                q: 'Si tuviéramos que elegir los dos una comida, ¿cuál sería?',
+                options: ['Pizza', 'Sushi', 'Macarrones 🍝', 'Hamburguesa'],
                 correct: 2
             },
             {
-                q: '¿Qué decimos sobre la base de nuestra relación?',
-                options: ['Sobre la arena', 'Sobre la roca', 'Sobre las nubes', 'Sobre el amor'],
+                q: '¿Cuál es mi mayor miedo?',
+                options: ['Perder a mi familia', 'Que tú me dejes algún día', 'Que no tengamos futuro', 'Que el Señor me deje 🙏'],
+                correct: 3
+            },
+            {
+                q: '¿Qué es lo que más me preocupa de nuestra relación?',
+                options: ['La distancia', 'El futuro económico', 'Que estés tan bien en tu casa y que estar conmigo sea peor para ti', 'Nuestras diferencias de carácter'],
+                correct: 2
+            },
+            {
+                q: '¿Qué crees que haría si me pones los cuernos?',
+                options: ['Perdonarte y seguir', 'Hablar mucho y entenderlo', 'Dejarte 🚪', 'Me quedaría con la rabia por dentro'],
+                correct: 2
+            },
+            {
+                q: 'Si tuvieras que elegir el momento que más me gustó, ¿cuál sería?',
+                options: ['El día de la tagliatella 🍝', 'Ir al cine a ver Vaiana', 'La Playa', 'El día que te pedí salir'],
+                correct: 0
+            },
+            {
+                q: 'De los regalos que te he hecho, ¿cuál crees que más me gustó hacerte?',
+                options: ['Las cartas', 'El cumpleaños', 'La Navidad', 'San Valentín (la web) 💻'],
+                correct: 3
+            },
+            {
+                q: '¿Qué elegiría entre el PC y el móvil?',
+                options: ['El móvil 📱', 'El PC 🖥️', 'Los dos me dan igual', 'Depende del momento'],
                 correct: 1
             },
             {
-                q: '¿Cómo decimos que avanzamos en la relación?',
-                options: ['A lo loco', 'A pasitos de tortuga 🐢', 'A mil por hora', 'Sin pensar'],
+                q: 'Me han dicho siempre que soy muy agarrado y que no invito. ¿Qué piensas de eso?',
+                options: ['Es totalmente verdad jaja', 'Eres generoso conmigo, eso es lo que importa 💕', 'Sí eres un poco rata', 'A veces sí, a veces no'],
                 correct: 1
+            },
+            {
+                q: '¿Cuál crees que puede ser mi mayor inseguridad?',
+                options: ['Mi aspecto físico', 'Mi futuro laboral', 'No ser suficiente para ti 💙', 'Mis decisiones de vida'],
+                correct: 2
+            },
+            {
+                q: '¿Crees que hay algo que pienso y no te he llegado a decir?',
+                options: ['No, eres muy transparente', 'Algo sobre el miedo al futuro', 'Que a veces sientes que mereces más', 'Seguro que sí... algún día me lo contarás 🤫'],
+                correct: 3
+            },
+            {
+                q: '¿Crees que podría dejarte alguna vez?',
+                options: ['Sí, en algún momento lo pensarías', 'No, nunca lo pensarías', 'Quizás en algún momento difícil... pero al final no 💪', 'Me da un poco igual'],
+                correct: 2
+            },
+            {
+                q: '¿Cuántos meses llevamos juntos?',
+                options: ['6 meses', '7 meses', '9 meses', '8 meses 🎂'],
+                correct: 3
             }
         ];
+        const TOTAL = questions.length;
 
         let currentQ = 0;
         let score = 0;
@@ -247,8 +294,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function renderQuestion() {
             const q = questions[currentQ];
-            quizCurrent.textContent = currentQ + 1;
-            quizProgressFill.style.width = ((currentQ + 1) / questions.length * 100) + '%';
+            if (quizCurrent) quizCurrent.textContent = currentQ + 1;
+            if (quizProgressFill) quizProgressFill.style.width = ((currentQ + 1) / TOTAL * 100) + '%';
             quizQuestion.textContent = q.q;
             quizOptions.innerHTML = '';
 
@@ -277,12 +324,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
             setTimeout(() => {
                 currentQ++;
-                if (currentQ < questions.length) {
+                if (currentQ < TOTAL) {
                     renderQuestion();
                 } else {
                     showResult();
                 }
-            }, 1200);
+            }, 1400);
         }
 
         function showResult() {
@@ -293,19 +340,24 @@ document.addEventListener('DOMContentLoaded', () => {
             const resultTitle = document.getElementById('quizResultTitle');
             const resultText = document.getElementById('quizResultText');
 
-            if (score === 5) {
+            const pct = score / TOTAL;
+            if (pct === 1) {
                 resultEmoji.textContent = '🏆';
-                resultTitle.textContent = '¡Perfecta! 5/5';
-                resultText.textContent = '¡Lo sabes TODO sobre nosotros! Eres la mejor, mi princesa preciosa. Me conoces como nadie.';
-                launchConfetti(quizResult, 50);
-            } else if (score >= 3) {
+                resultTitle.textContent = `¡Perfecta! ${score}/${TOTAL}`;
+                resultText.textContent = '¡Lo sabes TODO sobre nosotros! Eres la mejor, mi princesa preciosa. Me conoces como nadie. Te amo mogollón.';
+                launchConfetti(quizResult, 60);
+            } else if (pct >= 0.7) {
                 resultEmoji.textContent = '💕';
-                resultTitle.textContent = `¡Casi! ${score}/5`;
-                resultText.textContent = 'Nos conoces muy bien, pero aún hay cositas que aprender juntos. ¡Eso hace la relación más divertida!';
-            } else {
+                resultTitle.textContent = `¡Muy bien! ${score}/${TOTAL}`;
+                resultText.textContent = 'Nos conoces muy bien — eres increíble. Hay cositas que aún podemos descubrir juntos, ¡qué buena excusa para seguir hablando!';
+            } else if (pct >= 0.5) {
                 resultEmoji.textContent = '🦆';
-                resultTitle.textContent = `${score}/5 — Hay que repasar`;
+                resultTitle.textContent = `${score}/${TOTAL} — Hay que repasar`;
                 resultText.textContent = 'Bueno… esto significa que tenemos que pasar más tiempo juntos. ¿Qué mejor excusa? 😏';
+            } else {
+                resultEmoji.textContent = '😂';
+                resultTitle.textContent = `${score}/${TOTAL} — Patdoalavida nivel 1`;
+                resultText.textContent = 'Jajaja que poco me conoces… pero eso es lo bonito — todavía tenemos tanto que descubrir juntos. ❤️';
             }
         }
 
@@ -631,4 +683,133 @@ Te amo con locura, hoy, mañana y el resto de mi vida.`;
             });
         }
     }
-});
+
+    /* =============================================
+       10. JUNTOS — Actividades interactivas en persona
+       ============================================= */
+    function initJuntos() {
+        const modeSelector = document.getElementById('juntosModeSelector');
+        const game1 = document.getElementById('juntosGame1');
+        const game2 = document.getElementById('juntosGame2');
+        if (!modeSelector) return;
+
+        // -- Datos: Cartas de Verdades --
+        const truthCards = [
+            { emoji: '🦆', q: '¿Qué es lo que más te gusta de mí sin pensarlo?' },
+            { emoji: '💬', q: '¿Cuándo fue la primera vez que pensaste que me querías?' },
+            { emoji: '🌙', q: '¿Hay algo que todavía no me has contado pero querrías?' },
+            { emoji: '😂', q: '¿Cuál es el momento más ridículo que hemos vivido juntos?' },
+            { emoji: '🙏', q: '¿Cuándo has sentido que Dios estaba en nuestra relación?' },
+            { emoji: '💙', q: '¿Crees que hay algo en lo que me pueda mejorar como pareja?' },
+            { emoji: '🎯', q: '¿Qué es lo primero que pensaste cuando me viste por primera vez?' },
+            { emoji: '🌹', q: '¿Cuál ha sido el momento más especial que hemos compartido?' },
+            { emoji: '🤝', q: '¿Hay algo que yo hago que te hace sentir muy querida?' },
+            { emoji: '🌟', q: '¿En qué ves que hemos crecido juntos?' },
+            { emoji: '💭', q: '¿Hay algo que te da miedo de nuestra relación?' },
+            { emoji: '🎵', q: '¿Cuándo escuchas nuestra canción favorita, en qué piensas?' },
+            { emoji: '🏠', q: '¿Cómo imaginas nuestra vida dentro de 5 años?' },
+            { emoji: '💪', q: '¿Cuál ha sido el momento en que más me has necesitado?' },
+            { emoji: '🌊', q: '¿Hay algo que yo diga o haga que te llena el corazón?' },
+            { emoji: '🦋', q: '¿Qué es lo que más valoras de nuestra amistad dentro de la relación?' },
+            { emoji: '📖', q: '¿Cuál es tu versículo bíblico favorito y por qué lo aplicas a nosotros?' },
+            { emoji: '🎁', q: '¿Cuál ha sido el detalle más pequeño que más te ha llegado al corazón?' },
+            { emoji: '🌜', q: '¿Hay algo que te gustaría que hiciéramos juntos que todavía no hemos hecho?' },
+            { emoji: '❤️', q: '¿Qué significa para ti que yo sea tu novio?' }
+        ];
+
+        // -- Datos: ¿Cuánto me conoces? --
+        const knowCards = [
+            { emoji: '✨', q: '¿Qué define nuestra relación con pocas palabras?', a: 'Idiotas ✨' },
+            { emoji: '🎵', q: '¿Cuál es nuestra canción favorita?', a: 'Rey de Reyes 👑' },
+            { emoji: '🍝', q: 'Si tuviéramos que elegir los dos una comida, ¿cuál sería?', a: 'Macarrones' },
+            { emoji: '🙏', q: '¿Cuál es mi mayor miedo?', a: 'Que el Señor me deje' },
+            { emoji: '💭', q: '¿Qué es lo que más me preocupa de nuestra relación?', a: 'Que estés tan bien en tu casa y que estar conmigo sea peor para ti' },
+            { emoji: '🚪', q: '¿Qué haría si me pusieras los cuernos?', a: 'Dejarte' },
+            { emoji: '🍽️', q: '¿Cuál crees que fue el momento que más me gustó?', a: 'El día de la tagliatella' },
+            { emoji: '💻', q: '¿Cuál de mis regalos me gustó más hacerte?', a: 'San Valentín (la web)' },
+            { emoji: '🖥️', q: '¿Elegiría el PC o el móvil?', a: 'El PC' },
+            { emoji: '💕', q: '¿Qué pienso de que me digan que soy muy agarrado?', a: 'Que eres generosa conmigo, eso es lo que importa' },
+            { emoji: '💙', q: '¿Cuál crees que es mi mayor inseguridad?', a: 'No ser suficiente para ti' },
+            { emoji: '🤫', q: '¿Crees que hay algo que pienso y no te he dicho?', a: 'Seguro que sí... algún día te lo contaré' },
+            { emoji: '💪', q: '¿Crees que podría dejarte alguna vez?', a: 'Quizás en algún momento difícil... pero al final no' },
+            { emoji: '🎂', q: '¿Cuántos meses llevamos juntos?', a: '8 meses 🎂' }
+        ];
+
+        // --- Juego 1: Cartas de Verdades ---
+        let truthIndex = 0;
+        let shuffledTruths = [...truthCards].sort(() => Math.random() - 0.5);
+
+        function renderTruth() {
+            const card = shuffledTruths[truthIndex % shuffledTruths.length];
+            document.getElementById('truthEmoji').textContent = card.emoji;
+            document.getElementById('truthQuestion').textContent = card.q;
+            document.getElementById('truthCounter').textContent = `Carta ${(truthIndex % shuffledTruths.length) + 1} / ${shuffledTruths.length}`;
+        }
+
+        document.getElementById('juntosBtn1')?.addEventListener('click', () => {
+            modeSelector.style.display = 'none';
+            game1.style.display = '';
+            truthIndex = 0;
+            shuffledTruths = [...truthCards].sort(() => Math.random() - 0.5);
+            renderTruth();
+        });
+
+        document.getElementById('juntosBack1')?.addEventListener('click', () => {
+            game1.style.display = 'none';
+            modeSelector.style.display = '';
+        });
+
+        document.getElementById('truthNext')?.addEventListener('click', () => {
+            truthIndex++;
+            if (truthIndex >= shuffledTruths.length) {
+                // Reiniciar barajado para otra ronda
+                shuffledTruths = [...truthCards].sort(() => Math.random() - 0.5);
+                truthIndex = 0;
+                launchConfetti(document.getElementById('juntosGame1'), 30);
+            }
+            renderTruth();
+        });
+
+        document.getElementById('truthSkip')?.addEventListener('click', () => {
+            truthIndex++;
+            renderTruth();
+        });
+
+        // --- Juego 2: ¿Cuánto me conoces? ---
+        let knowIndex = 0;
+
+        function renderKnow() {
+            const item = knowCards[knowIndex];
+            document.getElementById('knowEmoji').textContent = item.emoji;
+            document.getElementById('knowQuestion').textContent = item.q;
+            document.getElementById('knowReveal').style.display = 'none';
+            document.getElementById('knowAnswer').textContent = item.a;
+            document.getElementById('knowCounter').textContent = `Pregunta ${knowIndex + 1} / ${knowCards.length}`;
+        }
+
+        document.getElementById('juntosBtn2')?.addEventListener('click', () => {
+            modeSelector.style.display = 'none';
+            game2.style.display = '';
+            knowIndex = 0;
+            renderKnow();
+        });
+
+        document.getElementById('juntosBack2')?.addEventListener('click', () => {
+            game2.style.display = 'none';
+            modeSelector.style.display = '';
+        });
+
+        document.getElementById('knowRevealBtn')?.addEventListener('click', () => {
+            document.getElementById('knowReveal').style.display = '';
+        });
+
+        document.getElementById('knowNext')?.addEventListener('click', () => {
+            knowIndex++;
+            if (knowIndex >= knowCards.length) {
+                knowIndex = 0;
+                launchConfetti(document.getElementById('juntosGame2'), 40);
+            }
+            renderKnow();
+        });
+    }
+}); 

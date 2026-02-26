@@ -695,6 +695,75 @@
         </section>
 
         <!-- =============================================
+           7b. JUNTOS — Sección interactiva para cuando estemos juntos
+           ============================================= -->
+        <section class="page-section juntos-section" id="juntos">
+            <p class="page-section__eyebrow" data-reveal>Para cuando estemos juntos</p>
+            <h2 class="page-section__title" data-reveal>Nuestro rincón secreto</h2>
+            <p class="page-section__subtitle" data-reveal>
+                Estas actividades son solo para cuando estemos los dos. ¿Te atreves? 😏
+            </p>
+
+            <div class="juntos-launcher" data-reveal>
+                <!-- Modo 1: Las preguntas de Ismael -->
+                <div class="juntos-mode" id="juntosModeSelector">
+                    <button class="juntos-card" id="juntosBtn1">
+                        <span class="juntos-card__icon">🃏</span>
+                        <h3 class="juntos-card__title">Cartas de verdades</h3>
+                        <p class="juntos-card__desc">Preguntas para conocernos más. Turno a turno, uno pregunta y el
+                            otro responde.</p>
+                        <span class="juntos-card__cta">Empezar →</span>
+                    </button>
+                    <button class="juntos-card" id="juntosBtn2">
+                        <span class="juntos-card__icon">🎯</span>
+                        <h3 class="juntos-card__title">¿Cuánto me conoces?</h3>
+                        <p class="juntos-card__desc">Ismael pregunta, Yanoah adivina. Cada respuesta revela algo de los
+                            dos.</p>
+                        <span class="juntos-card__cta">Jugar →</span>
+                    </button>
+                </div>
+
+                <!-- Modo 1: Cartas de verdades -->
+                <div class="juntos-game" id="juntosGame1" style="display:none;">
+                    <div class="juntos-game__header">
+                        <button class="juntos-back-btn" id="juntosBack1">← Volver</button>
+                        <span class="juntos-game__counter" id="truthCounter">Carta 1 / 20</span>
+                    </div>
+                    <div class="juntos-truth-card" id="truthCard">
+                        <div class="juntos-truth-card__inner">
+                            <p class="juntos-truth-emoji" id="truthEmoji">🦆</p>
+                            <p class="juntos-truth-question" id="truthQuestion">Toca para ver la pregunta</p>
+                        </div>
+                    </div>
+                    <div class="juntos-truth-buttons">
+                        <button class="btn btn--ghost juntos-skip-btn" id="truthSkip">Saltar ⟳</button>
+                        <button class="btn btn--primary" id="truthNext">Siguiente →</button>
+                    </div>
+                </div>
+
+                <!-- Modo 2: ¿Cuánto me conoces? -->
+                <div class="juntos-game" id="juntosGame2" style="display:none;">
+                    <div class="juntos-game__header">
+                        <button class="juntos-back-btn" id="juntosBack2">← Volver</button>
+                        <span class="juntos-game__counter" id="knowCounter">Pregunta 1 / 14</span>
+                    </div>
+                    <div class="juntos-know-card" id="knowCard">
+                        <p class="juntos-know-emoji" id="knowEmoji">🤔</p>
+                        <p class="juntos-know-question" id="knowQuestion">¿Lista para la primera pregunta?</p>
+                        <div class="juntos-know-reveal" id="knowReveal" style="display:none;">
+                            <p class="juntos-know-answer-label">Mi respuesta:</p>
+                            <p class="juntos-know-answer" id="knowAnswer"></p>
+                        </div>
+                    </div>
+                    <div class="juntos-know-controls">
+                        <button class="btn btn--ghost" id="knowRevealBtn">Revelar mi respuesta 👀</button>
+                        <button class="btn btn--primary" id="knowNext">Siguiente →</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =============================================
            8. GALAXY FINALE
            ============================================= -->
         <section class="page-section galaxy-finale" id="final">
