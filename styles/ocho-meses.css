@@ -80,7 +80,7 @@
 
 @keyframes introHeartFloat {
     0% {
-        transform: translateY(110vh) rotate(0deg);
+        transform: translateY(110vh) rotate(0deg) translateZ(0);
         opacity: 0;
     }
 
@@ -93,7 +93,7 @@
     }
 
     100% {
-        transform: translateY(-10vh) rotate(360deg);
+        transform: translateY(-10vh) rotate(360deg) translateZ(0);
         opacity: 0;
     }
 }
@@ -947,12 +947,12 @@
 
 @keyframes flickerFlame {
     0% {
-        transform: translateX(-50%) scale(1) translateY(0);
+        transform: translateX(-50%) scale(1) translateY(0) translateZ(0);
         opacity: 0.8;
     }
 
     100% {
-        transform: translateX(-50%) scale(1.1) translateY(-1px);
+        transform: translateX(-50%) scale(1.1) translateY(-1px) translateZ(0);
         opacity: 1;
     }
 }
@@ -982,7 +982,7 @@
 
 @keyframes lanternFloat {
     0% {
-        transform: translateY(0) translateX(0) scale(var(--start-scale, 1)) rotate(0deg);
+        transform: translateY(0) translateX(0) scale(var(--start-scale, 1)) rotate(0deg) translateZ(0);
         opacity: 0;
     }
 
@@ -995,7 +995,7 @@
     }
 
     100% {
-        transform: translateY(-450px) translateX(var(--drift, 40px)) scale(var(--end-scale, 0.3)) rotate(var(--rot, 10deg));
+        transform: translateY(-450px) translateX(var(--drift, 40px)) scale(var(--end-scale, 0.3)) rotate(var(--rot, 10deg)) translateZ(0);
         opacity: 0;
     }
 }
@@ -1528,11 +1528,11 @@
 
     0%,
     100% {
-        transform: translateX(-2%);
+        transform: translateX(-2%) translateZ(0);
     }
 
     50% {
-        transform: translateX(2%);
+        transform: translateX(2%) translateZ(0);
     }
 }
 
@@ -1562,11 +1562,11 @@
 
     0%,
     100% {
-        transform: translateY(0) rotate(-5deg);
+        transform: translateY(0) rotate(-5deg) translateZ(0);
     }
 
     50% {
-        transform: translateY(-15px) rotate(5deg);
+        transform: translateY(-15px) rotate(5deg) translateZ(0);
     }
 }
 
@@ -2201,19 +2201,13 @@
     }
 
     /* --- Farolillos --- */
-    .lanterns-section {
-        overflow: hidden;
-    }
-
     .lantern-launcher {
         max-width: 100%;
         width: 100%;
-        overflow: hidden;
     }
 
     .lantern-sky {
         height: 220px;
-        overflow: hidden;
     }
 
     .lantern-ui-card {
