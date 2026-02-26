@@ -98,16 +98,34 @@ document.addEventListener('DOMContentLoaded', () => {
             if (index >= slides.length) index = slides.length - 1;
             currentSlide = index;
 
-            slides.forEach((s, i) => s.classList.toggle('is-active', i === index));
+            slides.forEach((s, i) => {
+                s.classList.remove('is-active', 'is-exiting');
+            });
+            // Small tick to allow the exit animation, then show new slide
+            requestAnimationFrame(() => {
+                slides[index].classList.add('is-active');
+            });
+
             segments.forEach((seg, i) => {
+                const fill = seg.querySelector('.stories-progress__fill');
                 seg.classList.remove('is-active', 'is-done');
-                if (i < index) seg.classList.add('is-done');
-                if (i === index) seg.classList.add('is-active');
+
+                if (i < index) {
+                    seg.classList.add('is-done');
+                } else if (i === index) {
+                    // Force reflow to restart animation
+                    if (fill) {
+                        fill.style.animation = 'none';
+                        fill.offsetWidth; // trigger reflow
+                        fill.style.animation = '';
+                    }
+                    seg.classList.add('is-active');
+                }
             });
 
             clearTimeout(autoTimer);
             if (index < slides.length - 1) {
-                autoTimer = setTimeout(() => showSlide(index + 1), SLIDE_DURATION);
+                autoTimer = setTimeout(() => showSlide(index + 1), 6000);
             }
         }
 

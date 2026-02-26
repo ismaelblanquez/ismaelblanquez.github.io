@@ -84,16 +84,26 @@
     }
 
     10% {
-        opacity: 0.15;
+        opacity: 0.18;
     }
 
     90% {
-        opacity: 0.08;
+        opacity: 0.1;
     }
 
     100% {
         transform: translateY(-10vh) rotate(360deg);
         opacity: 0;
+    }
+}
+
+@keyframes storyBar {
+    from {
+        width: 0%;
+    }
+
+    to {
+        width: 100%;
     }
 }
 
@@ -231,16 +241,16 @@
     width: 0%;
     background: white;
     border-radius: inherit;
-    transition: width 0.3s;
 }
 
 .stories-progress__segment.is-done .stories-progress__fill {
     width: 100%;
+    transition: none;
 }
 
+/* Barra animada: se activa con JS añadiendo la clase */
 .stories-progress__segment.is-active .stories-progress__fill {
-    width: 100%;
-    transition: width 5s linear;
+    animation: storyBar 6s linear forwards;
 }
 
 /* Cada story / diapositiva */
@@ -253,12 +263,14 @@
     padding: 24px 20px 32px;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.5s var(--ease-out);
+    transition: opacity 0.4s var(--ease-out), transform 0.4s var(--ease-out);
+    transform: translateX(30px) scale(0.97);
 }
 
 .story-slide.is-active {
     opacity: 1;
     pointer-events: auto;
+    transform: translateX(0) scale(1);
 }
 
 .story-slide__bg {
@@ -556,8 +568,9 @@
 
 .scratch-card.is-revealed .scratch-card__cover {
     opacity: 0;
-    transform: scale(0.8) rotateY(90deg);
+    transform: scale(0.85) rotateY(90deg);
     pointer-events: none;
+    transition: all 0.5s var(--ease-out);
 }
 
 /* Efecto shimmer en la cubierta */
@@ -1547,38 +1560,78 @@
     max-width: 360px;
     width: 100%;
     margin: var(--space-lg) auto 0;
-    background: rgba(10, 15, 35, 0.9);
-    border: 1px solid rgba(93, 123, 255, 0.2);
-    border-radius: var(--radius-lg);
-    padding: var(--space-xl) var(--space-lg);
+    /* Papel pergamino / carta real */
+    background: linear-gradient(to bottom,
+            #faf6ed 0%,
+            #f5eed9 100%);
+    border: 1px solid rgba(180, 140, 80, 0.4);
+    border-radius: var(--radius-sm);
+    padding: var(--space-xl) var(--space-xl);
     position: relative;
     z-index: 3;
     opacity: 0;
-    transform: translateY(30px) scale(0.95);
-    transition: all 1s var(--ease-out);
-    box-shadow: 0 0 60px rgba(93, 123, 255, 0.1), var(--shadow);
+    transform: translateY(40px) scale(0.95) rotate(-1deg);
+    transition: all 1.2s var(--ease-out);
+    box-shadow:
+        0 10px 40px rgba(0, 0, 0, 0.5),
+        0 0 0 6px rgba(180, 140, 80, 0.1),
+        inset 0 0 60px rgba(180, 140, 80, 0.06);
+    /* Líneas tenues como papel de carta */
+    background-image:
+        linear-gradient(to bottom, #faf6ed, #f5eed9),
+        repeating-linear-gradient(to bottom,
+            transparent 0px,
+            transparent 27px,
+            rgba(180, 140, 80, 0.12) 28px);
+    background-blend-mode: normal;
+    color: #3a2a10;
+}
+
+/* Sello decorativo en la esquina superior derecha */
+.sea-letter::before {
+    content: '❤️';
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    font-size: 20px;
+    opacity: 0.5;
+}
+
+/* Doblez de carta en la esquina inferior izquierda */
+.sea-letter::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 24px;
+    height: 24px;
+    background: linear-gradient(135deg, rgba(180, 140, 80, 0.2), transparent 50%);
+    border-radius: 0 var(--radius-sm) 0 var(--radius-sm);
 }
 
 .sea-letter.is-visible {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateY(0) scale(1) rotate(0deg);
 }
 
 .sea-letter__greeting {
     font-family: var(--font-handwritten);
     font-size: 24px;
-    color: var(--accent);
+    color: #8b4513;
     margin-bottom: var(--space-md);
-    text-align: center;
+    text-align: left;
+    padding-bottom: var(--space-sm);
+    border-bottom: 1px solid rgba(180, 140, 80, 0.3);
 }
 
 .sea-letter__body {
     font-family: var(--font-handwritten);
     font-size: 16px;
-    line-height: 1.9;
-    color: var(--text);
+    line-height: 2.1;
+    color: #3a2a10;
     white-space: pre-wrap;
     min-height: 200px;
+    text-align: left;
 }
 
 .sea-letter__cursor {
@@ -1594,9 +1647,11 @@
 .sea-letter__signature {
     font-family: var(--font-handwritten);
     font-size: 20px;
-    color: var(--rose);
+    color: #8b4513;
     text-align: right;
     margin-top: var(--space-xl);
+    padding-top: var(--space-md);
+    border-top: 1px solid rgba(180, 140, 80, 0.3);
     opacity: 0;
     transition: opacity 1s var(--ease-out);
 }
@@ -2030,22 +2085,16 @@
         pointer-events: none;
     }
 
-    /* Reducir blur en iOS para evitar lag */
+    /* Sólo reducir opacidad de los orbes — NO eliminar la animación
+       porque eso afectaría también a los corazones de la intro */
     .ambient-bg .orb {
         filter: blur(40px);
-        animation: none;
-        /* Desactivar animación de los orbes en iOS para rendimiento */
-        opacity: 0.5;
+        opacity: 0.25;
     }
 
-    /* Reducir partículas en iOS */
+    /* Ocultar partículas en iOS para mejorar rendimiento */
     .particles {
         display: none;
-    }
-
-    /* Vinyl player: pausar animaciones pesadas en iOS */
-    .vinyl__disc {
-        animation-play-state: paused;
     }
 }
 
@@ -2149,13 +2198,42 @@
     }
 
     /* --- Farolillos --- */
+    .lanterns-section {
+        overflow: hidden;
+    }
+
+    .lantern-launcher {
+        max-width: 100%;
+        width: 100%;
+        overflow: hidden;
+    }
+
     .lantern-sky {
-        height: 280px;
+        height: 220px;
+        overflow: hidden;
     }
 
     .lantern-ui-card {
-        margin: -30px var(--space-sm) 0;
-        padding: var(--space-md);
+        margin: -20px 0 0;
+        padding: var(--space-md) var(--space-md);
+        border-radius: var(--radius-md);
+    }
+
+    .lantern-input {
+        flex-direction: column;
+    }
+
+    .lantern-input__field {
+        width: 100%;
+    }
+
+    .lantern-presets {
+        gap: 6px;
+    }
+
+    .lantern-preset {
+        font-size: 11px;
+        padding: 6px 10px;
     }
 
     /* --- Promise Jar --- */
