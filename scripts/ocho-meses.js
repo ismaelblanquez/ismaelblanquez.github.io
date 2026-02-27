@@ -270,10 +270,10 @@ document.addEventListener('DOMContentLoaded', () => {
             lantern.style.left = xPos + '%';
 
             /* Animaciones y profundidad (3D perspective) */
-            // Escala inicial (los que están "detrás" son más pequeños)
-            const startScale = 0.6 + Math.random() * 0.6; // 0.6 a 1.2
+            // Escala inicial (más grandes para asegurar visibilidad en PC)
+            const startScale = 0.9 + Math.random() * 0.7; // 0.9 a 1.6
             // Escala final (siempre más pequeña que la inicial simulando que se aleja)
-            const endScale = startScale * 0.3;
+            const endScale = startScale * 0.4;
             // Balanceo horizontal
             const drift = (Math.random() - 0.5) * 150;
             // Rotación por el viento
@@ -319,9 +319,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         /* Lanzar farolillos iniciales para dar vida */
-        setTimeout(() => launchLantern('Patdoalavida 🦆'), 1000);
-        setTimeout(() => launchLantern('Que seamos muy felices ❤️'), 3500);
-        setTimeout(() => launchLantern('Un viaje a Japón 🗼'), 7000);
+        setTimeout(() => launchLantern('Patdoalavida 🦆'), 500);
+        setTimeout(() => launchLantern('Que seamos muy felices ❤️'), 2000);
+        setTimeout(() => launchLantern('Un viaje a Japón 🗼'), 4000);
+        setTimeout(() => launchLantern('Nuestro propio hogar 🏡'), 6000);
+        setTimeout(() => launchLantern('Siempre juntos 💕'), 8000);
     }
 
     /* =============================================
@@ -594,13 +596,13 @@ Te amo con locura, hoy, mañana y el resto de mi vida.`;
             { emoji: '🙏', q: '¿Cuál es mi mayor miedo?', a: 'Que el Señor me deje' },
             { emoji: '💭', q: '¿Qué es lo que más me preocupa de nuestra relación?', a: 'Que estés tan bien en tu casa y que estar conmigo sea peor para ti' },
             { emoji: '🚪', q: '¿Qué haría si me pusieras los cuernos?', a: 'Dejarte' },
-            { emoji: '🍽️', q: '¿Cuál crees que fue el momento que más me gustó?', a: 'El día de la tagliatella' },
-            { emoji: '💻', q: '¿Cuál de mis regalos me gustó más hacerte?', a: 'San Valentín (la web)' },
-            { emoji: '🖥️', q: '¿Elegiría el PC o el móvil?', a: 'El PC' },
-            { emoji: '💕', q: '¿Qué pienso de que me digan que soy muy agarrado?', a: 'Que eres generosa conmigo, eso es lo que importa' },
+            { emoji: '🍽️', q: '¿Cuál crees que fue el momento que más me gustó?', a: 'Cuando cante contigo Rey de Reyes fue genial, pero sin duda, la Playa.' },
+            { emoji: '💻', q: '¿Cuál de mis regalos me gustó más hacerte?', a: 'El de tu cumpleaños porque va con sorpresa' },
+            { emoji: '🖥️', q: '¿Elegiría el PC o el móvil?', a: 'móvil, porque no podría vivir sin llamarte y hablar contigo' },
+            { emoji: '💕', q: '¿Qué pienso de que me digan que soy muy agarrado?', a: 'Me da igual lo que me digan, el dinero no me importa' },
             { emoji: '💙', q: '¿Cuál crees que es mi mayor inseguridad?', a: 'No ser suficiente para ti' },
             { emoji: '🤫', q: '¿Crees que hay algo que pienso y no te he dicho?', a: 'Seguro que sí... algún día te lo contaré' },
-            { emoji: '💪', q: '¿Crees que podría dejarte alguna vez?', a: 'Quizás en algún momento difícil... pero al final no' },
+            { emoji: '💪', q: '¿Crees que podría dejarte alguna vez?', a: 'No, solo si me dejas tu, pero creo que eso no es dejarte jeje' },
             { emoji: '🎂', q: '¿Cuántos meses llevamos juntos?', a: '8 meses 🎂' }
         ];
 

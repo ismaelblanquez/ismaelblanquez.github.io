@@ -893,16 +893,16 @@
 }
 
 .floating-lantern__body {
-    width: 36px;
-    height: 48px;
+    width: 48px;
+    height: 64px;
     background: radial-gradient(circle at 50% 80%, #fffadb 0%, #ffc033 40%, #e65c00 100%);
     border-radius: 40% 40% 15% 15% / 25% 25% 10% 10%;
     position: relative;
     box-shadow:
-        inset 0 -5px 15px rgba(255, 255, 255, 0.5),
+        inset 0 -5px 15px rgba(255, 255, 255, 0.6),
         inset 0 10px 10px rgba(0, 0, 0, 0.2),
-        0 0 30px rgba(255, 100, 0, 0.8),
-        0 0 60px rgba(255, 50, 0, 0.4);
+        0 0 40px rgba(255, 100, 0, 0.9),
+        0 0 80px rgba(255, 50, 0, 0.6);
     overflow: hidden;
 }
 
@@ -962,17 +962,17 @@
 }
 
 .floating-lantern__wish {
-    background: rgba(255, 240, 200, 0.9);
+    background: rgba(255, 240, 200, 0.95);
     color: #a04000;
-    font-size: 10px;
-    padding: 3px 6px;
-    border-radius: 2px;
+    font-size: 14px;
+    padding: 4px 8px;
+    border-radius: 4px;
     font-family: var(--font-handwritten);
     white-space: nowrap;
-    max-width: 140px;
+    max-width: 180px;
     overflow: hidden;
     text-overflow: ellipsis;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
     border-bottom: 2px solid #e0c080;
 }
 
