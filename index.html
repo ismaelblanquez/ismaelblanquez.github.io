@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Nuestra Historia · Yanoah & Ismael</title>
+    <meta name="description"
+        content="Nuestra historia de amor escrita sin papel. Cada capítulo, cada recuerdo, cada momento vivido juntos." />
+
+    <!-- Tipografías -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet" />
+
+    <!-- Estilos -->
+    <link rel="stylesheet" href="styles/shared.css" />
+    <link rel="stylesheet" href="styles/landing.css" />
+</head>
+
+<body>
+    <!-- ===== Ambiente visual ===== -->
+    <div class="ambient-bg" aria-hidden="true">
+        <div class="orb orb--accent"></div>
+        <div class="orb orb--rose"></div>
+        <div class="orb orb--teal"></div>
+    </div>
+    <div class="particles" aria-hidden="true"></div>
+
+    <!-- ===== Hero ===== -->
+    <header class="landing-hero" id="inicio">
+        <div class="landing-hero__duck" aria-hidden="true">🦆</div>
+        <p class="landing-hero__eyebrow">Nuestra historia · desde el 27 de julio 2025</p>
+        <h1 class="landing-hero__title">
+            Yanoah <span class="ampersand">&</span> Ismael
+        </h1>
+        <p class="landing-hero__subtitle">
+            Cada capítulo de lo nuestro vive aquí. Explora los momentos que nos
+            definen, descubre lo que hemos vivido y lo que nos queda por escribir juntos.
+        </p>
+        <div class="scroll-down" aria-hidden="true">
+            <span>DESCUBRE</span>
+            <div class="scroll-down__arrow"></div>
+        </div>
+    </header>
+
+    <!-- ===== Rueda selectora de momentos ===== -->
+    <main>
+        <section class="selector-section" id="momentos">
+            <div class="selector-section__header" data-reveal>
+                <p class="selector-section__eyebrow">Elige un momento</p>
+                <h2 class="selector-section__title">Nuestros capítulos</h2>
+            </div>
+
+            <div class="wheel" data-reveal>
+                <div class="wheel__track" id="wheelTrack">
+
+                    <!-- ————— San Valentín 2026 ————— -->
+                    <a href="san-valentin/" class="moment-card moment-card--valentines">
+                        <div class="moment-card__icon">🌹</div>
+                        <h3 class="moment-card__title">San Valentín</h3>
+                        <span class="moment-card__date">14 · 02 · 2026</span>
+                        <p class="moment-card__desc">
+                            Nuestra primera carta de amor digital. 7 meses de historia,
+                            regalos, promesas y mucho amor.
+                        </p>
+                        <span class="moment-card__cta moment-card__cta--rose">Revivir momento</span>
+                    </a>
+
+                    <!-- ————— 8 MESES (¡NUEVO!) ————— -->
+                    <a href="8-meses/" class="moment-card moment-card--8months moment-card--new">
+                        <div class="moment-card__badge">✨ NUEVO</div>
+                        <div class="moment-card__icon">💫</div>
+                        <h3 class="moment-card__title">8 Meses</h3>
+                        <span class="moment-card__date">27 · 02 · 2026</span>
+                        <p class="moment-card__desc">
+                            Una carta interactiva especial para celebrar 8 meses
+                            de esta historia increíble.
+                        </p>
+                        <span class="moment-card__cta">Descubrir</span>
+                    </a>
+
+                    <!-- ————— 9 MESES (Bloqueado) ————— -->
+                    <div class="moment-card moment-card--locked" data-unlock-date="2026-03-27">
+                        <div class="moment-card__icon">🌸</div>
+                        <h3 class="moment-card__title">9 Meses</h3>
+                        <span class="moment-card__date">27 · 03 · 2026</span>
+                        <p class="moment-card__desc">Un nuevo capítulo nos espera…</p>
+                        <span class="moment-card__countdown">Calculando…</span>
+                    </div>
+
+                    <!-- ————— 10 MESES (Bloqueado) ————— -->
+                    <div class="moment-card moment-card--locked" data-unlock-date="2026-04-27">
+                        <div class="moment-card__icon">☀️</div>
+                        <h3 class="moment-card__title">10 Meses</h3>
+                        <span class="moment-card__date">27 · 04 · 2026</span>
+                        <p class="moment-card__desc">La historia continúa…</p>
+                        <span class="moment-card__countdown">Calculando…</span>
+                    </div>
+
+                    <!-- ————— 11 MESES (Bloqueado) ————— -->
+                    <div class="moment-card moment-card--locked" data-unlock-date="2026-05-27">
+                        <div class="moment-card__icon">🌙</div>
+                        <h3 class="moment-card__title">11 Meses</h3>
+                        <span class="moment-card__date">27 · 05 · 2026</span>
+                        <p class="moment-card__desc">Cada vez más cerca del año…</p>
+                        <span class="moment-card__countdown">Calculando…</span>
+                    </div>
+
+                    <!-- ————— 12 MESES / 1 AÑO (Bloqueado) ————— -->
+                    <div class="moment-card moment-card--locked" data-unlock-date="2026-06-27">
+                        <div class="moment-card__icon">🎉</div>
+                        <h3 class="moment-card__title">1 Año</h3>
+                        <span class="moment-card__date">27 · 06 · 2026</span>
+                        <p class="moment-card__desc">¡El gran día está por llegar!</p>
+                        <span class="moment-card__countdown">Calculando…</span>
+                    </div>
+
+                    <!-- ————— ANILLO (Bloqueado con ?) ————— -->
+                    <div class="moment-card moment-card--ring">
+                        <div class="moment-card__icon">💍</div>
+                        <h3 class="moment-card__title">Para siempre</h3>
+                        <span class="moment-card__date">? ? · ? ? · ? ? ? ?</span>
+                        <p class="moment-card__desc">
+                            Este capítulo se escribirá cuando llegue el momento…
+                        </p>
+                        <span class="moment-card__countdown">? ? ?</span>
+                    </div>
+
+                </div>
+
+                <!-- Dots de navegación -->
+                <div class="wheel__dots" aria-label="Navegación del carrusel">
+                    <button class="wheel__dot is-active" aria-label="San Valentín"></button>
+                    <button class="wheel__dot" aria-label="8 Meses"></button>
+                    <button class="wheel__dot" aria-label="9 Meses"></button>
+                    <button class="wheel__dot" aria-label="10 Meses"></button>
+                    <button class="wheel__dot" aria-label="11 Meses"></button>
+                    <button class="wheel__dot" aria-label="1 Año"></button>
+                    <button class="wheel__dot" aria-label="Para siempre"></button>
+                </div>
+
+                <div class="swipe-hint">
+                    <span class="swipe-hint__hand">👆</span>
+                    Desliza para explorar
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ===== Footer ===== -->
+    <footer class="landing-footer">
+        <div class="landing-footer__duck" aria-hidden="true">🦆</div>
+        <p>Hecho con amor · Nuestra Historia · 2025 – 2026</p>
+        <p>Patdoalavida ❤️</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="scripts/shared.js"></script>
+    <script src="scripts/landing.js"></script>
+</body>
+
+</html>
