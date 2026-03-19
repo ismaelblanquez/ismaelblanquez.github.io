@@ -2805,6 +2805,7 @@
             grade: 5,
             hintState: {},
             inventory: {},
+            purchaseCounts: {},
             relics: {
                 bashBlade: 0,
                 kernelArmor: 0
@@ -3108,10 +3109,11 @@
             shopList.innerHTML = "";
 
             shopCatalog.forEach((item) => {
-                const ownedCount = item.kind === "relic"
+                const currentCount = item.kind === "relic"
                     ? (gameState.relics[item.id] || 0)
                     : (gameState.inventory[item.id] || 0);
-                const locked = ownedCount >= item.max;
+                const purchasedCount = gameState.purchaseCounts[item.id] || 0;
+                const locked = purchasedCount >= item.max;
                 const disabledByState = !gameState.started || gameState.ended;
 
                 const element = document.createElement("div");
@@ -3121,7 +3123,8 @@
                     <div class="shop-meta">
                         <strong>${item.name}</strong>
                         <span>${item.description}</span>
-                        <span>Comprados: ${ownedCount} / ${item.max}</span>
+                        <span>${item.kind === "relic" ? `Equipadas: ${currentCount}` : `En inventario: ${currentCount}`}</span>
+                        <span>Comprados en total: ${purchasedCount} / ${item.max}</span>
                     </div>
                     <div class="shop-price">
                         <div class="shop-price-tag">${item.cost} monedas</div>
@@ -3597,11 +3600,9 @@
                 return;
             }
 
-            const ownedCount = item.kind === "relic"
-                ? (gameState.relics[item.id] || 0)
-                : (gameState.inventory[item.id] || 0);
+            const purchasedCount = gameState.purchaseCounts[item.id] || 0;
 
-            if (ownedCount >= item.max) {
+            if (purchasedCount >= item.max) {
                 showToast("Ya has alcanzado el límite de ese objeto.", "warning");
                 return;
             }
@@ -3612,6 +3613,7 @@
             }
 
             gameState.coins -= item.cost;
+            gameState.purchaseCounts[item.id] = purchasedCount + 1;
 
             if (item.kind === "relic") {
                 gameState.relics[item.id] = (gameState.relics[item.id] || 0) + 1;
