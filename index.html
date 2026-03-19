@@ -1806,10 +1806,60 @@
     </div>
 
     <script>
+        (() => {
+        "use strict";
+
         const HINT_COSTS = [12, 18, 24];
         const SOLUTION_COST = 28;
         const PLAYER_MAX_HP_BASE = 140;
         const LEVEL_XP_STEP = 210;
+
+        function installClientHardening() {
+            const blockedGlobals = [
+                "gameState",
+                "sessionSettings",
+                "shopCatalog",
+                "exercises",
+                "buyItem",
+                "useInventoryItem",
+                "executeCommand",
+                "startConfiguredSession"
+            ];
+
+            blockedGlobals.forEach((name) => {
+                try {
+                    Object.defineProperty(window, name, {
+                        configurable: false,
+                        enumerable: false,
+                        get() {
+                            return undefined;
+                        },
+                        set() {
+                            return true;
+                        }
+                    });
+                } catch (error) {
+                    // Ignore browsers that refuse redefining a global slot.
+                }
+            });
+
+            document.addEventListener("contextmenu", (event) => {
+                event.preventDefault();
+            });
+
+            document.addEventListener("keydown", (event) => {
+                const key = String(event.key || "").toUpperCase();
+                const devtoolsShortcut =
+                    key === "F12" ||
+                    ((event.ctrlKey || event.metaKey) && event.shiftKey && ["I", "J", "C"].includes(key)) ||
+                    ((event.ctrlKey || event.metaKey) && key === "U");
+
+                if (devtoolsShortcut) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+            }, true);
+        }
 
         function mission(data) {
             return {
@@ -3847,12 +3897,15 @@
             showBootError(event.reason || "Promesa rechazada al iniciar");
         });
 
+        installClientHardening();
+
         try {
             init();
         } catch (error) {
             showBootError(error);
             throw error;
         }
+        })();
     </script>
 </body>
 </html>
