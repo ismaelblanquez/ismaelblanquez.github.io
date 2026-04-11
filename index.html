@@ -1240,7 +1240,19 @@
                 }
                 function evalExpr(expr, vars, funcs, callFunc) {
                     expr = expr.trim(); if (expr === '') return '';
-                    // Cadenas con comillas simples o dobles (incluyendo cadenas vacias)
+                    // F-strings: f"..." o f'...' con soporte de {expresion} dentro
+                    if (/^[fF]/.test(expr) && expr.length >= 3) {
+                        const q = expr[1]; // ' o "
+                        if ((q === '"' || q === "'") && expr.endsWith(q)) {
+                            const inner = expr.slice(2, -1);
+                            // Sustituir cada {expr} por su valor evaluado
+                            return inner.replace(/\{([^}]+)\}/g, (_, e) => {
+                                const val = evalExpr(e.trim(), vars, funcs, callFunc);
+                                return (val === null) ? 'None' : (val === true) ? 'True' : (val === false) ? 'False' : String(val);
+                            });
+                        }
+                    }
+                    // Cadenas normales con comillas simples o dobles (incluyendo cadenas vacías)
                     if ((expr.startsWith('"') && expr.endsWith('"') && expr.length >= 2) ||
                         (expr.startsWith("'") && expr.endsWith("'") && expr.length >= 2)) return expr.slice(1, -1);
                     if (/^-?\d+$/.test(expr)) return parseInt(expr); if (/^-?\d+\.\d+$/.test(expr)) return parseFloat(expr);
