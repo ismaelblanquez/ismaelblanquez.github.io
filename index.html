@@ -1077,7 +1077,7 @@
 
                 <div id="code-area">
                     <textarea class="code-editor" id="code-input" placeholder="Escribe tu código Python aquí..."
-                        spellcheck="false"></textarea>
+                        spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off"></textarea>
                     <div class="code-output" id="code-output">↑ Salida del terminal</div>
                     <div class="btn-row">
                         <button class="btn green" onclick="runCode()" style="flex:1;">▶ EJECUTAR CÓDIGO</button>
@@ -1414,7 +1414,12 @@
                             if (whileMatch) {
                                 const cond = whileMatch[1]; const body = []; idx++;
                                 while (idx < linesArr.length) { const bl = linesArr[idx]; const bt = bl.trimStart(); const bi = bl.length - bt.length; if (bt === '' || bi > indent) { body.push(bl); idx++; } else break; }
-                                let safetyCounter = 0; while (evalCondition(cond, localVars, localFuncs, localCallFunc) && safetyCounter++ < 500) { executeLines(body, localVars, localFuncs, localOutput, localCallFunc, indent + 4); } continue;
+                                let safetyCounter = 0;
+                                while (evalCondition(cond, localVars, localFuncs, localCallFunc) && safetyCounter++ < 500) {
+                                    const whileOut = []; executeLines(body, localVars, localFuncs, whileOut, localCallFunc, indent + 4);
+                                    whileOut.forEach(l => { if (l !== undefined) localOutput.push(l); });
+                                    if (whileOut._returnVal !== undefined) { localOutput._returnVal = whileOut._returnVal; return; }
+                                } continue;
                             }
                         }
                         if (trimmed.startsWith('def ')) { idx++; while (idx < linesArr.length) { const bl = linesArr[idx]; const bt = bl.trimStart(); const bi = bl.length - bt.length; if (bt === '' || bi > 0) idx++; else break; } continue; }
@@ -1730,8 +1735,16 @@
 
         function skipExercise() {
             if (!confirm('¿Saltar el ejercicio? Perderás 30 HP')) return;
-            G.combo = 0; takeDamage(30);
-            if (G.playerHP > 0) { currentExerciseIdx++; setMessage('⏭ Ejercicio saltado. -30 HP', '⏭'); setTimeout(() => loadExercise(), 600); }
+            G.combo = 0;
+            takeDamage(30);
+            // Solo cargar el siguiente ejercicio si el jugador sigue vivo
+            if (G.playerHP > 0) {
+                currentExerciseIdx++;
+                setMessage('⏭ Ejercicio saltado. -30 HP', '⏭');
+                setTimeout(() => {
+                    if (G.playerHP > 0) loadExercise(); // doble guardia por si takeDamage triggeró gameOver con delay
+                }, 600);
+            }
         }
 
         function showItemMenu() {
@@ -1758,7 +1771,9 @@
         }
 
         function winLevel() {
-            if (!G.completedLevels.includes(currentLevel.id)) G.completedLevels.push(currentLevel.id);
+            // Guardia para evitar doble recompensa si winLevel se llama dos veces
+            if (G.completedLevels.includes(currentLevel.id)) return;
+            G.completedLevels.push(currentLevel.id);
             G.gold += currentLevel.reward;
             document.getElementById('player-sprite').textContent = '🎉';
             document.getElementById('enemy-sprite').textContent = '💫';
@@ -1787,7 +1802,11 @@
         }
 
         function restartGame() {
-            G.playerHP = 100; G.gold = 30; G.combo = 0; G.completedLevels = []; G.inventory = []; G.activeEffects = { shield: 0 }; G.totalExercises = 0; G.totalCorrect = 0; G.startTime = Date.now();
+            G.playerHP = 100; G.playerMaxHP = 100; G.gold = 30; G.combo = 0;
+            G.completedLevels = []; G.inventory = [];
+            G.activeEffects = { shield: 0, poison: 0, boost: 0 }; // Reset completo de efectos
+            G.totalExercises = 0; G.totalCorrect = 0; G.startTime = Date.now();
+            currentLevel = null; currentExerciseIdx = 0;
             showScreen('map-screen');
         }
 
@@ -1834,6 +1853,65 @@
         }
 
         updateHUD();
+
+        /* =================== EDITOR PYTHON: TAB / ENTER / SHIFT+TAB =================== */
+        (function () {
+            const editor = document.getElementById('code-input');
+            if (!editor) return;
+
+            editor.addEventListener('keydown', function (e) {
+                const start = this.selectionStart;
+                const end = this.selectionEnd;
+                const val = this.value;
+
+                /* ---- TAB: insertar 4 espacios ---- */
+                if (e.key === 'Tab') {
+                    e.preventDefault();
+
+                    if (e.shiftKey) {
+                        // Shift+Tab: eliminar hasta 4 espacios de indentación de la línea actual
+                        const lineStart = val.lastIndexOf('\n', start - 1) + 1;
+                        const spaces = val.slice(lineStart).match(/^ {1,4}/)?.[0] || '';
+                        if (spaces.length > 0) {
+                            this.value = val.slice(0, lineStart) + val.slice(lineStart + spaces.length);
+                            this.selectionStart = this.selectionEnd = start - spaces.length;
+                        }
+                    } else {
+                        // Tab: insertar 4 espacios en la posición del cursor
+                        this.value = val.slice(0, start) + '    ' + val.slice(end);
+                        this.selectionStart = this.selectionEnd = start + 4;
+                    }
+                }
+
+                /* ---- ENTER: auto-indentación ---- */
+                else if (e.key === 'Enter') {
+                    e.preventDefault();
+
+                    // Obtener la línea actual
+                    const lineStart = val.lastIndexOf('\n', start - 1) + 1;
+                    const currentLine = val.slice(lineStart, start);
+
+                    // Calcular indentación actual
+                    const indentMatch = currentLine.match(/^(\s*)/);
+                    let indent = indentMatch ? indentMatch[1] : '';
+
+                    // Si la línea termina en ':', añadir 4 espacios extra
+                    const trimmedLine = currentLine.trimEnd();
+                    if (trimmedLine.endsWith(':')) {
+                        indent += '    ';
+                    }
+
+                    this.value = val.slice(0, start) + '\n' + indent + val.slice(end);
+                    this.selectionStart = this.selectionEnd = start + 1 + indent.length;
+                }
+
+                /* ---- Ctrl+A: seleccionar todo el editor ---- */
+                else if (e.key === 'a' && (e.ctrlKey || e.metaKey)) {
+                    // Dejar comportamiento por defecto (seleccionar todo el textarea)
+                    return;
+                }
+            });
+        })();
     </script>
 </body>
 
