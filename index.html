@@ -17,15 +17,15 @@
         }
 
         :root {
-            --bg-dark: #05050a;
-            --bg-panel: #0d0d1a;
-            --bg-card: #15152a;
-            --primary: #8b5cf6;
-            --primary-glow: rgba(139, 92, 246, 0.5);
-            --secondary: #3b82f6;
+            --bg-dark: #0f0514;
+            --bg-panel: #1a0a24;
+            --bg-card: #281036;
+            --primary: #c084fc;
+            --primary-glow: rgba(192, 132, 252, 0.5);
+            --secondary: #ec4899;
             --accent-green: #10b981;
-            --accent-red: #ef4444;
-            --accent-gold: #f59e0b;
+            --accent-red: #f43f5e;
+            --accent-gold: #fbbf24;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
             --font-ui: 'Outfit', sans-serif;
@@ -936,12 +936,12 @@
 
     <div id="title-screen" class="screen active">
         <div class="title-logo">
-            <h1>PYTHON QUEST</h1>
-            <div class="subtitle">El Último Programador</div>
-            <span class="pixel-dog">🐶</span>
+            <h1>PYTHON QUEST v2</h1>
+            <div class="subtitle">El Expropiador</div>
+            <span class="pixel-dog">💜</span>
             <div
                 style="background:rgba(239,68,68,0.15); border:1px solid rgba(239,68,68,0.5); color:#fca5a5; padding:8px 16px; border-radius:10px; font-weight:bold; letter-spacing:1px; margin-bottom:30px; display:inline-block;">
-                ⚠️ PERRO SÁNCHEZ HA SIDO LIBERADO ⚠️
+                ⚠️ PABLO IGLESIAS EXIGE TU CÓDIGO ⚠️
             </div>
             <div style="display:flex; flex-direction:column; gap:15px; align-items:center;">
                 <button class="btn primary" onclick="showIntro()" style="width: 250px;">▶ NUEVA PARTIDA</button>
@@ -954,18 +954,20 @@
     <div id="intro-screen" class="screen" style="align-items:center; justify-content:center;">
         <div class="intro-box">
             <h2>📖 LA HISTORIA</h2>
-            <p>Un temible ser llamado <strong style="color:var(--accent-red)">Perro Sánchez</strong> ha robado el Libro
-                Sagrado de Python y sembrado el caos en el reino.</p>
-            <p>Tú eres el último héroe capaz de detenerle. Tu arma: <strong style="color:var(--accent-green)">El
-                    Código</strong>.</p>
-            <p>Resuelve los ejercicios correctamente para atacar. Si fallas, el enemigo contraatacará.</p>
-            <div class="tip">💡 TIP: Visita la tienda entre niveles para curarte y comprar ayudas tácticas.</div>
+            <p>Un temible ser llamado <strong style="color:var(--accent-red)">Pablo Iglesias</strong> ha decidido
+                "expropiar" tu código de Python para repartirlo equitativamente.</p>
+            <p>El Reino está bajo un estricto Régimen Fiscal. Debes dominar funciones, diccionarios y f-strings para
+                recuperar tu riqueza.</p>
+            <p>¡Pero cuidado! Los agentes del estado tienen <strong style="color:var(--accent-red)">ataques aleatorios y
+                    letales</strong>, y pueden imponerte <strong style="color:var(--accent-green)">Deudas</strong>.</p>
+            <div class="tip">💡 TIP: Visita el Casino del Estado para intentar recuperar oro rápidamente, o la Tienda
+                para sobrevivir.</div>
 
             <div style="margin-top: 30px;">
                 <label
                     style="color:var(--text-muted); font-size:0.9em; font-weight:bold; letter-spacing:1px; text-transform:uppercase;">Nombra
-                    a tu Héroe:</label>
-                <input id="hero-name" type="text" class="name-input" placeholder="Ej: PyWarrior" maxlength="15">
+                    a tu Héroe Capitalista:</label>
+                <input id="hero-name" type="text" class="name-input" placeholder="Ej: Amancio" maxlength="15">
             </div>
             <div style="display:flex; gap:15px; margin-top:10px;">
                 <button class="btn green" onclick="startGame()" style="flex:1;">⚔️ ¡AL COMBATE!</button>
@@ -983,6 +985,8 @@
         <div class="levels-grid" id="levels-grid"></div>
         <div
             style="text-align:center; margin-top:40px; display:flex; gap:15px; justify-content:center; flex-wrap:wrap; z-index:1;">
+            <button class="btn" style="border-color:#ec4899; padding: 15px 40px;"
+                onclick="showScreen('casino-screen')">🎰 CASINO</button>
             <button class="btn yellow" onclick="showScreen('shop-screen')" style="padding: 15px 40px;">🛒 VISITAR
                 TIENDA</button>
             <button class="btn small" onclick="showScreen('title-screen')" style="background:rgba(0,0,0,0.5);">🏠
@@ -997,6 +1001,30 @@
                     style="color:var(--accent-gold); font-size:1.4em; font-weight:900;">0</span> 🪙</p>
         </div>
         <div class="shop-grid" id="shop-grid"></div>
+        <div style="text-align:center; margin-top:40px; z-index:1;">
+            <button class="btn" onclick="showScreen('map-screen')" style="padding: 15px 40px;">← VOLVER AL MAPA</button>
+        </div>
+    </div>
+
+    <div id="casino-screen" class="screen">
+        <div class="shop-header">
+            <h2 style="color:#ec4899;">🎰 CASINO DEL ESTADO</h2>
+            <p style="color:var(--text-muted); font-size:1.1em; margin-top:10px;">Oro disponible: <span id="casino-gold"
+                    style="color:var(--accent-gold); font-size:1.4em; font-weight:900;">0</span> 🪙</p>
+        </div>
+        <div
+            style="text-align:center; max-width:600px; margin:0 auto; background:var(--bg-card); padding:40px; border-radius:20px; border:2px solid #ec4899; z-index:1;">
+            <div id="casino-result"
+                style="font-size:4em; margin-bottom:20px; min-height:80px; transition: transform 0.1s;">🎲</div>
+            <p style="font-size:1.2em; color:#e2e8f0; margin-bottom:20px;">Apuéstalo todo a la redistribución.
+                Posibilidad de x2, x3 o Perder todo.</p>
+            <div style="display:flex; justify-content:center; gap:15px; flex-wrap:wrap;">
+                <button class="btn" style="border-color:#ec4899;" onclick="playCasino(10)">Tirar (10🪙)</button>
+                <button class="btn" style="border-color:#ec4899;" onclick="playCasino(50)">Alta cuna (50🪙)</button>
+                <button class="btn red" onclick="playCasino(G.gold)">ALL-IN (Todo)</button>
+            </div>
+            <div id="casino-msg" style="margin-top:20px; font-weight:bold; height:30px; font-size:1.3em;"></div>
+        </div>
         <div style="text-align:center; margin-top:40px; z-index:1;">
             <button class="btn" onclick="showScreen('map-screen')" style="padding: 15px 40px;">← VOLVER AL MAPA</button>
         </div>
@@ -1151,63 +1179,53 @@
         };
 
         const SHOP_ITEMS = [
-            { id: 'potion', icon: '🧪', name: 'Poción de Red Bull', desc: 'Restaura 40 HP en combate.', price: 25, type: 'consumable', maxOwn: 3 },
-            { id: 'shield_scroll', icon: '🛡️', name: 'Try/Catch Mágico', desc: 'Bloquea el siguiente ataque.', price: 35, type: 'consumable', maxOwn: 2 },
-            { id: 'hint_token', icon: '🔮', name: 'Orbe de StackOverflow', desc: 'Pista gratis para usar en ejercicios.', price: 40, type: 'consumable', maxOwn: 2 },
-            { id: 'damage_boost', icon: '⚡', name: 'Runa Turbo', desc: 'Daño x2 en el siguiente ataque.', price: 30, type: 'consumable', maxOwn: 2 },
-            { id: 'revive', icon: '💎', name: 'Cristal de Backup', desc: 'Revive con 50 HP si caes.', price: 80, type: 'passive', maxOwn: 1 },
-            { id: 'auto_hint', icon: '📚', name: 'Suscripción GPT', desc: 'Pistas gratuitas para siempre.', price: 100, type: 'permanent', maxOwn: 1 },
+            { id: 'potion', icon: '🧪', name: 'Poción de Red Bull', desc: 'Restaura 50 HP en combate.', price: 40, type: 'consumable', maxOwn: 5 },
+            { id: 'shield_scroll', icon: '🛡️', name: 'Try/Catch Mágico', desc: 'Bloquea el siguiente ataque letal.', price: 60, type: 'consumable', maxOwn: 3 },
+            { id: 'exencion', icon: '📄', name: 'Certificado Exención', desc: 'Elimina el estado de "Deuda" (Veneno) una vez.', price: 50, type: 'consumable', maxOwn: 2 },
+            { id: 'hint_token', icon: '🔮', name: 'Orbe StackOverflow', desc: 'Pista gratis para usar en ejercicios.', price: 50, type: 'consumable', maxOwn: 3 },
+            { id: 'damage_boost', icon: '⚡', name: 'Runa Capitalista', desc: 'Daño x2 en el siguiente ataque.', price: 60, type: 'consumable', maxOwn: 2 },
+            { id: 'llave_boss', icon: '🔑', name: 'Permiso Especial', desc: 'Necesario para entrar al Boss Final.', price: 200, type: 'permanent', maxOwn: 1 },
+            { id: 'revive', icon: '💎', name: 'Crital Offshore', desc: 'Revive con 50 HP al morir.', price: 150, type: 'passive', maxOwn: 1 },
         ];
 
         const LEVELS = [
             {
-                id: 'l1', name: 'El Bosque Print', icon: '🌲', desc: 'Variables y print básico', enemy: { name: 'Perrito Ladrón', sprite: '🐕', maxHP: 60 }, reward: 25, xpReward: 30,
+                id: 'l1', name: 'Valle de F-Strings', icon: '🌲', desc: 'Formateo dinámico y strings', enemy: { name: 'Recaudador', sprite: '🕵️', maxHP: 100 }, reward: 40, xpReward: 50,
                 exercises: [
-                    { title: '🌟 Saludo Python', text: 'Usa print() para mostrar exactamente: Hello, World!', hint: 'Escribe: print("Hello, World!")', expected: 'Hello, World!', validate: (out) => out.trim() === 'Hello, World!', damage: 25, goldReward: 8 },
-                    { title: '📦 Primera Variable', text: 'Crea una variable llamada "nombre" con tu nombre y muéstrala con print().', hint: 'nombre = "Ana"\nprint(nombre)', expected: 'cualquier texto', validate: (out) => out.trim().length > 0 && !out.includes('Error'), damage: 20, goldReward: 8 },
-                    { title: '🔢 Suma básica', text: 'Crea dos variables: a = 5 y b = 3. Muestra la suma con print().', hint: 'a = 5\nb = 3\nprint(a + b)', expected: '8', validate: (out) => out.trim() === '8', damage: 20, goldReward: 10 }
+                    { title: '🌟 F-Strings', text: 'Usa f-strings para imprimir "Tengo 5 manzanas", donde 5 es la variable x.', hint: 'x = 5\nprint(f"Tengo {x} manzanas")', expected: 'Tengo 5 manzanas', validate: (out) => out.trim() === 'Tengo 5 manzanas', damage: 35, goldReward: 15 },
+                    { title: '🔢 F-Strings Math', text: 'Usa f-strings para calcular el 21% de IVA de 100.\nImprime: "Total: 121.0"', hint: 'precio = 100\nprint(f"Total: {precio * 1.21}")', expected: 'Total: 121', validate: (out) => out.trim().includes('Total: 121'), damage: 30, goldReward: 15 },
+                    { title: '🔗 Reemplazo', text: 'Reemplaza "a" por "o" en "pata" e imprime usando la función replace() o slices. (El simulador tiene limitaciones, imprime "poto" directamente o asigna variable)', hint: 'print("poto")', expected: 'poto', validate: (out) => out.trim() === 'poto', damage: 30, goldReward: 20 }
                 ]
             },
             {
-                id: 'l2', name: 'La Cueva If/Else', icon: '🕯️', desc: 'Condicionales if/elif/else', enemy: { name: 'Chucho Lógico', sprite: '🐺', maxHP: 80 }, reward: 30, xpReward: 40,
+                id: 'l2', name: 'Cueva de Iteradores', icon: '🕯️', desc: 'Bucles While destructivos', enemy: { name: 'Inspector Laboral', sprite: '💼', maxHP: 120 }, reward: 50, xpReward: 60,
                 exercises: [
-                    { title: '⚖️ Mayor o menor', text: 'Dado x = 10, usa if/else para imprimir "mayor" si x > 5, o "menor" si no.', hint: 'x = 10\nif x > 5:\n    print("mayor")\nelse:\n    print("menor")', expected: 'mayor', validate: (out) => out.trim() === 'mayor', damage: 25, goldReward: 10 },
-                    { title: '🎯 Número par', text: 'Dado n = 8, imprime "par" si es divisible entre 2, o "impar" si no.', hint: 'Usa el operador % (módulo): n % 2 == 0 significa par', expected: 'par', validate: (out) => out.trim() === 'par', damage: 25, goldReward: 10 },
-                    { title: '🏆 Clasificación', text: 'Dado nota = 7, usa if/elif/else para imprimir:\n"Aprobado" si >= 5\n"Suspenso" si < 5.', hint: 'nota = 7\nif nota >= 5:\n    print("Aprobado")\nelse:\n    print("Suspenso")', expected: 'Aprobado', validate: (out) => out.trim() === 'Aprobado', damage: 20, goldReward: 12 }
+                    { title: '⚖️ Sumatoria Condicional', text: 'Suma los números del 1 al 10, pero solo los impares. Imprime el resultado total.', hint: 'total = 0\nfor i in range(1, 11):\n    if i % 2 != 0:\n        total += i\nprint(total)', expected: '25', validate: (out) => out.trim() === '25', damage: 45, goldReward: 20 },
+                    { title: '🎯 While Seguro', text: 'Usa un while que empiece en x=10 y reste 3 en cada vuelta. Imprime x solo la última vez justo antes de que x sea negativo.', hint: 'x = 10\nwhile x - 3 >= 0:\n    x -= 3\nprint(x)', expected: '1', validate: (out) => out.trim() === '1', damage: 40, goldReward: 20 }
                 ]
             },
             {
-                id: 'l3', name: 'Pantano de Bucles', icon: '🌊', desc: 'Bucles for y while', enemy: { name: 'Can Infinito', sprite: '🦊', maxHP: 100 }, reward: 35, xpReward: 50,
+                id: 'l3', name: 'Pantano de Combinaciones', icon: '🌊', desc: 'Listas, Max/Min, Abs', enemy: { name: 'Comité de Huelga', sprite: '🪧', maxHP: 150 }, reward: 60, xpReward: 70,
                 exercises: [
-                    { title: '🔄 Contador', text: 'Usa un bucle for para imprimir los números del 1 al 5, uno por línea.', hint: 'for i in range(1, 6):\n    print(i)', expected: '1\n2\n3\n4\n5', validate: (out) => out.trim() === '1\n2\n3\n4\n5', damage: 30, goldReward: 12 },
-                    { title: '➕ Suma con bucle', text: 'Usa un bucle for para sumar los números del 1 al 10 e imprime el total.', hint: 'total = 0\nfor i in range(1, 11):\n    total += i\nprint(total)', expected: '55', validate: (out) => out.trim() === '55', damage: 28, goldReward: 12 },
-                    { title: '📋 Lista con for', text: 'Dada la lista frutas = ["manzana","pera","uva"], imprime cada fruta.', hint: 'frutas = ["manzana","pera","uva"]\nfor fruta in frutas:\n    print(fruta)', expected: 'manzana\npera\nuva', validate: (out) => out.trim() === 'manzana\npera\nuva', damage: 25, goldReward: 14 }
+                    { title: '📊 Filtro Manual', text: 'Dada la lista L = [15, -3, 8, -12, 5], imprime la suma del valor absoluto de todos los números.', hint: 'L = [15, -3, 8, -12, 5]\ntotal = 0\nfor n in L:\n    total += abs(n)\nprint(total)', expected: '43', validate: (out) => out.trim() === '43', damage: 50, goldReward: 25 },
+                    { title: '📏 Max y Min', text: 'Dada L = [5, 2, 9, 1], imprime el número mayor menos el número menor (max - min).', hint: 'L = [5, 2, 9, 1]\nprint(max(L) - min(L))', expected: '8', validate: (out) => out.trim() === '8', damage: 50, goldReward: 25 },
+                    { title: '🔀 Ordenar', text: 'Dada L = [3, 1, 2], imprímela ordenada usando sorted().', hint: 'L = [3, 1, 2]\nprint(sorted(L))', expected: '[1, 2, 3]', validate: (out) => out.trim() === '[1, 2, 3]', damage: 45, goldReward: 25 }
                 ]
             },
             {
-                id: 'l4', name: 'Torre de Funciones', icon: '🗼', desc: 'Definir y llamar funciones', enemy: { name: 'Mastín Funcional', sprite: '🐻', maxHP: 120 }, reward: 40, xpReward: 60,
+                id: 'l4', name: 'Ministerio de Diccionarios', icon: '🏛️', desc: 'Claves y Valores puros', enemy: { name: 'Subsecretario', sprite: '🦉', maxHP: 180 }, reward: 70, xpReward: 80,
                 exercises: [
-                    { title: '🔧 Primera función', text: 'Define una función llamada saludar() que imprima "Hola Python!". Luego llámala.', hint: 'def saludar():\n    print("Hola Python!")\n\nsaludar()', expected: 'Hola Python!', validate: (out) => out.trim() === 'Hola Python!', damage: 30, goldReward: 14 },
-                    { title: '📥 Función con parámetro', text: 'Define doble(n) que devuelva n * 2. Imprime doble(7).', hint: 'def doble(n):\n    return n * 2\n\nprint(doble(7))', expected: '14', validate: (out) => out.trim() === '14', damage: 30, goldReward: 14 },
-                    { title: '➕ Sumar dos números', text: 'Crea una función suma(a, b) que devuelva la suma. Imprime suma(3, 4).', hint: 'def suma(a, b):\n    return a + b\n\nprint(suma(3, 4))', expected: '7', validate: (out) => out.trim() === '7', damage: 28, goldReward: 16 }
+                    { title: '🔑 Extraer Datos', text: 'Dado D = {"a": 10, "b": 20}, imprime la suma de todos sus elementos (accede manualmente: D["a"] + D["b"] ).', hint: 'D = {"a": 10, "b": 20}\nprint(D["a"] + D["b"])', expected: '30', validate: (out) => out.trim() === '30', damage: 60, goldReward: 30 },
+                    { title: '🔄 Cambio de Clave', text: 'Crea D = {"x": 5}. Modifica el valor de "x" a 10 e imprime el diccionario.', hint: 'D = {"x": 5}\nD["x"] = 10\nprint(D)', expected: '{"x": 10}', validate: (out) => out.trim() === '{"x": 10}', damage: 60, goldReward: 30 }
                 ]
             },
             {
-                id: 'l5', name: 'Castillo de Listas', icon: '🏰', desc: 'Listas y sus métodos', enemy: { name: 'Sabueso Lister', sprite: '🦁', maxHP: 140 }, reward: 45, xpReward: 70,
+                id: 'boss', name: '⚠️ PABLO IGLESIAS', icon: '👹', desc: '¡El Expropiador en persona! + DEUDA', isBoss: true, hasDebt: true, enemy: { name: 'PABLO IGLESIAS', sprite: '💜', maxHP: 400 }, reward: 300, xpReward: 500,
                 exercises: [
-                    { title: '📝 Crear lista', text: 'Crea una lista numeros = [10, 20, 30]. Imprime el primer elemento.', hint: 'numeros = [10, 20, 30]\nprint(numeros[0])', expected: '10', validate: (out) => out.trim() === '10', damage: 30, goldReward: 15 },
-                    { title: '📏 Longitud de lista', text: 'Crea lista = [1,2,3,4,5] e imprime cuántos elementos tiene usando len().', hint: 'lista = [1,2,3,4,5]\nprint(len(lista))', expected: '5', validate: (out) => out.trim() === '5', damage: 28, goldReward: 15 },
-                    { title: '➕ Agregar a lista', text: 'Crea lista = [1, 2, 3]. Añade el número 4 con append() e imprime la lista.', hint: 'lista = [1, 2, 3]\nlista.append(4)\nprint(lista)', expected: '[1, 2, 3, 4]', validate: (out) => out.trim() === '[1, 2, 3, 4]', damage: 28, goldReward: 16 }
-                ]
-            },
-            {
-                id: 'boss', name: '⚠️ PERRO SÁNCHEZ', icon: '👹', desc: 'El BOSS FINAL - ¡Mucho cuidado!', isBoss: true, enemy: { name: 'PERRO SÁNCHEZ', sprite: '🐶', maxHP: 250 }, reward: 100, xpReward: 200,
-                exercises: [
-                    { title: '💀 Desafío Boss 1: Función con bucle', text: 'Crea una función contar_pares(n) que cuente cuántos números pares hay de 1 a n.\nImprime contar_pares(10).', hint: 'def contar_pares(n):\n    count = 0\n    for i in range(1, n+1):\n        if i % 2 == 0:\n            count += 1\n    return count\nprint(contar_pares(10))', expected: '5', validate: (out) => out.trim() === '5', damage: 50, goldReward: 30 },
-                    { title: '💀 Desafío Boss 2: Lista filtrada', text: 'Dada la lista nums = [1,2,3,4,5,6,7,8,9,10],\ncrea una nueva lista con solo los mayores de 5 e imprímela.', hint: 'nums = [1,2,3,4,5,6,7,8,9,10]\nmayores = []\nfor n in nums:\n    if n > 5:\n        mayores.append(n)\nprint(mayores)', expected: '[6, 7, 8, 9, 10]', validate: (out) => out.trim() === '[6, 7, 8, 9, 10]', damage: 55, goldReward: 30 },
-                    { title: '💀 Desafío Boss 3: FizzBuzz parcial', text: 'Imprime números del 1 al 15.\nSi es múltiplo de 3: "Fizz"\nSi es múltiplo de 5: "Buzz"\nSi ambos: "FizzBuzz"\nSi no, el número.', hint: 'for i in range(1, 16):\n    if i % 3 == 0 and i % 5 == 0:\n        print("FizzBuzz")\n    elif i % 3 == 0:\n        print("Fizz")\n    elif i % 5 == 0:\n        print("Buzz")\n    else:\n        print(i)', expected: '1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz', validate: (out) => out.trim() === '1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz', damage: 60, goldReward: 40 },
-                    { title: '💀 Desafío Boss 4: Función recursiva', text: 'Crea una función factorial(n) que calcule n!.\nImprime factorial(5). Pista: factorial(0) = 1.', hint: 'def factorial(n):\n    if n == 0:\n        return 1\n    return n * factorial(n-1)\nprint(factorial(5))', expected: '120', validate: (out) => out.trim() === '120', damage: 65, goldReward: 40 },
-                    { title: '💀 GOLPE FINAL: Diccionario', text: '¡Último ataque! Crea un diccionario persona = {"nombre": "Python", "edad": 30}\nImprime: "Python tiene 30 años"', hint: 'persona = {"nombre": "Python", "edad": 30}\nprint(persona["nombre"] + " tiene " + str(persona["edad"]) + " años")', expected: 'Python tiene 30 años', validate: (out) => out.trim() === 'Python tiene 30 años', damage: 70, goldReward: 50 }
+                    { title: '💀 El Reto del Patrimonio', text: 'Crea una función contar_vocales(texto) que cuente cuántas vocales (a,e,i,o,u) hay en "expropiar".\nImprime contar_vocales("expropiar").', hint: 'def contar_vocales(txt):\n    c = 0\n    for l in txt:\n        if l in ["a","e","i","o","u"]:\n            c += 1\n    return c\nprint(contar_vocales("expropiar"))', expected: '4', validate: (out) => out.trim() === '4', damage: 70, goldReward: 40 },
+                    { title: '💀 Acumulación Injusta', text: 'Crea una función suma_hasta_n(n) que usando recursividad o un while devuelva la suma desde 1 hasta n.\nImprime suma_hasta_n(10).', hint: 'def suma(n):\n    if n <= 1:\n        return 1\n    return n + suma(n-1)\nprint(suma(10))', expected: '55', validate: (out) => out.trim() === '55', damage: 75, goldReward: 40 },
+                    { title: '💀 Reparto Equitativo', text: 'Dada L = [10, 20, 30]. Crea una función que devuelva una lista con cada número dividido entre 10.\nImprímelo (debe ser enteros [1, 2, 3]).', hint: 'L = [10, 20, 30]\nR = []\nfor x in L:\n    R.append(x // 10)\nprint(R)', expected: '[1, 2, 3]', validate: (out) => out.trim() === '[1, 2, 3]', damage: 80, goldReward: 50 },
+                    { title: '💀 GOLPE FINAL: La Casta', text: '¡Asesta el golpe final! Escribe un bucle que imprima:\n"Tic"\n"Tac"\n"Boom"', hint: 'print("Tic")\nprint("Tac")\nprint("Boom")', expected: 'Tic\nTac\nBoom', validate: (out) => out.trim() === 'Tic\nTac\nBoom', damage: 175, goldReward: 100 }
                 ]
             }
         ];
@@ -1551,6 +1569,50 @@
             });
         }
 
+        // ================= CASINO LOGIC =================
+        function playCasino(bet) {
+            if (G.gold < bet) return notify('No tienes suficiente oro para apostar.', 'danger');
+            G.gold -= bet;
+
+            const resultBox = document.getElementById('casino-result');
+            const msgBox = document.getElementById('casino-msg');
+            document.getElementById('casino-gold').textContent = G.gold;
+
+            // Animation
+            resultBox.style.transform = 'scale(0.8)';
+            setTimeout(() => resultBox.style.transform = 'scale(1)', 100);
+
+            const roll = Math.random();
+            let winnings = 0;
+
+            if (roll < 0.10) { // 10% chance x3
+                winnings = bet * 3;
+                resultBox.textContent = '💎💎💎';
+                msgBox.textContent = `¡JACKPOT! Ganas ${winnings}🪙.`;
+                msgBox.style.color = 'var(--accent-gold)';
+            } else if (roll < 0.35) { // 25% chance x2
+                winnings = bet * 2;
+                resultBox.textContent = '🎰🎰';
+                msgBox.textContent = `¡Buen giro! Ganas ${winnings}🪙.`;
+                msgBox.style.color = 'var(--accent-green)';
+            } else if (roll < 0.50) { // 15% chance x1 (stay same)
+                winnings = bet;
+                resultBox.textContent = '😐';
+                msgBox.textContent = `Recuperas tu apuesta. (${winnings}🪙).`;
+                msgBox.style.color = 'white';
+            } else { // 50% chance lose all
+                winnings = 0;
+                resultBox.textContent = '💸';
+                msgBox.textContent = `El Estado Redistribuye tu oro. Pierdes todo.`;
+                msgBox.style.color = 'var(--accent-red)';
+            }
+
+            G.gold += winnings;
+            setTimeout(() => {
+                document.getElementById('casino-gold').textContent = G.gold;
+            }, 300);
+        }
+
         function buyItem(itemId) {
             const item = SHOP_ITEMS.find(i => i.id === itemId);
             if (!item) return;
@@ -1564,9 +1626,22 @@
         }
 
         function startLevel(levelIdx) {
-            G.currentLevelIdx = levelIdx; currentLevel = LEVELS[levelIdx]; currentExerciseIdx = 0; G.exerciseAttempts = 0;
+            const level = LEVELS[levelIdx];
+            if (level.isBoss && !G.inventory.includes('llave_boss')) {
+                return notify('Necesitas el "Permiso Especial" de la Tienda para enfrentarte al Jefe.', 'danger');
+            }
+
+            G.currentLevelIdx = levelIdx; currentLevel = level; currentExerciseIdx = 0; G.exerciseAttempts = 0;
             G.enemyHP = currentLevel.enemy.maxHP; G.enemyMaxHP = currentLevel.enemy.maxHP;
             if (!currentLevel.isBoss) G.playerHP = Math.min(G.playerMaxHP, G.playerHP + 20); // Curación ligera
+
+            // Start debt effect if level applies it
+            if (currentLevel.hasDebt) {
+                G.activeEffects.poison = 1;
+                notify('Estado Aplicado: DEUDA FISCAL (-10 HP por ejercicio)', 'danger');
+            } else {
+                G.activeEffects.poison = 0;
+            }
 
             showScreen('game-screen');
             document.getElementById('player-name-display').textContent = G.playerName;
@@ -1579,10 +1654,10 @@
             if (currentLevel.isBoss) {
                 document.getElementById('enemy-sprite').style.fontSize = '8em';
                 document.getElementById('enemy-char-name').style.color = 'var(--accent-red)';
-                setMessage(`⚠️ ¡PERRO SÁNCHEZ ha aparecido! ¡Demuestra lo que sabes!`, '💀');
+                setMessage(`⚠️ ¡PABLO IGLESIAS ha aparecido para expropiarte!`, '💀');
             } else {
                 document.getElementById('enemy-sprite').style.fontSize = '6em';
-                setMessage(`¡Un ${currentLevel.enemy.name} aparece! Resuelve los ejercicios.`, '⚔️');
+                setMessage(`¡Agente de ${currentLevel.enemy.name} aparece!`, '⚔️');
             }
 
             updateHUD(); loadExercise();
@@ -1592,6 +1667,13 @@
             if (currentExerciseIdx >= currentLevel.exercises.length) return winLevel();
             const ex = currentLevel.exercises[currentExerciseIdx]; G.totalExercises++;
 
+            // Aplicar Deuda Constante antes de mostrar el ejercicio (si activo)
+            if (G.activeEffects.poison > 0) {
+                takeDamage(10, true);
+                notify('Impuesto aplicado: -10 HP', 'danger');
+                if (G.playerHP <= 0) return; // murió por la deuda
+            }
+
             document.getElementById('exercise-title').textContent = `⚔️ EJERCICIO ${currentExerciseIdx + 1}/${currentLevel.exercises.length} : ${ex.title}`;
             document.getElementById('exercise-text').innerHTML = ex.text.replace(/\n/g, '<br>') + `<div class="hint" id="exercise-hint" style="display:none">💡 ${ex.hint.replace(/\n/g, '<br>')}</div>`;
             document.getElementById('code-input').value = '';
@@ -1599,7 +1681,7 @@
             document.getElementById('code-output').className = 'code-output';
             G.exerciseAttempts = 0;
 
-            const hasItems = G.inventory.some(id => ['potion', 'shield_scroll', 'hint_token', 'damage_boost'].includes(id));
+            const hasItems = G.inventory.some(id => ['potion', 'shield_scroll', 'hint_token', 'damage_boost', 'exencion'].includes(id));
             document.getElementById('item-use-btn').style.display = hasItems ? 'inline-block' : 'none';
 
             document.getElementById('xp-bar').style.width = ((currentExerciseIdx / currentLevel.exercises.length) * 100) + '%';
@@ -1621,17 +1703,23 @@
 
             outputEl.textContent = result.output || '(sin salida)'; outputEl.className = 'code-output';
             const ex = currentLevel.exercises[currentExerciseIdx];
-            // Validar con salida normalizada para tolerar diferencias de formato menores
             const normalizedActual = normalizeOutput(result.output);
             const isCorrect = ex.validate(normalizedActual);
 
             if (isCorrect) {
                 G.totalCorrect++; G.combo++;
                 const hasBoost = G.inventory.includes('damage_boost') || G.inventory.includes('damage_boost_ready');
-                const dmg = ex.damage * (G.combo >= 3 ? 1.5 : 1) * (hasBoost ? 2 : 1);
+
+                // Daño base del ejercicio + RNG entre 0.8x y 1.2x
+                let dmg = ex.damage * (0.8 + Math.random() * 0.4);
+
+                // Crit mechanics (15% chance to do Double Damage)
+                let isCrit = false;
+                if (Math.random() < 0.15) { dmg *= 2; isCrit = true; }
+
+                dmg = dmg * (G.combo >= 3 ? 1.5 : 1) * (hasBoost ? 2 : 1);
                 const finalDmg = Math.floor(dmg);
 
-                // Consumir el boost (cualquiera de las dos variantes)
                 const boostIdx = G.inventory.indexOf('damage_boost_ready');
                 const boostIdx2 = G.inventory.indexOf('damage_boost');
                 if (boostIdx > -1) G.inventory.splice(boostIdx, 1);
@@ -1642,7 +1730,8 @@
 
                 showAttackAnim('player', finalDmg);
                 const comboMsg = G.combo >= 3 ? ` <span style="color:var(--accent-gold)">🔥 COMBO x${G.combo}!</span>` : '';
-                setMessage(`✅ ¡Ataque Efectivo! -${finalDmg} HP. ${comboMsg}`, '⚔️');
+                const critMsg = isCrit ? ` <span style="color:var(--accent-red)">⚡ ¡GOLPE CRÍTICO!</span>` : '';
+                setMessage(`✅ ¡Ataque Efectivo! -${finalDmg} HP. ${comboMsg}${critMsg}`, '⚔️');
 
                 if (G.combo >= 3) {
                     document.getElementById('combo-display').textContent = '🔥 COMBO x' + G.combo;
@@ -1657,9 +1746,9 @@
                     setTimeout(() => {
                         currentExerciseIdx++;
                         if (currentExerciseIdx < currentLevel.exercises.length) {
-                            const counterDmg = currentLevel.isBoss ? 20 : 10;
+                            const counterDmg = currentLevel.isBoss ? 25 : 12;
                             takeDamage(counterDmg);
-                            setMessage(`¡${currentLevel.enemy.name} contraataca! -${counterDmg}❤️. ¡Siguiente ejercicio!`, '⚠️');
+                            setMessage(`¡${currentLevel.enemy.name} contraataca! ¡Siguiente ejercicio!`, '⚠️');
                         }
                         setTimeout(() => loadExercise(), 1200);
                     }, 1000);
@@ -1670,25 +1759,44 @@
                 setMessage(`❌ Incorrecto. Esperado: "${ex.expected}"`, '⚠️');
 
                 if (G.exerciseAttempts >= 2) {
-                    const penaltyDmg = currentLevel.isBoss ? 15 : 8;
+                    const penaltyDmg = currentLevel.isBoss ? 20 : 10;
                     takeDamage(penaltyDmg);
-                    setMessage(`❌ ¡${currentLevel.enemy.name} te castiga por el fallo! -${penaltyDmg}❤️`, '💥');
+                    setMessage(`❌ ¡${currentLevel.enemy.name} te castiga por el fallo!`, '💥');
                 }
             }
         }
 
-        function takeDamage(dmg) {
-            if (G.activeEffects.shield > 0) {
-                G.activeEffects.shield--; notify('🛡️ ¡Escudo bloqueó el ataque!', 'success'); showArenaFlash('blue'); updateHUD(); return;
+        function takeDamage(dmg, isRaw = false) {
+            // isRaw indica si es impuesto o fallo absoluto (ignora escudo y evasión)
+            if (!isRaw) {
+                // Posibilidad de evadir 10%
+                if (Math.random() < 0.1) {
+                    notify('¡Esquivaste el ataque!', 'success'); showArenaFlash('blue'); return;
+                }
+
+                // Variación del daño atacante RNG ±20%
+                dmg = Math.floor(dmg * (0.8 + Math.random() * 0.4));
+
+                if (G.activeEffects.shield > 0) {
+                    G.activeEffects.shield--; notify('🛡️ ¡Escudo bloqueó el ataque!', 'success'); showArenaFlash('blue'); updateHUD(); return;
+                }
             }
+
             G.playerHP = Math.max(0, G.playerHP - dmg);
             showHitAnim('player'); showArenaFlash('red'); updateHUD();
+
+            // Display floating damage text manually for takeDamage
+            const floatEl = document.createElement('div');
+            floatEl.className = 'damage-float';
+            floatEl.style.color = 'var(--accent-red)'; floatEl.style.left = '20%'; floatEl.style.top = '30%';
+            floatEl.textContent = `-${dmg}`; document.getElementById('battle-arena').appendChild(floatEl);
+            setTimeout(() => floatEl.remove(), 1000);
 
             if (G.playerHP <= 0) {
                 const reviveIdx = G.inventory.indexOf('revive');
                 if (reviveIdx > -1) {
                     G.inventory.splice(reviveIdx, 1); G.playerHP = 50;
-                    notify('💎 ¡Cristal de Backup activado! Revives con 50 HP', 'success'); updateHUD();
+                    notify('💎 ¡Cristal Offshore activado! Revives con 50 HP', 'success'); updateHUD();
                 } else {
                     setTimeout(() => gameOver(), 800);
                 }
@@ -1760,11 +1868,16 @@
         }
 
         function showItemMenu() {
-            const usable = G.inventory.filter(id => ['potion', 'shield_scroll', 'damage_boost'].includes(id));
+            const usable = G.inventory.filter(id => ['potion', 'shield_scroll', 'damage_boost', 'exencion'].includes(id));
             const unique = [...new Set(usable)];
             if (!unique.length) return notify('No hay objetos usables en combate.', 'danger');
 
-            const names = { potion: '🧪 Poción (+40 HP)', shield_scroll: '🛡️ Escudo', damage_boost: '⚡ Runa Turbo (Daño x2 próximo ataque)' };
+            const names = {
+                potion: '🧪 Poción de Red Bull (+50 HP)',
+                shield_scroll: '🛡️ Try/Catch Mágico',
+                damage_boost: '⚡ Runa Capitalista (Daño x2 próximo)',
+                exencion: '📄 Certificado Exención (Quita la Deuda)'
+            };
             const choice = unique.map((id, i) => `${i + 1}: ${names[id]}`).join('\n');
             const input = prompt(`Usa un objeto:\n${choice}\n\nEscribe el número:`);
             if (!input) return;
@@ -1772,12 +1885,14 @@
 
             const selectedId = unique[idx2]; G.inventory.splice(G.inventory.indexOf(selectedId), 1);
 
-            if (selectedId === 'potion') { G.playerHP = Math.min(G.playerMaxHP, G.playerHP + 40); notify('🧪 +40 HP', 'success'); }
-            else if (selectedId === 'shield_scroll') { G.activeEffects.shield = 1; notify('🛡️ Escudo Activado', 'success'); }
+            if (selectedId === 'potion') { G.playerHP = Math.min(G.playerMaxHP, G.playerHP + 50); notify('🧪 +50 HP', 'success'); }
+            else if (selectedId === 'shield_scroll') { G.activeEffects.shield = 1; notify('🛡️ Try/Catch Activado', 'success'); }
             else if (selectedId === 'damage_boost') {
-                // Marcar como listo para usar en el próximo ataque (no lo sacamos, solo lo renombramos)
                 G.inventory.push('damage_boost_ready');
-                notify('⚡ Runa activa: próximo ataque hará x2 daño', 'success');
+                notify('⚡ Runa activa: próximo ataque x2', 'success');
+            } else if (selectedId === 'exencion') {
+                G.activeEffects.poison = 0;
+                notify('📄 Estás absuelto de la Deuda temporalmente.', 'success');
             }
             updateHUD();
         }
