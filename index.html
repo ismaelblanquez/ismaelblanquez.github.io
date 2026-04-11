@@ -1014,7 +1014,8 @@
                     <div class="hp-fill player" id="player-hp-bar" style="width:100%"></div>
                 </div>
                 <div style="font-size:0.85em; color:#80ff80; margin-top:5px; font-weight:bold; text-align:right;">❤️
-                    <span id="player-hp-text">100/100</span></div>
+                    <span id="player-hp-text">100/100</span>
+                </div>
                 <div class="effect-badges" id="player-effects"></div>
             </div>
             <div class="stat-box">
@@ -1024,7 +1025,8 @@
                     <div class="hp-fill enemy" id="enemy-hp-bar" style="width:100%"></div>
                 </div>
                 <div style="font-size:0.85em; color:#ff8080; margin-top:5px; font-weight:bold; text-align:right;">💔
-                    <span id="enemy-hp-text">?/?</span></div>
+                    <span id="enemy-hp-text">?/?</span>
+                </div>
             </div>
             <div class="stat-box" style="flex: 0.5;">
                 <div class="stat-label">INVENTARIO</div>
@@ -1413,6 +1415,11 @@
             setTimeout(() => { document.getElementById(id).classList.add('active'); }, 50); // Pequeño delay para trigger de animación
             if (id === 'map-screen') renderMap();
             if (id === 'shop-screen') renderShop();
+            if (id === 'map-screen' || id === 'shop-screen') {
+                // Actualizar oro visible en la tienda sin depender del HUD del juego
+                const shopGoldEl = document.getElementById('shop-gold');
+                if (shopGoldEl) shopGoldEl.textContent = G.gold;
+            }
         }
 
         function showIntro() { showScreen('intro-screen'); }
@@ -1541,11 +1548,15 @@
 
             if (isCorrect) {
                 G.totalCorrect++; G.combo++;
-                const dmg = ex.damage * (G.combo >= 3 ? 1.5 : 1) * (G.inventory.includes('damage_boost') ? 2 : 1);
+                const hasBoost = G.inventory.includes('damage_boost') || G.inventory.includes('damage_boost_ready');
+                const dmg = ex.damage * (G.combo >= 3 ? 1.5 : 1) * (hasBoost ? 2 : 1);
                 const finalDmg = Math.floor(dmg);
 
-                const boostIdx = G.inventory.indexOf('damage_boost');
+                // Consumir el boost (cualquiera de las dos variantes)
+                const boostIdx = G.inventory.indexOf('damage_boost_ready');
+                const boostIdx2 = G.inventory.indexOf('damage_boost');
                 if (boostIdx > -1) G.inventory.splice(boostIdx, 1);
+                else if (boostIdx2 > -1) G.inventory.splice(boostIdx2, 1);
 
                 G.gold += ex.goldReward + (G.combo >= 3 ? 5 : 0);
                 G.enemyHP = Math.max(0, G.enemyHP - finalDmg);
@@ -1666,7 +1677,7 @@
             const unique = [...new Set(usable)];
             if (!unique.length) return notify('No hay objetos usables en combate.', 'danger');
 
-            const names = { potion: '🧪 Poción (+40 HP)', shield_scroll: '🛡️ Escudo', damage_boost: '⚡ Runa Turbo' };
+            const names = { potion: '🧪 Poción (+40 HP)', shield_scroll: '🛡️ Escudo', damage_boost: '⚡ Runa Turbo (Daño x2 próximo ataque)' };
             const choice = unique.map((id, i) => `${i + 1}: ${names[id]}`).join('\n');
             const input = prompt(`Usa un objeto:\n${choice}\n\nEscribe el número:`);
             if (!input) return;
@@ -1676,7 +1687,11 @@
 
             if (selectedId === 'potion') { G.playerHP = Math.min(G.playerMaxHP, G.playerHP + 40); notify('🧪 +40 HP', 'success'); }
             else if (selectedId === 'shield_scroll') { G.activeEffects.shield = 1; notify('🛡️ Escudo Activado', 'success'); }
-            else if (selectedId === 'damage_boost') { G.inventory.push('damage_boost_ready'); notify('⚡ Runa lista (Daño x2)', 'success'); }
+            else if (selectedId === 'damage_boost') {
+                // Marcar como listo para usar en el próximo ataque (no lo sacamos, solo lo renombramos)
+                G.inventory.push('damage_boost_ready');
+                notify('⚡ Runa activa: próximo ataque hará x2 daño', 'success');
+            }
             updateHUD();
         }
 
@@ -1717,19 +1732,38 @@
         function setMessage(msg, icon) { document.getElementById('message-box').innerHTML = `<span class="msg-icon">${icon || '📜'}</span> ${msg}`; }
 
         function updateHUD() {
-            document.getElementById('player-hp-bar').style.width = Math.max(0, (G.playerHP / G.playerMaxHP) * 100) + '%';
-            document.getElementById('enemy-hp-bar').style.width = Math.max(0, (G.enemyHP / G.enemyMaxHP) * 100) + '%';
-            document.getElementById('player-hp-text').textContent = `${G.playerHP}/${G.playerMaxHP}`;
-            document.getElementById('enemy-hp-text').textContent = `${G.enemyHP}/${G.enemyMaxHP}`;
-            document.getElementById('gold-display').textContent = G.gold;
-
-            const effects = document.getElementById('player-effects'); effects.innerHTML = '';
-            if (G.activeEffects.shield > 0) effects.innerHTML += '<span class="badge shield">🛡️ ESCUDO</span>';
-            if (G.inventory.includes('damage_boost') || G.inventory.includes('damage_boost_ready')) effects.innerHTML += '<span class="badge boost">⚡ DAÑO x2</span>';
-
+            // Guardia contra null: solo actualizar elementos del juego si existen (el HUD solo está en game-screen)
+            const playerHpBar = document.getElementById('player-hp-bar');
+            const enemyHpBar = document.getElementById('enemy-hp-bar');
+            const playerHpText = document.getElementById('player-hp-text');
+            const enemyHpText = document.getElementById('enemy-hp-text');
+            const goldDisplay = document.getElementById('gold-display');
+            const effects = document.getElementById('player-effects');
             const itemBadges = document.getElementById('item-badges');
-            const inv = {}; G.inventory.forEach(id => { if (['potion', 'shield_scroll', 'hint_token', 'damage_boost'].includes(id)) inv[id] = (inv[id] || 0) + 1; });
-            itemBadges.innerHTML = Object.entries(inv).map(([id, count]) => `<span class="badge" style="background:rgba(255,255,255,0.1); color:var(--text-muted); border:1px solid rgba(255,255,255,0.2);">${SHOP_ITEMS.find(i => i.id === id).icon} x${count}</span>`).join('');
+
+            if (playerHpBar) playerHpBar.style.width = Math.max(0, (G.playerHP / G.playerMaxHP) * 100) + '%';
+            if (enemyHpBar) enemyHpBar.style.width = G.enemyMaxHP > 0 ? Math.max(0, (G.enemyHP / G.enemyMaxHP) * 100) + '%' : '0%';
+            if (playerHpText) playerHpText.textContent = `${G.playerHP}/${G.playerMaxHP}`;
+            if (enemyHpText) enemyHpText.textContent = G.enemyMaxHP > 0 ? `${G.enemyHP}/${G.enemyMaxHP}` : '?/?';
+            if (goldDisplay) goldDisplay.textContent = G.gold;
+
+            // También actualizar el oro en la tienda si está visible
+            const shopGoldEl = document.getElementById('shop-gold');
+            if (shopGoldEl) shopGoldEl.textContent = G.gold;
+
+            if (effects) {
+                effects.innerHTML = '';
+                if (G.activeEffects.shield > 0) effects.innerHTML += '<span class="badge shield">🛡️ ESCUDO</span>';
+                if (G.inventory.includes('damage_boost_ready')) effects.innerHTML += '<span class="badge boost">⚡ DAÑO x2</span>';
+            }
+
+            if (itemBadges) {
+                const inv = {};
+                G.inventory.forEach(id => {
+                    if (['potion', 'shield_scroll', 'hint_token', 'damage_boost'].includes(id)) inv[id] = (inv[id] || 0) + 1;
+                });
+                itemBadges.innerHTML = Object.entries(inv).map(([id, count]) => `<span class="badge" style="background:rgba(255,255,255,0.1); color:var(--text-muted); border:1px solid rgba(255,255,255,0.2);">${SHOP_ITEMS.find(i => i.id === id).icon} x${count}</span>`).join('');
+            }
         }
 
         function notify(msg, type) {
