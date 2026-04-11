@@ -1240,7 +1240,9 @@
                 }
                 function evalExpr(expr, vars, funcs, callFunc) {
                     expr = expr.trim(); if (expr === '') return '';
-                    if ((expr.startsWith('"') && expr.endsWith('"')) || (expr.startsWith("'") && expr.endsWith("'"))) return expr.slice(1, -1);
+                    // Cadenas con comillas simples o dobles (incluyendo cadenas vacias)
+                    if ((expr.startsWith('"') && expr.endsWith('"') && expr.length >= 2) ||
+                        (expr.startsWith("'") && expr.endsWith("'") && expr.length >= 2)) return expr.slice(1, -1);
                     if (/^-?\d+$/.test(expr)) return parseInt(expr); if (/^-?\d+\.\d+$/.test(expr)) return parseFloat(expr);
                     if (expr === 'True') return true; if (expr === 'False') return false; if (expr === 'None') return null;
                     if (expr.startsWith('[') && expr.endsWith(']')) {
@@ -1272,7 +1274,18 @@
                     const funcCallMatch = expr.match(/^(\w+)\((.*)\)$/s);
                     if (funcCallMatch) {
                         const fname = funcCallMatch[1]; const argsStr = funcCallMatch[2].trim(); const argsList = argsStr === '' ? [] : splitByComma(argsStr).map(a => evalExpr(a.trim(), vars, funcs, callFunc));
-                        if (fname === 'print') return undefined; if (fname === 'len') return argsList[0]?.length ?? 0; if (fname === 'str') return String(argsList[0]); if (fname === 'int') return parseInt(argsList[0]); if (fname === 'float') return parseFloat(argsList[0]);
+                        if (fname === 'print') return undefined;
+                        if (fname === 'len') return argsList[0]?.length ?? 0;
+                        if (fname === 'str') { const v = argsList[0]; return (v === null) ? 'None' : (v === true) ? 'True' : (v === false) ? 'False' : String(v); }
+                        if (fname === 'int') return parseInt(argsList[0]);
+                        if (fname === 'float') return parseFloat(argsList[0]);
+                        if (fname === 'abs') return Math.abs(argsList[0]);
+                        if (fname === 'max') return Math.max(...(Array.isArray(argsList[0]) ? argsList[0] : argsList));
+                        if (fname === 'min') return Math.min(...(Array.isArray(argsList[0]) ? argsList[0] : argsList));
+                        if (fname === 'sum') return (argsList[0] || []).reduce((a, b) => a + b, 0);
+                        if (fname === 'sorted') { const arr = Array.isArray(argsList[0]) ? [...argsList[0]] : []; return arr.sort((a, b) => a > b ? 1 : -1); }
+                        if (fname === 'list') return Array.isArray(argsList[0]) ? [...argsList[0]] : [];
+                        if (fname === 'type') { const v = argsList[0]; if (Array.isArray(v)) return "<class 'list'>"; if (typeof v === 'number') return Number.isInteger(v) ? "<class 'int'>" : "<class 'float'>"; return "<class 'str'>"; }
                         if (fname === 'range') { const [s, e, st] = [argsList[0] ?? 0, argsList[1] ?? argsList[0], argsList[2] ?? 1]; const r = []; if (argsList.length === 1) { for (let x = 0; x < argsList[0]; x++) r.push(x); } else { for (let x = s; x < e; x += st) r.push(x); } return r; }
                         if (fname in funcs) {
                             const func = funcs[fname]; const localVars = { ...vars }; func.params.forEach((p, i) => { localVars[p] = argsList[i]; });
@@ -1335,11 +1348,17 @@
                         if (indent < baseIndent && trimmed !== '') break; if (indent > baseIndent && idx > 0) { idx++; continue; }
                         if (trimmed.startsWith('return ')) { localOutput._returnVal = evalExpr(trimmed.slice(7), localVars, localFuncs, localCallFunc); return; }
                         if (trimmed === 'return') { localOutput._returnVal = null; return; }
-                        const printMatch = trimmed.match(/^print\((.*)\)$/s);
+                        // Captura print() con posibles espacios entre print y (
+                        const printMatch = trimmed.match(/^print\s*\((.*)\)$/s);
                         if (printMatch) {
                             const inner = printMatch[1].trim(); if (inner === '') { localOutput.push(''); idx++; continue; }
-                            const parts = splitByComma(inner); const realParts = parts.filter(p => !p.trim().startsWith('sep=') && !p.trim().startsWith('end='));
-                            const vals = realParts.map(p => formatValue(evalExpr(p.trim(), localVars, localFuncs, localCallFunc))); localOutput.push(vals.join(' ')); idx++; continue;
+                            const parts = splitByComma(inner);
+                            // Filtrar argumentos keyword como sep= end=
+                            const realParts = parts.filter(p => !p.trim().startsWith('sep=') && !p.trim().startsWith('end='));
+                            const sepArg = parts.find(p => p.trim().startsWith('sep='));
+                            const sep = sepArg ? evalExpr(sepArg.trim().slice(4), localVars, localFuncs, localCallFunc) : ' ';
+                            const vals = realParts.map(p => formatValue(evalExpr(p.trim(), localVars, localFuncs, localCallFunc)));
+                            localOutput.push(vals.join(String(sep))); idx++; continue;
                         }
                         const methodCallLine = trimmed.match(/^(\w+)\.(\w+)\((.*)\)$/s);
                         if (methodCallLine) {
@@ -1404,6 +1423,47 @@
                 }
                 executeLines(lines, vars, functions, output, callFunction, 0); return { success: true, output: output.join('\n') };
             } catch (e) { return { success: false, output: 'Error: ' + e.message }; }
+        }
+
+        /* =================== NORMALIZADOR DE SALIDA =================== */
+        /**
+         * Normaliza la salida del simulador para comparación flexible:
+         * - Recorta espacios en cada línea
+         * - Elimina líneas vacías al final
+         * - Normaliza listas: [1, 2, 3] y [1,2,3] son iguales
+         * - Normaliza mayúsculas en True/False/None
+         * - Elimina líneas completamente vacías intermedias extra
+         */
+        function normalizeOutput(str) {
+            if (str === null || str === undefined) return '';
+            return str
+                .split('\n')
+                .map(line => {
+                    let l = line.trim();
+                    // Normalizar listas: añadir espacio después de coma si no hay
+                    l = l.replace(/\[([^\]]+)\]/g, (match, inner) => {
+                        const normalized = inner.split(',').map(s => s.trim()).join(', ');
+                        return '[' + normalized + ']';
+                    });
+                    // Normalizar dicts
+                    l = l.replace(/\{([^}]+)\}/g, (match, inner) => {
+                        const normalized = inner.split(',').map(s => s.trim()).join(', ');
+                        return '{' + normalized + '}';
+                    });
+                    return l;
+                })
+                .filter((line, idx, arr) => {
+                    // Eliminar líneas vacías al final
+                    if (line === '') {
+                        // Mantener vacías intermedias pero no las del final
+                        for (let i = idx + 1; i < arr.length; i++) {
+                            if (arr[i].trim() !== '') return true;
+                        }
+                        return false;
+                    }
+                    return true;
+                })
+                .join('\n');
         }
 
         /* =================== LÓGICA UI & COMBATE =================== */
@@ -1544,7 +1604,9 @@
 
             outputEl.textContent = result.output || '(sin salida)'; outputEl.className = 'code-output';
             const ex = currentLevel.exercises[currentExerciseIdx];
-            const isCorrect = ex.validate(result.output);
+            // Validar con salida normalizada para tolerar diferencias de formato menores
+            const normalizedActual = normalizeOutput(result.output);
+            const isCorrect = ex.validate(normalizedActual);
 
             if (isCorrect) {
                 G.totalCorrect++; G.combo++;
