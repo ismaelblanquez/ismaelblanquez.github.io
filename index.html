@@ -1008,22 +1008,39 @@
 
     <div id="casino-screen" class="screen">
         <div class="shop-header">
-            <h2 style="color:#ec4899;">🎰 CASINO DEL ESTADO</h2>
-            <p style="color:var(--text-muted); font-size:1.1em; margin-top:10px;">Oro disponible: <span id="casino-gold"
-                    style="color:var(--accent-gold); font-size:1.4em; font-weight:900;">0</span> 🪙</p>
+            <h2 style="color:#ec4899; text-shadow: 0 0 10px rgba(236,72,153,0.5); font-size:2.5em; margin-bottom:5px;">
+                🎰 CASINO DEL ESTADO</h2>
+            <p style="color:var(--text-muted); font-size:1.2em; margin-top:10px;">Fondos Redistribuibles: <span
+                    id="casino-gold"
+                    style="color:var(--accent-gold); font-size:1.5em; font-weight:900; background:rgba(0,0,0,0.4); padding:5px 15px; border-radius:10px;">0</span>
+                🪙</p>
         </div>
         <div
-            style="text-align:center; max-width:600px; margin:0 auto; background:var(--bg-card); padding:40px; border-radius:20px; border:2px solid #ec4899; z-index:1;">
+            style="text-align:center; max-width:650px; margin:0 auto; background:linear-gradient(145deg, #1e1e2d, #14141d); padding:40px; border-radius:20px; border:3px solid #ec4899; box-shadow: 0 0 30px rgba(236,72,153,0.2); z-index:1;">
+
             <div id="casino-result"
-                style="font-size:4em; margin-bottom:20px; min-height:80px; transition: transform 0.1s;">🎲</div>
-            <p style="font-size:1.2em; color:#e2e8f0; margin-bottom:20px;">Apuéstalo todo a la redistribución.
-                Posibilidad de x2, x3 o Perder todo.</p>
-            <div style="display:flex; justify-content:center; gap:15px; flex-wrap:wrap;">
-                <button class="btn" style="border-color:#ec4899;" onclick="playCasino(10)">Tirar (10🪙)</button>
-                <button class="btn" style="border-color:#ec4899;" onclick="playCasino(50)">Alta cuna (50🪙)</button>
-                <button class="btn red" onclick="playCasino(G.gold)">ALL-IN (Todo)</button>
+                style="font-size:5em; margin-bottom:20px; min-height:90px; transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); display:flex; justify-content:center; align-items:center; letter-spacing:10px;">
+                🎰</div>
+
+            <p style="font-size:1.2em; color:#e2e8f0; margin-bottom:10px; line-height:1.5;">¿Sientes que el sistema es
+                injusto? <b>Apuéstalo todo a la Ruleta Progresista.</b></p>
+            <p style="font-size:0.9em; color:#a0aec0; margin-bottom:30px;">Posibilidades: <span
+                    style="color:var(--accent-gold)">x3 (10%)</span> | <span style="color:var(--accent-green)">x2
+                    (25%)</span> | <span style="color:white">x1 (15%)</span> | <span
+                    style="color:var(--accent-red)">Pierdes todo (50%)</span></p>
+
+            <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap;">
+                <button class="btn" style="border-color:#ec4899; min-width:140px;" onclick="playCasino(10)">Tirar 10
+                    🪙</button>
+                <button class="btn" style="border-color:#ec4899; min-width:140px;" onclick="playCasino(50)">Tirar 50
+                    🪙</button>
+                <button class="btn red" style="min-width:140px; box-shadow:0 0 15px rgba(239,68,68,0.5);"
+                    onclick="playCasino(G.gold)">ALL-IN (Todo)</button>
             </div>
-            <div id="casino-msg" style="margin-top:20px; font-weight:bold; height:30px; font-size:1.3em;"></div>
+
+            <div id="casino-msg"
+                style="margin-top:25px; font-weight:bold; height:30px; font-size:1.4em; border-radius:10px; padding:5px;">
+            </div>
         </div>
         <div style="text-align:center; margin-top:40px; z-index:1;">
             <button class="btn" onclick="showScreen('map-screen')" style="padding: 15px 40px;">← VOLVER AL MAPA</button>
@@ -1510,10 +1527,19 @@
             setTimeout(() => { document.getElementById(id).classList.add('active'); }, 50); // Pequeño delay para trigger de animación
             if (id === 'map-screen') renderMap();
             if (id === 'shop-screen') renderShop();
-            if (id === 'map-screen' || id === 'shop-screen') {
-                // Actualizar oro visible en la tienda sin depender del HUD del juego
+            if (id === 'map-screen' || id === 'shop-screen' || id === 'casino-screen') {
                 const shopGoldEl = document.getElementById('shop-gold');
                 if (shopGoldEl) shopGoldEl.textContent = G.gold;
+                const casinoGoldEl = document.getElementById('casino-gold');
+                if (casinoGoldEl) casinoGoldEl.textContent = G.gold;
+
+                // Limpiar pantalla del casino al entrar
+                if (id === 'casino-screen') {
+                    document.getElementById('casino-result').textContent = '🎰';
+                    const msgBox = document.getElementById('casino-msg');
+                    msgBox.textContent = '';
+                    msgBox.style.background = 'transparent';
+                }
             }
         }
 
@@ -1571,46 +1597,57 @@
 
         // ================= CASINO LOGIC =================
         function playCasino(bet) {
+            if (bet <= 0) return notify('No se puede apostar 0 o números negativos.', 'danger');
             if (G.gold < bet) return notify('No tienes suficiente oro para apostar.', 'danger');
+
             G.gold -= bet;
 
             const resultBox = document.getElementById('casino-result');
             const msgBox = document.getElementById('casino-msg');
             document.getElementById('casino-gold').textContent = G.gold;
 
-            // Animation
+            // Animation start
             resultBox.style.transform = 'scale(0.8)';
-            setTimeout(() => resultBox.style.transform = 'scale(1)', 100);
+            msgBox.textContent = '...girando...';
+            msgBox.style.color = 'gray';
+            msgBox.style.background = 'transparent';
 
-            const roll = Math.random();
-            let winnings = 0;
-
-            if (roll < 0.10) { // 10% chance x3
-                winnings = bet * 3;
-                resultBox.textContent = '💎💎💎';
-                msgBox.textContent = `¡JACKPOT! Ganas ${winnings}🪙.`;
-                msgBox.style.color = 'var(--accent-gold)';
-            } else if (roll < 0.35) { // 25% chance x2
-                winnings = bet * 2;
-                resultBox.textContent = '🎰🎰';
-                msgBox.textContent = `¡Buen giro! Ganas ${winnings}🪙.`;
-                msgBox.style.color = 'var(--accent-green)';
-            } else if (roll < 0.50) { // 15% chance x1 (stay same)
-                winnings = bet;
-                resultBox.textContent = '😐';
-                msgBox.textContent = `Recuperas tu apuesta. (${winnings}🪙).`;
-                msgBox.style.color = 'white';
-            } else { // 50% chance lose all
-                winnings = 0;
-                resultBox.textContent = '💸';
-                msgBox.textContent = `El Estado Redistribuye tu oro. Pierdes todo.`;
-                msgBox.style.color = 'var(--accent-red)';
-            }
-
-            G.gold += winnings;
             setTimeout(() => {
+                resultBox.style.transform = 'scale(1)';
+
+                const roll = Math.random();
+                let winnings = 0;
+
+                if (roll < 0.10) { // 10% chance x3
+                    winnings = bet * 3;
+                    resultBox.textContent = '💎💎💎';
+                    msgBox.textContent = `¡PLENO! Ganas ${winnings}🪙.`;
+                    msgBox.style.color = 'var(--accent-gold)';
+                    msgBox.style.background = 'rgba(245,158,11,0.2)';
+                } else if (roll < 0.35) { // 25% chance x2
+                    winnings = bet * 2;
+                    resultBox.textContent = '💰💰💰';
+                    msgBox.textContent = `¡Buen beneficio! Ganas ${winnings}🪙.`;
+                    msgBox.style.color = 'var(--accent-green)';
+                    msgBox.style.background = 'rgba(16,185,129,0.2)';
+                } else if (roll < 0.50) { // 15% chance x1 (stay same)
+                    winnings = bet;
+                    resultBox.textContent = '😐😐😐';
+                    msgBox.textContent = `Recuperas tu apuesta. (${winnings}🪙).`;
+                    msgBox.style.color = 'white';
+                    msgBox.style.background = 'rgba(255,255,255,0.1)';
+                } else { // 50% chance lose all
+                    winnings = 0;
+                    resultBox.textContent = '💸💸💸';
+                    msgBox.textContent = `¡Pierdes todo! El sistema te expropia.`;
+                    msgBox.style.color = 'var(--accent-red)';
+                    msgBox.style.background = 'rgba(239,68,68,0.2)';
+                }
+
+                G.gold += winnings;
                 document.getElementById('casino-gold').textContent = G.gold;
-            }, 300);
+                updateHUD();
+            }, 500); // 500ms delay for visual effect
         }
 
         function buyItem(itemId) {
@@ -1856,7 +1893,7 @@
         function skipExercise() {
             if (!confirm('¿Saltar el ejercicio? Perderás 30 HP')) return;
             G.combo = 0;
-            takeDamage(30);
+            takeDamage(30, true);
             // Solo cargar el siguiente ejercicio si el jugador sigue vivo
             if (G.playerHP > 0) {
                 currentExerciseIdx++;
