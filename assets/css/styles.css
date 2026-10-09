@@ -447,3 +447,76 @@ dialog.legal::backdrop{background:rgba(24,24,24,.55);backdrop-filter:blur(2px)}
 .nopt{padding-top:0}
 .quote{margin:0}
 .mt20{margin-top:20px}
+
+/* ============ MÓVIL / TÁCTIL: animaciones y patrones propios ============ */
+.ticker{display:none}
+.btn{-webkit-tap-highlight-color:transparent}
+.field:focus-within label{color:var(--red)}
+.field input,.field select,.field textarea{transition:border-color .25s,box-shadow .25s}
+.field input:focus,.field select:focus,.field textarea:focus{box-shadow:0 0 0 3px rgba(216,36,28,.14)}
+@media (hover:none){
+  .btn{transition:transform .25s var(--ease),background .25s,color .25s,border-color .25s}
+  .btn:active{transform:scale(.96)}
+  .service-list li:active{background:rgba(216,36,28,.05)}
+  .quote:hover{transform:none;box-shadow:none}
+  .faq summary:active{background:rgba(0,0,0,.03)}
+}
+@media (max-width:960px){
+  /* Cinta de servicios que se desplaza sola */
+  .ticker{display:block;overflow:hidden;background:var(--ink);color:#fff;padding:15px 0;white-space:nowrap}
+  .ticker .tk{display:flex;width:max-content}
+  .ticker .g{display:flex;flex:none}
+  .ticker span{display:inline-flex;align-items:center;font-size:14px;font-weight:600;font-stretch:112%;letter-spacing:.14em;text-transform:uppercase}
+  .ticker span::after{content:"";width:7px;height:7px;margin:0 22px;background:var(--red);transform:rotate(45deg)}
+  /* Hero: zoom lento y tarjeta que rebota */
+  .hero-media .media.in img{animation:kb 16s ease-out .3s both}
+  .hero-card{transition:opacity .9s var(--ease),transform .9s cubic-bezier(.34,1.56,.64,1)}
+  .hero-card .ic{position:relative}
+  .hero-card .ic::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid var(--red);opacity:0;animation:ring 2.6s ease-out 1.8s infinite}
+  /* Servicios: la foto se queda fija arriba y cambia según el servicio que pasa por el centro */
+  .svc-media{position:sticky;top:84px;z-index:6;background:var(--paper);padding:8px 0 12px;margin:0;transition:top .4s var(--ease)}
+  html.hdr-hide .svc-media{top:10px}
+  .svc-media .media{aspect-ratio:16/9}
+  .svc-cap{display:flex;margin-top:10px}
+  .service-list li{transition:background .4s,opacity .4s}
+  .service-list li.on{background:linear-gradient(90deg,rgba(216,36,28,.07),transparent 80%)}
+  .service-list li.on::before{color:var(--red)}
+  .service-list li.on h3{color:var(--red)}
+  .service-list li.on::after{transform:scaleX(1);transform-origin:left}
+  /* Pasos: línea vertical que se rellena al bajar */
+  .steps{padding-left:58px}
+  .steps .track{display:block;left:19px;right:auto;top:30px;bottom:50px;width:2px;height:auto}
+  .steps .track i{transform-origin:top;transform:scaleY(var(--p,0))}
+  .step,.step + .step{padding:24px 0 26px}
+  .step .n{position:absolute;left:-58px;top:22px;margin:0;transition:background .5s,border-color .5s,transform .6s cubic-bezier(.34,1.56,.64,1)}
+  .step.lit .n{transform:scale(1.12)}
+  .step:last-child{border-bottom:0}
+  .reviews > *{min-width:0}
+  /* Opiniones: carrusel con el dedo */
+  .quotes{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 calc(var(--gutter) * -1);padding:6px var(--gutter) 14px;scrollbar-width:none;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch}
+  .quotes::-webkit-scrollbar{display:none}
+  .quote{flex:0 0 84%;scroll-snap-align:center;display:flex;flex-direction:column;justify-content:space-between;opacity:.55;transform:scale(.95);transition:opacity .5s var(--ease),transform .5s var(--ease),box-shadow .5s}
+  .quote.on{opacity:1;transform:none;box-shadow:0 22px 44px -30px rgba(0,0,0,.5)}
+  .js .quotes.stagger > .quote{opacity:0;transform:translateX(40px)}
+  .js .quotes.stagger.in > .quote{opacity:.55;transform:scale(.95)}
+  .js .quotes.stagger.in > .quote.on{opacity:1;transform:none}
+  .q-dots{display:flex;justify-content:center;gap:8px;margin-top:2px}
+  .q-dots button{width:8px;height:8px;padding:0;border:0;border-radius:8px;background:var(--line-2);cursor:pointer;transition:width .4s var(--ease),background .3s}
+  .q-dots button.on{width:26px;background:var(--red)}
+  /* Titulares con raya que se dibuja */
+  .kicker::before{transform-origin:left;transition:transform .8s var(--ease) .1s}
+  .js .kicker.rv:not(.in)::before{transform:scaleX(0)}
+  /* Botón de WhatsApp de la barra inferior: reclamo suave */
+  .mobile-bar .btn:last-child{animation:nudge 5s ease-in-out 3s infinite}
+}
+@keyframes kb{from{transform:scale(1)}to{transform:scale(1.09)}}
+@keyframes ring{0%{transform:scale(1);opacity:.7}70%,100%{transform:scale(1.7);opacity:0}}
+@keyframes nudge{0%,88%,100%{transform:none}92%{transform:translateY(-4px)}96%{transform:translateY(0)}}
+@keyframes tick{to{transform:translateX(-50%)}}
+@media (max-width:960px) and (prefers-reduced-motion:no-preference){
+  .ticker .tk{animation:tick 34s linear infinite}
+}
+@media (max-width:960px) and (prefers-reduced-motion:reduce){
+  .ticker{overflow-x:auto}
+  .quote{opacity:1;transform:none}
+}
