@@ -73,6 +73,7 @@
     header.classList.toggle('scrolled', y > 40);
     if (!document.body.classList.contains('menu-open')) header.classList.toggle('hide', y > 500 && y > lastY + 2);
     if (y < lastY - 2) header.classList.remove('hide');
+    document.documentElement.classList.toggle('hdr-hide', header.classList.contains('hide'));
     lastY = y;
     progress.style.transform = `scaleX(${h > 0 ? y / h : 0})`;
     const show = y > innerHeight * .7; wa.classList.toggle('show', show); bar.classList.toggle('show', show);
@@ -83,7 +84,12 @@
       const p = (r.top + r.height / 2 - innerHeight / 2) / innerHeight;
       el.style.transform = `translate3d(0,${(-p * parseFloat(el.dataset.parallax) * 100).toFixed(2)}%,0)`;
     });
-    if (steps && innerWidth > 960) {
+    if (steps && innerWidth <= 960) {
+      const r = steps.getBoundingClientRect();
+      const p = Math.min(1, Math.max(0, (innerHeight * .62 - r.top - 30) / Math.max(1, r.height - 60)));
+      track.style.setProperty('--p', p.toFixed(3));
+      stepEls.forEach(s => s.classList.toggle('lit', s.getBoundingClientRect().top < innerHeight * .62));
+    } else if (steps) {
       const r = steps.getBoundingClientRect();
       const p = Math.min(1, Math.max(0, (innerHeight * .85 - r.top) / (r.height + innerHeight * .25)));
       track.style.setProperty('--p', p.toFixed(3));
@@ -92,7 +98,7 @@
   }
   addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(onFrame); } }, { passive: true });
   addEventListener('resize', onFrame); onFrame();
-  if (reduce || innerWidth <= 960) stepEls.forEach(s => s.classList.add('lit'));
+  if (reduce) stepEls.forEach(s => s.classList.add('lit'));
 
   /* ---------- Servicios: imagen según el servicio ---------- */
   const svcImgs = $$('[data-svc-img]'), svcName = $('#svcName');
@@ -105,6 +111,36 @@
     li.addEventListener('mouseenter', on);
     li.tabIndex = 0; li.addEventListener('focus', on);
   });
+
+  /* En móvil/táctil el servicio activo es el que cruza el centro de la pantalla */
+  if (!reduce && matchMedia('(max-width:960px)').matches) {
+    const items = $$('#serviceList li');
+    const sv = new IntersectionObserver(es => es.forEach(e => {
+      if (!e.isIntersecting) return;
+      const li = e.target;
+      items.forEach(x => x.classList.toggle('on', x === li));
+      svcImgs.forEach(img => img.classList.toggle('on', img.dataset.svcImg === li.dataset.img));
+      svcName.textContent = $('h3', li).textContent;
+    }), { rootMargin: '-52% 0px -42% 0px' });
+    items.forEach(li => sv.observe(li));
+  }
+
+  /* Opiniones: carrusel con puntos (solo móvil) */
+  const qs = $('.quotes');
+  if (qs && matchMedia('(max-width:960px)').matches) {
+    const cards = [...qs.children], dots = document.createElement('div');
+    dots.className = 'q-dots';
+    cards.forEach((c, i) => {
+      const b = document.createElement('button'); b.type = 'button'; b.setAttribute('aria-label', 'Opinión ' + (i + 1));
+      b.addEventListener('click', () => qs.scrollTo({ left: c.offsetLeft - (qs.clientWidth - c.offsetWidth) / 2, behavior: reduce ? 'auto' : 'smooth' }));
+      dots.append(b);
+    });
+    qs.after(dots);
+    const setOn = i => { cards.forEach((c, j) => c.classList.toggle('on', i === j)); [...dots.children].forEach((d, j) => d.classList.toggle('on', i === j)); };
+    setOn(0);
+    const qo = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) setOn(cards.indexOf(e.target)); }), { root: qs, threshold: .6 });
+    cards.forEach(c => qo.observe(c));
+  }
 
   /* ---------- Menú móvil ---------- */
   const burger = $('#burger'), menu = $('#mobileMenu');
