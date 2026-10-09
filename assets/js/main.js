@@ -213,14 +213,6 @@
   };
   updateStatus(); setInterval(updateStatus, 60000);
 
-  /* ---------- Mapa bajo demanda ---------- */
-  $('#loadMap').addEventListener('click', () => {
-    const f = document.createElement('iframe');
-    f.src = 'https://maps.google.com/maps?q=Talleres%20Autoconcept%2C%20Calle%20Meridiano%202%2C%2050016%20Zaragoza&z=16&hl=es&output=embed';
-    f.title = 'Ubicación de Talleres AutoConcept'; f.loading = 'lazy';
-    $('#map').appendChild(f); $('#mapConsent').remove();
-  });
-
   /* ---------- Formulario → WhatsApp / email ---------- */
   const form = $('#bookForm'); let channel = 'wa';
   $$('[data-channel]', form).forEach(b => b.addEventListener('click', () => channel = b.dataset.channel));

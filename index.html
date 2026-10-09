@@ -22,7 +22,7 @@
 <link rel="icon" type="image/png" href="assets/img/favicon-64.png">
 <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
 <link rel="preload" href="assets/fonts/archivo-latin-wdth-normal.woff2" as="font" type="font/woff2" crossorigin>
-<script src="assets/js/boot.js"></script>
+<script src="assets/js/boot.js?v=5"></script>
 
 
 <script type="application/ld+json">
@@ -65,7 +65,7 @@
 }
 </script>
 
-<link rel="stylesheet" href="assets/css/styles.css">
+<link rel="stylesheet" href="assets/css/styles.css?v=5">
 </head>
 <body>
 
@@ -369,11 +369,7 @@
         </div>
       </div>
       <div class="map rv" id="map" data-css="--d:.15s">
-        <div class="map-consent" id="mapConsent">
-          <span class="pin"><svg class="i"><use href="#i-pin"/></svg></span>
-          <p>El mapa lo ofrece Google Maps, que puede instalar sus propias cookies al cargarlo.</p>
-          <button class="btn btn-line" type="button" id="loadMap">Ver mapa</button>
-        </div>
+        <iframe title="Ubicación de Talleres AutoConcept en Google Maps" src="https://maps.google.com/maps?q=Talleres%20Autoconcept%2C%20Calle%20Meridiano%202%2C%2050016%20Zaragoza&amp;z=16&amp;hl=es&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
       </div>
     </div>
   </div>
@@ -495,9 +491,9 @@
 </template>
 <template id="tpl-cookies">
   <p>Esta web no utiliza cookies propias de análisis ni de publicidad.</p>
-  <p>El mapa de ubicación lo ofrece Google Maps y solo se carga si pulsas «Ver mapa»; en ese momento Google puede instalar sus propias cookies.</p>
+  <p>El mapa de ubicación lo ofrece Google Maps, que puede instalar sus propias cookies al cargarse. Si no quieres que se cargue, puedes abrir la ubicación directamente en Google Maps con el botón «Cómo llegar».</p>
 </template>
 
-<script src="assets/js/main.js" defer></script>
+<script src="assets/js/main.js?v=5" defer></script>
 </body>
 </html>
