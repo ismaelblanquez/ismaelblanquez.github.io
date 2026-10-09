@@ -56,7 +56,6 @@
   function count(el) {
     const to = parseFloat(el.dataset.count), dec = +(el.dataset.decimals || 0);
     const fmt = v => v.toFixed(dec).replace('.', ',');
-    if (reduce) { el.textContent = fmt(to); return; }
     let t0; const step = ts => { t0 ??= ts; const t = Math.min((ts - t0) / 1500, 1);
       el.textContent = fmt(to * ease(t)); if (t < 1) requestAnimationFrame(step); };
     requestAnimationFrame(step);
@@ -98,7 +97,7 @@
   }
   addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(onFrame); } }, { passive: true });
   addEventListener('resize', onFrame); onFrame();
-  if (reduce) stepEls.forEach(s => s.classList.add('lit'));
+  if (reduce) { stepEls.forEach(s => s.classList.add('lit')); track.style.setProperty('--p', 1); }
 
   /* ---------- Servicios: imagen según el servicio ---------- */
   const svcImgs = $$('[data-svc-img]'), svcName = $('#svcName');
@@ -113,7 +112,7 @@
   });
 
   /* En móvil/táctil el servicio activo es el que cruza el centro de la pantalla */
-  if (!reduce && matchMedia('(max-width:960px)').matches) {
+  if (matchMedia('(max-width:960px)').matches) {
     const items = $$('#serviceList li');
     const sv = new IntersectionObserver(es => es.forEach(e => {
       if (!e.isIntersecting) return;
